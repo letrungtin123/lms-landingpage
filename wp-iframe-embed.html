@@ -1,0 +1,396 @@
+<style>
+html {
+  scroll-behavior: auto !important;
+}
+
+body,
+html {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #000 !important;
+  overflow-x: hidden !important;
+}
+
+.site-footer,
+footer.site-footer,
+.elementor-location-footer,
+footer,
+#footer,
+.footer,
+.ast-footer,
+.wp-block-template-part,
+.wp-site-blocks > footer {
+  display: none !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+.entry-content,
+.site-content,
+#content,
+#primary,
+.elementor,
+.elementor-inner,
+.elementor-section-wrap {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.elementor-widget-html,
+.elementor-widget-html .elementor-widget-container {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+}
+
+.nesso-lms-iframe-wrap {
+  width: 100%;
+  background: #000;
+  overflow: hidden;
+}
+
+#nesso-lms-iframe {
+  display: block;
+  width: 100%;
+  height: 7100px;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: #000;
+}
+
+html.nesso-lms-demo-open,
+body.nesso-lms-demo-open {
+  overflow: hidden !important;
+  height: 100% !important;
+}
+
+#nesso-lms-iframe.nesso-lms-iframe--demo {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 2147483000 !important;
+  width: 100vw !important;
+  max-width: none !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  margin: 0 !important;
+  background: #000;
+}
+</style>
+
+<div class="nesso-lms-iframe-wrap">
+  <iframe
+    id="nesso-lms-iframe"
+    src="https://nesso.vn/wp-content/uploads/2026/09/nesso-lms-landing-standalone.html?v=proposal-scroll-v268"
+    loading="eager"
+    scrolling="no"
+  ></iframe>
+</div>
+
+<script>
+// Block theme Lenis — fake constructor prevents real Lenis from running
+if (window.lenis) { try { window.lenis.destroy(); } catch(e) {} }
+window.Lenis = function() { this.destroy=function(){}; this.on=function(){}; this.raf=function(){}; };
+window.lenis = null;
+
+(function() {
+  console.log('[NESSO] Script loaded');
+  var iframe = document.getElementById('nesso-lms-iframe');
+  if (!iframe) return;
+  var currentViewMode = 'landing';
+  var lastLandingHeight = 7100;
+  var proposalScrollReady = false;
+  var activeProposalSlide = 0;
+  var proposalSlideCount = 0;
+  var proposalLockWindowScrollY = null;
+  var proposalLockTolerance = 0;
+  var proposalLockAnimationFrame = 0;
+  var proposalLockAnimating = false;
+  var pendingProposalDirection = 0;
+  var current = window.scrollY;
+  var target = window.scrollY;
+
+  function setDemoIframeMode(isActive) {
+    iframe.classList.toggle('nesso-lms-iframe--demo', isActive);
+    document.documentElement.classList.toggle('nesso-lms-demo-open', isActive);
+    if (document.body) {
+      document.body.classList.toggle('nesso-lms-demo-open', isActive);
+    }
+
+    if (!isActive && lastLandingHeight) {
+      iframe.style.height = Math.ceil(lastLandingHeight) + 'px';
+    }
+  }
+
+  // --- Auto-resize iframe height ---
+  window.addEventListener('message', function(event) {
+    if (!event.data) return;
+
+    if (event.data.type && /^NESSO_PROPOSAL_/.test(event.data.type)) {
+      return;
+    }
+
+    if (event.data.type === 'NESSO_PROPOSAL_SCROLL_STATE') {
+      var wasProposalScrollReady = proposalScrollReady;
+      proposalScrollReady = !!event.data.ready;
+      activeProposalSlide = Number(event.data.activeIndex) || 0;
+      proposalSlideCount = Number(event.data.total) || 0;
+      if (typeof event.data.lockScrollY === 'number' && isFinite(event.data.lockScrollY)) {
+        proposalLockWindowScrollY = getWindowScrollForIframeY(event.data.lockScrollY);
+      }
+      proposalLockTolerance = Math.max(0, Number(event.data.lockTolerance) || 0);
+      if (proposalScrollReady && !wasProposalScrollReady) {
+        lockParentToProposalCenter();
+      }
+      if (proposalScrollReady && pendingProposalDirection && shouldCaptureProposalWheel(pendingProposalDirection)) {
+        if (!wasProposalScrollReady) {
+          lockParentToProposalCenter();
+        }
+        sendProposalScrollToIframe(pendingProposalDirection);
+        pendingProposalDirection = 0;
+      }
+      return;
+    }
+
+    if (event.data.type !== 'NESSO_LMS_HEIGHT') return;
+    var nextMode = event.data.mode || 'landing';
+
+    if (nextMode === 'demo') {
+      setDemoIframeMode(true);
+      current = window.scrollY;
+      target = window.scrollY;
+      currentViewMode = 'demo';
+      return;
+    }
+
+    setDemoIframeMode(false);
+
+    if (event.data.height) {
+      lastLandingHeight = Math.ceil(event.data.height);
+      iframe.style.height = lastLandingHeight + 'px';
+    }
+    if (nextMode) {
+      currentViewMode = nextMode;
+      if (nextMode !== 'proposal') {
+        proposalScrollReady = false;
+        activeProposalSlide = 0;
+        proposalSlideCount = 0;
+        proposalLockWindowScrollY = null;
+        proposalLockTolerance = 0;
+        proposalLockAnimating = false;
+        if (proposalLockAnimationFrame) {
+          window.cancelAnimationFrame(proposalLockAnimationFrame);
+          proposalLockAnimationFrame = 0;
+        }
+        pendingProposalDirection = 0;
+      }
+    }
+  });
+
+  // --- Send scroll position to iframe ---
+  function getIframeScrollY() {
+    var rect = iframe.getBoundingClientRect();
+    return Math.max(0, -rect.top);
+  }
+
+  function getWindowScrollForIframeY(iframeY) {
+    return Math.max(0, window.scrollY + iframeY - getIframeScrollY());
+  }
+
+  function lockParentToProposalCenter() {
+    if (typeof proposalLockWindowScrollY !== 'number' || !isFinite(proposalLockWindowScrollY)) return;
+
+    var maxScroll = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    var lockY = Math.max(0, Math.min(proposalLockWindowScrollY, maxScroll));
+    var startY = window.scrollY;
+    var distance = lockY - startY;
+
+    if (proposalLockAnimationFrame) {
+      window.cancelAnimationFrame(proposalLockAnimationFrame);
+      proposalLockAnimationFrame = 0;
+    }
+
+    if (Math.abs(distance) < 2) {
+      current = lockY;
+      target = lockY;
+      window.scrollTo(0, lockY);
+      sendScrollToIframe();
+      return;
+    }
+
+    var duration = Math.max(140, Math.min(260, Math.abs(distance) * 0.18));
+    var startTime = performance.now();
+    var easeOutCubic = function(t) { return 1 - Math.pow(1 - t, 3); };
+    proposalLockAnimating = true;
+
+    function step(now) {
+      if (currentViewMode !== 'proposal') {
+        proposalLockAnimating = false;
+        proposalLockAnimationFrame = 0;
+        return;
+      }
+
+      var progress = Math.min(1, (now - startTime) / duration);
+      current = startY + distance * easeOutCubic(progress);
+      target = current;
+      window.scrollTo(0, current);
+      sendScrollToIframe();
+
+      if (progress < 1) {
+        proposalLockAnimationFrame = window.requestAnimationFrame(step);
+      } else {
+        proposalLockAnimating = false;
+        proposalLockAnimationFrame = 0;
+        current = lockY;
+        target = lockY;
+        window.scrollTo(0, lockY);
+        sendScrollToIframe();
+      }
+    }
+
+    proposalLockAnimationFrame = window.requestAnimationFrame(step);
+  }
+
+  function sendScrollToIframe() {
+    try {
+      iframe.contentWindow.postMessage({
+        type: 'NESSO_PARENT_SCROLL',
+        scrollY: getIframeScrollY(),
+        viewportH: window.innerHeight
+      }, '*');
+    } catch(e) {}
+  }
+
+  // --- Native scroll listener ---
+  var ticking = false;
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      requestAnimationFrame(function() {
+        sendScrollToIframe();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  iframe.addEventListener('load', function() {
+    setTimeout(sendScrollToIframe, 200);
+  });
+
+  window.addEventListener('resize', function() {
+    sendScrollToIframe();
+  });
+
+  function sendProposalScrollToIframe(direction) {
+    try {
+      iframe.contentWindow.postMessage({
+        type: 'NESSO_PROPOSAL_SCROLL',
+        direction: direction
+      }, '*');
+    } catch(e) {}
+  }
+
+  function shouldCaptureProposalWheel(direction) {
+    if (currentViewMode !== 'proposal' || !proposalScrollReady || !proposalSlideCount) return false;
+
+    if (direction > 0) {
+      return activeProposalSlide < proposalSlideCount - 1;
+    }
+
+    return activeProposalSlide > 0;
+  }
+
+  function shouldLockOnProposalCenter(direction, nextTarget) {
+    if (currentViewMode !== 'proposal') return false;
+    if (typeof proposalLockWindowScrollY !== 'number' || !isFinite(proposalLockWindowScrollY)) return false;
+
+    var lockStart = Math.max(0, proposalLockWindowScrollY - proposalLockTolerance);
+    var lockEnd = proposalLockWindowScrollY + proposalLockTolerance;
+
+    if (direction > 0) {
+      return nextTarget >= lockStart;
+    }
+
+    return nextTarget <= lockEnd;
+  }
+
+  // --- Smooth Scroll (custom lerp) — Desktop only ---
+  if (window.matchMedia('(min-width: 1025px)').matches && !window.__nessoSmooth) {
+    window.__nessoSmooth = true;
+
+    // Kill theme Lenis if exists
+    if (window.lenis) { try { window.lenis.destroy(); } catch(e) {} }
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    function update() {
+      if (currentViewMode === 'demo') {
+        current = window.scrollY;
+        target = window.scrollY;
+        requestAnimationFrame(update);
+        return;
+      }
+
+      if (proposalLockAnimating) {
+        requestAnimationFrame(update);
+        return;
+      }
+
+      current = lerp(current, target, 0.08);
+      if (Math.abs(current - target) < 0.5) current = target;
+      window.scrollTo(0, current);
+      requestAnimationFrame(update);
+    }
+
+    document.addEventListener('wheel', function(e) {
+      if (currentViewMode === 'demo') {
+        return;
+      }
+
+      if (currentViewMode === 'proposal') {
+        current = window.scrollY;
+        target = window.scrollY;
+        return;
+      }
+
+      var direction = e.deltaY > 0 ? 1 : -1;
+      if (shouldCaptureProposalWheel(direction)) {
+        e.preventDefault();
+        sendProposalScrollToIframe(direction);
+        return;
+      }
+
+      e.preventDefault();
+      var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      var nextTarget = Math.max(0, Math.min(target + e.deltaY, maxScroll));
+
+      if (currentViewMode === 'proposal') {
+        pendingProposalDirection = direction;
+
+        if (shouldLockOnProposalCenter(direction, nextTarget)) {
+          proposalScrollReady = true;
+          lockParentToProposalCenter();
+          if (shouldCaptureProposalWheel(direction)) {
+            sendProposalScrollToIframe(direction);
+            pendingProposalDirection = 0;
+          }
+          return;
+        }
+      }
+
+      target = nextTarget;
+    }, { passive: false });
+
+    window.addEventListener('scroll', function() {
+      if (Math.abs(current - window.scrollY) > 2) {
+        current = window.scrollY;
+        target = window.scrollY;
+      }
+    });
+
+    requestAnimationFrame(update);
+
+    console.log('[NESSO] Smooth scroll active ✓');
+  }
+})();
+</script>

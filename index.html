@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NESSO - Giai phap Cong nghe chuyen doi hoc tap</title>
+  <meta name="description" content="Chung toi truc quan hoa he thong dao tao cho doanh nghiep.">
+  <script>
+    try {
+      if (window.self !== window.top && new URLSearchParams(window.location.search).get('parentHeader') === '1') {
+        document.documentElement.classList.add('nesso-lms-parent-header-context');
+      }
+      if (window.location.hash === '#proposal-view') {
+        document.documentElement.classList.add('proposal-boot');
+      } else if (/^#blog(?:\/|$)/.test(window.location.hash || '')) {
+        document.documentElement.classList.add('blog-boot');
+        if (/^#blog\/[^/?#]+/.test(window.location.hash || '')) {
+          document.documentElement.classList.add('blog-article-boot');
+        }
+      } else if (window.location.hash === '#lms-features') {
+        document.documentElement.classList.add('lms-features-boot');
+      } else if (/^#\/?(9184726503918274|6402819573064918)\/?$/.test(window.location.hash || '')) {
+        document.documentElement.classList.add('image-route-boot');
+      } else if (window.location.hash === '#lucky-wheel') {
+        document.documentElement.classList.add('lucky-boot');
+      } else if (window.location.hash === '#contact') {
+        document.documentElement.classList.add('contact-boot');
+      }
+    } catch (e) {}
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=lms-features-v358">
+</head>
+
+<body>
+<div class="page" id="page">
+
+    <!-- ====== HEADER / NAV ====== -->
+    <header class="header" id="header">
+      <a href="#" class="header__logo" aria-label="NESSO Home">
+        <img src="https://nesso.vn/wp-content/uploads/2026/06/logo-nesso.svg" alt="NESSO" width="152" height="46">
+      </a>
+      <button class="header__mobile-toggle" type="button" data-header-menu-toggle aria-label="Menu" aria-expanded="false" aria-controls="header-nav">
+        <span class="header__mobile-toggle-icon" aria-hidden="true"></span>
+      </button>
+      <nav class="header__actions" id="header-nav" aria-label="Điều hướng LMS" data-header-nav>
+        <div class="header__link-group">
+          <a href="#" class="header__blog-link" data-home-open>Trang chủ</a>
+          <a href="#lms-features" class="header__blog-link" data-lms-features>Chức năng LMS</a>
+          <a href="#blog" class="header__blog-link" data-blog-open>Blog</a>
+          <a href="#contact" class="header__blog-link header__contact-link" data-contact-open>Liên hệ</a>
+        </div>
+        <div class="header__cta-group">
+          <button class="header__cta header__demo-cta" type="button" data-demo-open aria-controls="demo-embed-section" aria-expanded="false">Demo</button>
+          <button class="header__cta header__lucky-cta" type="button" data-lucky-open aria-controls="lucky-wheel-view">Vòng xoay may mắn</button>
+          <div class="header__language-toggle" role="group" aria-label="Chuyển đổi ngôn ngữ" data-lang-toggle>
+            <button class="header__language-option header__language-option--active" type="button" data-lang-option="vi" aria-label="Tiếng Việt" aria-pressed="true">
+              <img class="header__language-image" src="https://nesso.vn/wp-content/uploads/2026/09/VI-mode.png" alt="VI" width="46" height="20" decoding="async">
+            </button>
+            <span class="header__language-divider" aria-hidden="true">/</span>
+            <button class="header__language-option" type="button" data-lang-option="en" aria-label="English" aria-pressed="false">
+              <img class="header__language-image" src="https://nesso.vn/wp-content/uploads/2026/09/EN-mode.png" alt="EN" width="46" height="20" decoding="async">
+            </button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <section class="demo-embed" id="demo-embed-section" hidden aria-hidden="true" aria-label="Trải nghiệm LMS">
+      <div class="demo-embed__shell" role="dialog" aria-modal="true" aria-label="Trải nghiệm demo">
+        <div class="demo-embed__bar">
+          <button class="demo-embed__close" type="button" data-demo-close aria-label="Tắt demo">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="demo-embed__frame" data-demo-embed-frame></div>
+      </div>
+      <template id="landa-demo-iframe-template">
+        <iframe src="https://demo.nesso.com.vn/demo-embed?embed=a87c55ab-6a3d-4c59-9b3b-7d4d320c09e8" style="width:100%;height:100vh;border:0;" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-downloads" allow="fullscreen" title="Trải nghiệm LMS"></iframe>
+      </template>
+    </section>
+
+    <section class="proposal-view" id="proposal-view" hidden aria-label="NESSO Proposal">
+      <div class="proposal-view__intro">
+        <span class="proposal-view__badge">NESSO's <strong> Proposal</strong></span>
+        <h1 class="proposal-view__heading">Hệ Sinh Thái <span>Proposal</span><br>Của Chúng Tôi</h1>
+        <p class="proposal-view__subtitle">Giải Pháp Đột Phá, Thiết Kế Cho Riêng Bạn</p>
+      </div>
+
+      <div class="proposal-view__video-wrap">
+        <iframe class="proposal-view__video" data-proposal-video-frame data-src="https://player.vimeo.com/video/1213854576?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;muted=0&amp;controls=1&amp;progress_bar=1&amp;fullscreen=1&amp;volume=0&amp;cc=0&amp;transcript=0&amp;speed=0&amp;chapters=0&amp;chromecast=0&amp;airplay=0&amp;pip=0&amp;title=0&amp;byline=0&amp;portrait=0&amp;vimeo_logo=0&amp;play_button_position=bottom&amp;like=0&amp;share=0&amp;watch_later=0&amp;watchlater=0&amp;embed=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin" loading="lazy" title="video-proposal-LMS"></iframe>
+      </div>
+
+      <div class="proposal-view__meta">
+        <span>Proposal Engine Ver. 1.0</span>
+        <span>©2026 Nesso. All rights reserved</span>
+      </div>
+
+      <div class="proposal-view__divider" aria-hidden="true"></div>
+
+      <div class="proposal-view__body">
+        <nav class="proposal-view__menu" aria-label="Danh mục slide proposal">
+          <a href="#proposal-slide-1" class="proposal-view__menu-link proposal-view__menu-link--active" data-proposal-menu-link="1"><span class="proposal-view__menu-index">01</span><span class="proposal-view__menu-text">NESSO's Proposal</span></a>
+          <a href="#proposal-slide-2" class="proposal-view__menu-link" data-proposal-menu-link="2"><span class="proposal-view__menu-index">02</span><span class="proposal-view__menu-text">Lộ trình học trực quan</span></a>
+          <a href="#proposal-slide-3" class="proposal-view__menu-link" data-proposal-menu-link="3"><span class="proposal-view__menu-index">03</span><span class="proposal-view__menu-text">Lợi thế cạnh tranh</span></a>
+          <a href="#proposal-slide-4" class="proposal-view__menu-link" data-proposal-menu-link="4"><span class="proposal-view__menu-index">04</span><span class="proposal-view__menu-text">Thiết kế trải nghiệm học tập</span></a>
+          <a href="#proposal-slide-5" class="proposal-view__menu-link" data-proposal-menu-link="5"><span class="proposal-view__menu-index">05</span><span class="proposal-view__menu-text">Giải pháp chuyển đổi học tập</span></a>
+          <a href="#proposal-slide-6" class="proposal-view__menu-link" data-proposal-menu-link="6"><span class="proposal-view__menu-index">06</span><span class="proposal-view__menu-text">Giá trị mang lại</span></a>
+          <a href="#proposal-slide-7" class="proposal-view__menu-link" data-proposal-menu-link="7"><span class="proposal-view__menu-index">07</span><span class="proposal-view__menu-text">Quy trình hợp tác</span></a>
+          <a href="#proposal-slide-8" class="proposal-view__menu-link" data-proposal-menu-link="8"><span class="proposal-view__menu-index">08</span><span class="proposal-view__menu-text">Triển khai &amp; bảng giá</span></a>
+          <a href="#proposal-slide-9" class="proposal-view__menu-link" data-proposal-menu-link="9"><span class="proposal-view__menu-index">09</span><span class="proposal-view__menu-text">Nesso LMS</span></a>
+          <a href="#proposal-slide-10" class="proposal-view__menu-link" data-proposal-menu-link="10"><span class="proposal-view__menu-index">10</span><span class="proposal-view__menu-text">Chuyển đổi nội dung</span></a>
+          <a href="#proposal-slide-11" class="proposal-view__menu-link" data-proposal-menu-link="11"><span class="proposal-view__menu-index">11</span><span class="proposal-view__menu-text">Hạ tầng lưu trữ</span></a>
+          <a href="#proposal-slide-12" class="proposal-view__menu-link" data-proposal-menu-link="12"><span class="proposal-view__menu-index">12</span><span class="proposal-view__menu-text">Tagline</span></a>
+          <a href="#proposal-slide-13" class="proposal-view__menu-link" data-proposal-menu-link="13"><span class="proposal-view__menu-index">13</span><span class="proposal-view__menu-text">Liên hệ</span></a>
+        </nav>
+
+        <div class="proposal-view__image-wrap">
+          <div class="proposal-view__slide-track">
+            <img id="proposal-slide-1" src="https://nesso.vn/wp-content/uploads/2026/07/Slide-1_VI-scaled.png" alt="NESSO's Proposal" class="proposal-view__slide proposal-view__slide--active" data-proposal-slide="1" data-proposal-title="NESSO's Proposal" decoding="async">
+            <div id="proposal-slide-2" class="proposal-view__slide proposal-view__slide--dynamic proposal-dynamic-slide" data-proposal-slide="2" data-proposal-title="Lộ trình học trực quan" role="img" aria-label="Lộ trình học trực quan từ kiến thức đến NESSO LMS">
+              <div class="proposal-dynamic-slide__stage">
+                <img class="proposal-dynamic-slide__asset proposal-dynamic-slide__asset--route" data-pointer-depth="0.78" src="https://nesso.vn/wp-content/uploads/2026/08/Slide-3_VI_Lotrinhhoctrucquan_Star_Fix-scaled.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                <img class="proposal-dynamic-slide__asset proposal-dynamic-slide__asset--design" data-pointer-depth="1.08" src="https://nesso.vn/wp-content/uploads/2026/08/Slide-3_VI_Thietke_fix.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                <img class="proposal-dynamic-slide__asset proposal-dynamic-slide__asset--analysis" data-pointer-depth="1.18" src="https://nesso.vn/wp-content/uploads/2026/08/Slide-3_VI_Phantich_fix.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                <img class="proposal-dynamic-slide__asset proposal-dynamic-slide__asset--process" data-pointer-depth="1.02" src="https://nesso.vn/wp-content/uploads/2026/08/Slide-3_VI_Tinhgonquytrinh_fix.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                <img class="proposal-dynamic-slide__asset proposal-dynamic-slide__asset--experience" data-pointer-depth="1.22" src="https://nesso.vn/wp-content/uploads/2026/08/Slide-3_VI_Trainghiemhoctap_fix.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                <img class="proposal-dynamic-slide__asset proposal-dynamic-slide__asset--performance" data-pointer-depth="1.14" src="https://nesso.vn/wp-content/uploads/2026/08/Slide-3_VI_Bucphanangsuat_fix.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                <img class="proposal-dynamic-slide__asset proposal-dynamic-slide__asset--star-blur" data-pointer-depth="1.3" src="https://nesso.vn/wp-content/uploads/2026/08/Slide-3_VI_Star_Blur.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                <img class="proposal-dynamic-slide__asset proposal-dynamic-slide__asset--cube-blur" data-pointer-depth="1.36" src="https://nesso.vn/wp-content/uploads/2026/08/Slide-3_VI_cube_blur.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+              </div>
+            </div>
+            <div id="proposal-slide-3" class="proposal-view__slide proposal-view__slide--advantage proposal-advantage-slide" data-proposal-slide="3" data-proposal-title="Lợi thế cạnh tranh" role="img" aria-label="Lợi thế cạnh tranh của Nesso LMS">
+              <div class="proposal-advantage-slide__stage">
+                <img class="proposal-advantage-slide__asset proposal-advantage-slide__asset--star-blur" src="https://nesso.vn/wp-content/uploads/2026/08/Slide-4_VN_star_blur.png" alt="" aria-hidden="true" loading="lazy" decoding="async" data-pointer-depth="1.04">
+                <img class="proposal-advantage-slide__asset proposal-advantage-slide__asset--cube-blur" src="https://nesso.vn/wp-content/uploads/2026/08/Slide-4_VN_cube_blur.png" alt="" aria-hidden="true" loading="lazy" decoding="async" data-pointer-depth="1.16">
+              </div>
+            </div>
+            <img id="proposal-slide-4" src="https://nesso.vn/wp-content/uploads/2026/07/Slide-5_VI-scaled.png" alt="Thiết kế trải nghiệm học tập" class="proposal-view__slide" data-proposal-slide="4" data-proposal-title="Thiết kế trải nghiệm học tập" decoding="async">
+            <img id="proposal-slide-5" src="https://nesso.vn/wp-content/uploads/2026/07/Slide-6_VI-scaled.png" alt="Giải pháp chuyển đổi học tập" class="proposal-view__slide" data-proposal-slide="5" data-proposal-title="Giải pháp chuyển đổi học tập" decoding="async">
+            <img id="proposal-slide-6" src="https://nesso.vn/wp-content/uploads/2026/07/Slide-7_VI-scaled.png" alt="Giá trị mang lại" class="proposal-view__slide" data-proposal-slide="6" data-proposal-title="Giá trị mang lại" decoding="async">
+            <img id="proposal-slide-7" src="https://nesso.vn/wp-content/uploads/2026/07/Slide-8_VI-scaled.png" alt="Quy trình hợp tác" class="proposal-view__slide" data-proposal-slide="7" data-proposal-title="Quy trình hợp tác" decoding="async">
+            <div id="proposal-slide-8" class="proposal-view__slide proposal-view__slide--pricing-intro proposal-pricing-slide" data-proposal-slide="8" data-proposal-title="Triển khai & bảng giá" role="img" aria-label="Quy trình triển khai và bảng giá chi tiết">
+              <div class="proposal-pricing-slide__stage">
+                <img class="proposal-pricing-slide__asset proposal-pricing-slide__asset--star-blur" src="https://nesso.vn/wp-content/uploads/2026/08/Slide-9_VI_star_blur.png" alt="" aria-hidden="true" loading="lazy" decoding="async" data-pointer-depth="1.08">
+                <img class="proposal-pricing-slide__asset proposal-pricing-slide__asset--cube-blur" src="https://nesso.vn/wp-content/uploads/2026/08/Slide-9_VI_cube_blur.png" alt="" aria-hidden="true" loading="lazy" decoding="async" data-pointer-depth="1.28">
+                <img class="proposal-pricing-slide__asset proposal-pricing-slide__asset--round-blur" src="https://nesso.vn/wp-content/uploads/2026/08/Slide-9_VI_round_blur.png" alt="" aria-hidden="true" loading="lazy" decoding="async" data-pointer-depth="1.16">
+              </div>
+            </div>
+            <div id="proposal-slide-9" class="proposal-view__slide proposal-view__slide--lms proposal-lms-slide" data-proposal-slide="9" data-proposal-title="Nesso LMS" role="img" aria-label="Nesso LMS">
+              <div class="proposal-lms-slide__stage">
+                <img class="proposal-lms-slide__asset proposal-lms-slide__asset--star-blur" src="https://nesso.vn/wp-content/uploads/2026/08/Slide-10_VI_star_blur.png" alt="" aria-hidden="true" loading="lazy" decoding="async" data-pointer-depth="1.08">
+                <img class="proposal-lms-slide__asset proposal-lms-slide__asset--cube-blur" src="https://nesso.vn/wp-content/uploads/2026/08/Slide-10_VI_cube_blur.png" alt="" aria-hidden="true" loading="lazy" decoding="async" data-pointer-depth="1.22">
+              </div>
+            </div>
+            <img id="proposal-slide-10" src="https://nesso.vn/wp-content/uploads/2026/07/Slide-11_VI-scaled.png" alt="Giá dịch vụ chuyển đổi nội dung" class="proposal-view__slide" data-proposal-slide="10" data-proposal-title="Chuyển đổi nội dung" decoding="async">
+            <div id="proposal-slide-11" class="proposal-view__slide proposal-view__slide--storage proposal-storage-slide" data-proposal-slide="11" data-proposal-title="Hạ tầng lưu trữ" role="img" aria-label="Hạ tầng lưu trữ Server Hosting">
+              <div class="proposal-storage-slide__stage">
+                <img class="proposal-storage-slide__asset proposal-storage-slide__asset--star-blur" src="https://nesso.vn/wp-content/uploads/2026/08/Slide-12_VI_star_blur.png" alt="" aria-hidden="true" loading="lazy" decoding="async" data-pointer-depth="1.08">
+                <img class="proposal-storage-slide__asset proposal-storage-slide__asset--cube-blur" src="https://nesso.vn/wp-content/uploads/2026/08/Slide-12_VI_cube_blur.png" alt="" aria-hidden="true" loading="lazy" decoding="async" data-pointer-depth="1.18">
+              </div>
+            </div>
+            <img id="proposal-slide-12" src="https://nesso.vn/wp-content/uploads/2026/07/Slide-13_VI-scaled.png" alt="Tagline" class="proposal-view__slide" data-proposal-slide="12" data-proposal-title="Tagline" decoding="async">
+            <div id="proposal-slide-13" class="proposal-view__slide proposal-view__slide--final proposal-final-slide" data-proposal-slide="13" data-proposal-title="Liên hệ" role="img" aria-label="Liên hệ Nesso">
+              <div class="proposal-final-slide__stage">
+                <img class="proposal-final-slide__asset proposal-final-slide__asset--star-blur" src="https://nesso.vn/wp-content/uploads/2026/08/Slide-14_VI_star_blur.png" alt="" aria-hidden="true" loading="lazy" decoding="async" data-pointer-depth="1.08">
+                <img class="proposal-final-slide__asset proposal-final-slide__asset--cube-blur" src="https://nesso.vn/wp-content/uploads/2026/08/Slide-14_VI_cube_blur.png" alt="" aria-hidden="true" loading="lazy" decoding="async" data-pointer-depth="1.26">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="blog-view blog-view--nesso-list" id="blog-view" hidden aria-hidden="true" aria-label="Bài viết của Nesso">
+      <div class="blog-view__shell">
+        <div class="blog-view__trending">
+          <div class="blog-view__headline-row">
+            <h1 class="blog-view__heading">Bài viết nổi bật</h1>
+            <span class="blog-view__headline-divider" aria-hidden="true">/</span>
+            <p class="blog-view__subtitle">Khám phá góc nhìn mới về LMS, thiết kế trải nghiệm học tập và chuyển đổi đào tạo cho doanh nghiệp.</p>
+          </div>
+
+          <article class="blog-view__featured" data-blog-featured hidden></article>
+        </div>
+
+        <div class="blog-view__posts-layout">
+          <aside class="blog-view__sidebar" aria-label="Danh mục Bài viết của Nesso">
+            <h2 class="blog-view__sidebar-title">Danh mục bài viết</h2>
+            <button class="blog-view__category blog-view__category--active" type="button" data-blog-category="all">Tất cả bài viết</button>
+            <div class="blog-view__category-list" data-blog-categories></div>
+          </aside>
+
+          <div class="blog-view__content">
+            <div class="blog-view__content-head">
+              <h2>Bài viết</h2>
+              <label class="blog-view__search">
+                <span class="sr-only">Tìm kiếm bài viết</span>
+                <input type="search" placeholder="Tìm kiếm ..." data-blog-search>
+                <span class="blog-view__search-icon" aria-hidden="true"></span>
+              </label>
+            </div>
+            <div class="blog-view__status" data-blog-status>Đang tải bài viết...</div>
+            <div class="blog-view__grid" data-blog-grid></div>
+            <article class="blog-view__article" data-blog-article hidden></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-view" id="contact-view" hidden aria-hidden="true" aria-label="Liên hệ với Nesso">
+      <div class="contact-view__shell">
+        <div class="contact-view__headline-row">
+          <h1 class="contact-view__heading">Liên hệ</h1>
+          <span class="contact-view__headline-divider" aria-hidden="true">/</span>
+          <p class="contact-view__subtitle">Khám phá góc nhìn mới về hệ thống đào tạo, thiết kế trải nghiệm học tập số cho doanh nghiệp.</p>
+        </div>
+
+        <div class="contact-view__form-layout">
+          <div class="contact-view__image" role="img" aria-label="NESSO contact"></div>
+          <form class="contact-view__form" action="https://nesso.vn/wp-json/nesso-lms/v1/contact" method="post" data-contact-form novalidate>
+            <label class="contact-view__field contact-view__field--required">
+              <span class="sr-only">Email</span>
+              <span class="contact-view__placeholder" aria-hidden="true">Email<span>*</span></span>
+              <input type="email" name="email" placeholder="email@example.com" autocomplete="email" required>
+            </label>
+            <label class="contact-view__field contact-view__field--required">
+              <span class="sr-only">Họ và tên</span>
+              <span class="contact-view__placeholder" aria-hidden="true">Họ và tên<span>*</span></span>
+              <input type="text" name="name" placeholder="Nguyễn Văn A" autocomplete="name" required>
+            </label>
+            <label class="contact-view__field">
+              <span class="sr-only">Website công ty</span>
+              <input type="url" name="website" placeholder="example.com" autocomplete="url">
+            </label>
+            <div class="contact-view__field contact-view__field--select" data-contact-select>
+              <span class="sr-only" id="contact-service-label">Nhu cầu tư vấn</span>
+              <input type="hidden" name="service" value="Hệ thống LMS" data-contact-select-input>
+              <button class="contact-view__select-button" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="contact-service-label contact-service-value" data-contact-select-button>
+                <span id="contact-service-value" data-contact-select-value>Hệ thống LMS</span>
+                <span class="contact-view__select-icon" aria-hidden="true"></span>
+              </button>
+              <div class="contact-view__select-menu" role="listbox" aria-labelledby="contact-service-label" data-contact-select-menu>
+                <button class="contact-view__select-option contact-view__select-option--active" type="button" role="option" aria-selected="true" data-contact-select-option value="Hệ thống LMS">Hệ thống LMS</button>
+                <button class="contact-view__select-option" type="button" role="option" aria-selected="false" data-contact-select-option value="Chuyển đổi nội dung đào tạo">Chuyển đổi nội dung đào tạo</button>
+                <button class="contact-view__select-option" type="button" role="option" aria-selected="false" data-contact-select-option value="Hệ thống LMS &amp; Chuyển đổi nội dung đào tạo">Hệ thống LMS &amp; Chuyển đổi nội dung đào tạo</button>
+              </div>
+            </div>
+            <label class="contact-view__field contact-view__field--message">
+              <span class="sr-only">Nội dung cần tư vấn</span>
+              <textarea name="message" placeholder="Nội dung cần tư vấn"></textarea>
+            </label>
+            <label class="contact-view__consent">
+              <input type="checkbox" name="acceptance" value="Đồng ý" required>
+              <span>Bằng cách đánh dấu vào ô này, bạn đồng ý nhận tư vấn từ Nesso cũng như chấp thuận các Điều khoản Dịch vụ &amp; Chính sách Bảo mật.</span>
+            </label>
+            <button class="contact-view__submit" type="submit">Gửi thông tin</button>
+            <p class="contact-view__form-status" aria-live="polite" data-contact-form-status></p>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="lucky-wheel-view" id="lucky-wheel-view" hidden aria-hidden="true" aria-label="Vòng quay may mắn Nesso">
+      <div class="lucky-wheel-view__shell">
+        <ol class="lucky-wheel-view__steps" data-lucky-progress="0" aria-label="Tiến trình nhận voucher">
+          <li class="lucky-wheel-view__step lucky-wheel-view__step--active" data-lucky-step="info"><span class="lucky-wheel-view__step-dot" aria-hidden="true"></span><span>Điền thông tin</span></li>
+          <li class="lucky-wheel-view__step" data-lucky-step="wheel"><span class="lucky-wheel-view__step-dot" aria-hidden="true"></span><span>Vòng xoay may mắn</span></li>
+          <li class="lucky-wheel-view__step" data-lucky-step="done"><span class="lucky-wheel-view__step-dot" aria-hidden="true"></span><span>Nhận voucher</span></li>
+        </ol>
+        <div class="lucky-wheel-view__panel lucky-wheel-view__panel--form" data-lucky-panel="info">
+          <form class="lucky-wheel-form" action="https://script.google.com/macros/s/AKfycbwqKxpyAqIQqJE4CER4Y_0c_90TmRAAXa1oZu3vMHPgV78RWMXo4lvkyhSMO7fJBl0f/exec" method="post" data-lucky-form novalidate>
+            <label class="lucky-wheel-form__field lucky-wheel-form__field--required"><span>Họ và tên <strong>*</strong></span><input type="text" name="name" placeholder="Nguyễn Văn A" autocomplete="name" required></label>
+            <label class="lucky-wheel-form__field lucky-wheel-form__field--required"><span>Email <strong>*</strong></span><input type="email" name="email" placeholder="email@example.com" autocomplete="email" required></label>
+            <label class="lucky-wheel-form__field"><span>Website công ty</span><input type="url" name="website" placeholder="example.com" autocomplete="url"></label>
+            <label class="lucky-wheel-form__consent"><input type="checkbox" name="acceptance" value="Đồng ý" required><span>Bằng cách đánh dấu vào ô này, bạn đồng ý nhận tư vấn từ Nesso cũng như chấp thuận các Điều khoản Dịch vụ &amp; Chính sách Bảo mật.</span></label>
+            <button class="lucky-wheel-form__continue" type="submit" data-lucky-continue disabled>Tiếp tục</button>
+            <p class="lucky-wheel-form__status" aria-live="polite" data-lucky-status></p>
+            <div class="lucky-wheel-form__divider" aria-hidden="true"></div>
+            <div class="lucky-wheel-form__terms"><h2>Điều kiện áp dụng:</h2><ul><li>Mỗi doanh nghiệp được tham gia 01 lần.</li><li>Voucher có hiệu lực 30 ngày kể từ ngày phát hành.</li><li>Áp dụng cho khách hàng/doanh nghiệp đăng ký mới.</li><li>Không quy đổi thành tiền mặt và không áp dụng đồng thời với các chương trình ưu đãi khác.</li><li class="lucky-wheel-form__terms-emphasis">Demo miễn phí 10s chuyển đổi nội dung đào tạo.</li><li class="lucky-wheel-form__terms-emphasis">Trải nghiệm Demo LMS miễn phí - Sandbox.</li></ul></div>
+            <div class="lucky-wheel-form__legal"><span class="lucky-wheel-form__security-anchor"><button class="lucky-wheel-form__legal-link lucky-wheel-form__security-trigger" type="button" aria-expanded="false" aria-describedby="lucky-security-tooltip" data-lucky-security-toggle>Cam kết bảo mật</button><span class="lucky-wheel-form__security-tooltip" id="lucky-security-tooltip" role="tooltip" data-lucky-security-tooltip><span class="lucky-wheel-form__security-icon" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"></path><path d="m9 12 2 2 4-4"></path></svg></span><span class="lucky-wheel-form__security-text"><strong>BẢO MẬT DỮ LIỆU:</strong> Thông tin bạn cung cấp chỉ được dùng để NESSO liên hệ hỗ trợ và không bao giờ được chia sẻ cho bên thứ ba.</span></span></span></div>
+          </form>
+        </div>
+        <div class="lucky-wheel-view__panel lucky-wheel-view__panel--wheel" data-lucky-panel="wheel" hidden>
+          <div class="lucky-wheel-stage" data-lucky-stage><img class="lucky-wheel-stage__arrow" src="https://nesso.vn/wp-content/uploads/2026/08/WF-03-1-scaled.png" alt="" aria-hidden="true" loading="eager" decoding="async"><img class="lucky-wheel-stage__wheel" src="https://nesso.vn/wp-content/uploads/2026/08/Luckey-Wheel_v2-1-scaled.png" alt="Vòng quay voucher Nesso" loading="eager" decoding="async" data-lucky-wheel-image><button class="lucky-wheel-stage__start" type="button" data-lucky-spin aria-label="Bắt đầu quay"><span>START</span></button></div>
+        </div>
+        <div class="lucky-wheel-view__panel lucky-wheel-view__panel--done" data-lucky-panel="done" hidden><div class="lucky-wheel-done"><h2>Hoàn thành</h2><p class="lucky-wheel-done__result" data-lucky-result hidden></p><p class="lucky-wheel-done__note">Bộ phận BD của NESSO sẽ liên hệ với bạn qua email trong thời gian sớm nhất.</p><button class="lucky-wheel-done__home" type="button" data-lucky-home>Trang chủ</button></div></div>
+      </div>
+    </section>
+
+    <section class="image-route-view" id="image-route-view" hidden aria-hidden="true" aria-label="NESSO route image">
+      <picture class="image-route-view__picture">
+        <source media="(max-width: 1024px), (hover: none) and (pointer: coarse)" data-image-route-mobile>
+        <img class="image-route-view__image" src="" alt="" data-image-route-img decoding="async" fetchpriority="high">
+      </picture>
+    </section>
+
+    <section class="lms-features-view" id="lms-features-view" hidden aria-hidden="true" aria-label="Chức năng LMS">
+      <section class="lms-features-hero" aria-labelledby="lms-features-title">
+        <div class="lms-features-hero__bg" aria-hidden="true" data-nesso-lms-features-media="hero-bg" data-nesso-lms-features-src-vi="https://nesso.vn/wp-content/uploads/2026/09/BG-LMS-feature-scaled.png" data-nesso-lms-features-src-en=""></div>
+        <div class="lms-features-hero__content">
+          <span class="lms-features-hero__eyebrow">Tổng quan</span>
+          <h1 class="lms-features-hero__heading" id="lms-features-title" data-nesso-i18n-skip>
+            <span class="lms-features-copy lms-features-copy--vi">Mọi thứ bạn cần có<br>trong hệ thống <em>LMS</em></span>
+            <span class="lms-features-copy lms-features-copy--en">Everything your team needs<br>in one <em>LMS</em></span>
+          </h1>
+          <ul class="lms-features-hero__checks">
+            <li><strong>Quản lý khoá học:</strong> Tạo và quản lý các khoá học riêng biệt</li>
+            <li><strong>Đánh giá &amp; báo cáo:</strong> Giao bài tập, kiểm tra và theo dõi kết quả tự động</li>
+            <li><strong>Trợ lý AI thông minh:</strong> Tích hợp AI DISC hỗ trợ phân tích và đồng hành</li>
+          </ul>
+          <div class="lms-features-hero__actions">
+            <a class="lms-features-hero__primary" href="#contact" data-contact-open>Liên hệ với chúng tôi</a>
+            <button class="lms-features-hero__secondary" type="button" data-demo-open>Trải nghiệm Demo</button>
+          </div>
+          <div class="lms-features-hero__tag-block">
+            <p>Các tính năng nổi bật và nhiều hơn thế nữa...</p>
+            <div class="lms-features-hero__tags" aria-label="Tính năng nổi bật">
+              <span>Bài học bằng hình ảnh &amp; video</span>
+              <span>Gamification</span>
+              <span>Kho tri thức</span>
+              <span>Trợ lý AI</span>
+              <span>Quản lý học viên</span>
+              <span>Thông báo &amp; lời nhắc</span>
+              <span>Phân quyền</span>
+            </div>
+          </div>
+        </div>
+        <img class="lms-features-hero__laptop" src="https://nesso.vn/wp-content/uploads/2026/09/Laptop-BG-LMS-feature-scaled.png" alt="" aria-hidden="true" decoding="async" fetchpriority="high" data-nesso-lms-features-media="hero-laptop" data-nesso-lms-features-src-vi="https://nesso.vn/wp-content/uploads/2026/09/Laptop-BG-LMS-feature-scaled.png" data-nesso-lms-features-src-en="">
+      </section>
+
+      <section class="lms-features-grid-section" aria-labelledby="lms-features-grid-title">
+        <div class="lms-features-grid-section__intro">
+          <h2 id="lms-features-grid-title" data-nesso-i18n-skip>
+            <span class="lms-features-copy lms-features-copy--vi">Tính năng nổi bật có trong<br>hệ thống <em>LMS</em></span>
+            <span class="lms-features-copy lms-features-copy--en">Powerful features<br>built into your <em>LMS</em></span>
+          </h2>
+          <p>Nền tảng tập trung vào việc học tập, tự động hoá tri thức và cá nhân hoá trải nghiệm người học.</p>
+        </div>
+        <div class="lms-features-grid-section__visual" aria-label="Các tính năng LMS gồm Học tập, Đánh giá, Quản trị CMS, Phát triển nội dung, AI và Thương hiệu">
+          <article class="lms-features-grid-card lms-features-grid-card--learning">
+            <div class="lms-features-grid-card__copy">
+              <h3>Học tập</h3>
+              <p>Xây dựng khóa học, truyền tải nội dung và dẫn dắt người học qua từng bước trong hành trình học tập của họ.</p>
+            </div>
+            <div class="lms-features-grid-card__media">
+              <img src="https://nesso.vn/wp-content/uploads/2026/09/block-1.png" alt="" aria-hidden="true" decoding="async" loading="lazy" data-nesso-lms-features-media="feature-grid-learning" data-nesso-lms-features-src-vi="https://nesso.vn/wp-content/uploads/2026/09/block-1.png" data-nesso-lms-features-src-en="">
+            </div>
+          </article>
+          <article class="lms-features-grid-card lms-features-grid-card--assessment">
+            <div class="lms-features-grid-card__copy">
+              <h3>Đánh giá</h3>
+              <p>Cung cấp cho người học những phản hồi hữu ích và cung cấp cho các nhà quản lý dữ liệu cần thiết để nắm bắt hiệu quả học tập.</p>
+            </div>
+            <div class="lms-features-grid-card__media">
+              <img src="https://nesso.vn/wp-content/uploads/2026/09/block-2.png" alt="" aria-hidden="true" decoding="async" loading="lazy" data-nesso-lms-features-media="feature-grid-assessment" data-nesso-lms-features-src-vi="https://nesso.vn/wp-content/uploads/2026/09/block-2.png" data-nesso-lms-features-src-en="">
+            </div>
+          </article>
+          <article class="lms-features-grid-card lms-features-grid-card--cms">
+            <div class="lms-features-grid-card__copy">
+              <h3>Quản trị CMS</h3>
+              <p>Quản lý người dùng, nhóm, quyền hạn và hoạt động đào tạo tại một nơi duy nhất.</p>
+            </div>
+            <div class="lms-features-grid-card__media">
+              <img src="https://nesso.vn/wp-content/uploads/2026/09/block-3.png" alt="" aria-hidden="true" decoding="async" loading="lazy" data-nesso-lms-features-media="feature-grid-cms" data-nesso-lms-features-src-vi="https://nesso.vn/wp-content/uploads/2026/09/block-3.png" data-nesso-lms-features-src-en="">
+            </div>
+          </article>
+          <article class="lms-features-grid-card lms-features-grid-card--content">
+            <div class="lms-features-grid-card__copy">
+              <h3>Phát triển nội dung</h3>
+              <p>Lưu trữ, sắp xếp và phổ biến tri thức của tổ chức bạn.</p>
+            </div>
+            <div class="lms-features-grid-card__media">
+              <img src="https://nesso.vn/wp-content/uploads/2026/09/block-4.png" alt="" aria-hidden="true" decoding="async" loading="lazy" data-nesso-lms-features-media="feature-grid-content" data-nesso-lms-features-src-vi="https://nesso.vn/wp-content/uploads/2026/09/block-4.png" data-nesso-lms-features-src-en="">
+            </div>
+          </article>
+          <article class="lms-features-grid-card lms-features-grid-card--ai">
+            <div class="lms-features-grid-card__copy">
+              <h3>AI</h3>
+              <p>Tận dụng kiến thức của AI DISC để giúp người học tìm kiếm câu trả lời, hỗ trợ quản trị viên và tạo nội dung học tập nhanh hơn.</p>
+            </div>
+            <div class="lms-features-grid-card__media">
+              <img src="https://nesso.vn/wp-content/uploads/2026/09/block-5.png" alt="" aria-hidden="true" decoding="async" loading="lazy" data-nesso-lms-features-media="feature-grid-ai" data-nesso-lms-features-src-vi="https://nesso.vn/wp-content/uploads/2026/09/block-5.png" data-nesso-lms-features-src-en="">
+            </div>
+          </article>
+          <article class="lms-features-grid-card lms-features-grid-card--brand">
+            <div class="lms-features-grid-card__copy">
+              <h3>Thương hiệu</h3>
+              <p>Biến hệ thống LMS thành nền tảng mang dấu ấn riêng của bạn.</p>
+            </div>
+            <div class="lms-features-grid-card__media">
+              <img src="https://nesso.vn/wp-content/uploads/2026/09/block-6.png" alt="" aria-hidden="true" decoding="async" loading="lazy" data-nesso-lms-features-media="feature-grid-brand" data-nesso-lms-features-src-vi="https://nesso.vn/wp-content/uploads/2026/09/block-6.png" data-nesso-lms-features-src-en="">
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="lms-features-library" aria-label="Thư viện khóa học và nội dung số">
+        <div class="lms-features-library__card">
+          <img src="https://nesso.vn/wp-content/uploads/2026/09/last-cuoi-trang-lms-feature-scaled.png" alt="Học tập đa phương thức, sẵn sàng cho mọi nhu cầu đào tạo" decoding="async" loading="lazy" data-nesso-lms-features-media="library-cta" data-nesso-lms-features-src-vi="https://nesso.vn/wp-content/uploads/2026/09/last-cuoi-trang-lms-feature-scaled.png" data-nesso-lms-features-src-en="">
+          <a class="lms-features-library__button" href="#contact" data-contact-open>Khám phá chi tiết</a>
+        </div>
+      </section>
+    </section>
+
+    <!-- ====== HERO SECTION ====== -->
+    <section class="hero" id="hero">
+
+      <!-- Decorative background layers -->
+      <div class="hero__bg">
+        <!-- Concentric orbit circles with dots on their lines -->
+        <div class="hero__orbit hero__orbit--1" aria-hidden="true">
+          <div class="hero__dot hero__dot--1"></div>
+          <div class="hero__dot hero__dot--2"></div>
+        </div>
+        <div class="hero__orbit hero__orbit--2" aria-hidden="true"></div>
+        <div class="hero__orbit hero__orbit--3" aria-hidden="true">
+          <div class="hero__dot hero__dot--3"></div>
+        </div>
+        <!-- Glow blur (7160:4344) -->
+        <div class="hero__glow" aria-hidden="true"></div>
+      </div>
+
+
+
+
+      <!-- Heading (7160:4352) -->
+      <h1 class="hero__heading hero__heading--default">
+        <span style="position: relative; display: inline-block;">
+          <div class="hero__visual-badge" aria-hidden="true">
+            <div class="hero__visual-badge-icon-wrapper">
+              <img src="https://nesso.vn/wp-content/uploads/2026/06/eye-icon.png" alt="">
+            </div>
+            <span class="hero__visual-badge-text">Visual đạt chuẩn<br>sản xuất</span>
+          </div>
+          Cuộc
+        </span> cách mạng trải nghiệm<br>học tập từ <span class="hero__heading-gradient">Giải pháp số hóa<span
+            class="hero__star" aria-hidden="true"><img src="https://nesso.vn/wp-content/uploads/2026/06/usp-star-2.png" alt=""
+              class="hero__star-frame hero__star-frame--1"><img src="https://nesso.vn/wp-content/uploads/2026/06/usp-star-3.png" alt=""
+              class="hero__star-frame hero__star-frame--2"><img src="https://nesso.vn/wp-content/uploads/2026/06/usp-star-4.png" alt=""
+              class="hero__star-frame hero__star-frame--3"><img src="https://nesso.vn/wp-content/uploads/2026/06/usp-star-5.png" alt=""
+              class="hero__star-frame hero__star-frame--4"><img src="https://nesso.vn/wp-content/uploads/2026/06/usp-star-6.png" alt=""
+              class="hero__star-frame hero__star-frame--5"><img src="https://nesso.vn/wp-content/uploads/2026/06/usp-star-7.png" alt=""
+              class="hero__star-frame hero__star-frame--6"></span></span><br>được thiết kế
+        <span style="position: relative; display: inline-block;">
+          <div class="hero__visual-badge hero__visual-badge--secondary" aria-hidden="true">
+            <div class="hero__visual-badge-icon-wrapper">
+              <img src="https://nesso.vn/wp-content/uploads/2026/06/react-icon.png" alt="">
+            </div>
+            <span class="hero__visual-badge-text" style="white-space: nowrap;">Hệ sinh thái phát<br>triển nhân sự</span>
+          </div>
+          riêng
+        </span>
+      </h1>
+
+      <h1 class="hero__heading hero__heading--en-lines" data-nesso-i18n-skip>
+        <span class="hero__heading-line hero__heading-line--en-1">
+          <span style="position: relative; display: inline-block;">
+            <div class="hero__visual-badge" aria-hidden="true">
+              <div class="hero__visual-badge-icon-wrapper">
+                <img src="https://nesso.vn/wp-content/uploads/2026/06/eye-icon.png" alt="">
+              </div>
+              <span class="hero__visual-badge-text">Production-ready<br>visuals</span>
+            </div>
+            A
+          </span> learning revolution powered by
+        </span><br>
+        <span class="hero__heading-line hero__heading-line--en-2">
+          <span class="hero__heading-gradient">digital solutions<span
+              class="hero__star" aria-hidden="true"><img src="https://nesso.vn/wp-content/uploads/2026/06/usp-star-2.png" alt=""
+                class="hero__star-frame hero__star-frame--1"><img src="https://nesso.vn/wp-content/uploads/2026/06/usp-star-3.png" alt=""
+                class="hero__star-frame hero__star-frame--2"><img src="https://nesso.vn/wp-content/uploads/2026/06/usp-star-4.png" alt=""
+                class="hero__star-frame hero__star-frame--3"><img src="https://nesso.vn/wp-content/uploads/2026/06/usp-star-5.png" alt=""
+                class="hero__star-frame hero__star-frame--4"><img src="https://nesso.vn/wp-content/uploads/2026/06/usp-star-6.png" alt=""
+                class="hero__star-frame hero__star-frame--5"><img src="https://nesso.vn/wp-content/uploads/2026/06/usp-star-7.png" alt=""
+                class="hero__star-frame hero__star-frame--6"></span></span> designed for
+          <div class="hero__visual-badge hero__visual-badge--secondary" aria-hidden="true">
+            <div class="hero__visual-badge-icon-wrapper">
+              <img src="https://nesso.vn/wp-content/uploads/2026/06/react-icon.png" alt="">
+            </div>
+            <span class="hero__visual-badge-text" style="white-space: nowrap;">Talent growth<br>ecosystem</span>
+          </div>
+        </span><br>
+        <span class="hero__heading-line hero__heading-line--en-3">your business</span>
+      </h1>
+
+      <!-- Body text (7160:4353) -->
+      <p class="hero__body">Chúng tôi trực quan hóa hệ thống đào tạo cho doanh nghiệp: từ thiết kế lộ trình đào tạo,
+        đánh giá cá nhân hóa đến sản xuất nội dung học tập số.</p>
+
+      <!-- CTA group (7160:4354) — Figma order: button LEFT, text RIGHT -->
+      <div class="hero__cta-group">
+        <a href="#contact" class="hero__cta-button" data-contact-open>Liên hệ với Nesso</a>
+        <a href="#proposal-view" class="hero__cta-text" data-proposal-open>Xem Proposal</a>
+      </div>
+
+      <!-- Dashboard mockup container (7160:4351 bg + 7160:4395 image) -->
+      <div class="hero__dashboard-container">
+        <img src="https://nesso.vn/wp-content/uploads/2026/06/hero-dashboard-mockup.png" alt="NESSO LMS Dashboard" class="hero__dashboard-img"
+          width="1302" height="715">
+      </div>
+
+    </section>
+
+    <!-- ============================================================
+         SECTION 3: ECOSYSTEM MARQUEE / COMPANY LOGO ROW
+         Figma nodes: 7160:4369 (badge row), 7160:4373 (logo row),
+                      7160:4388 (gradient line)
+         Y range: ~1483–1678
+         ============================================================ -->
+    <section class="logo-section" id="logo-section">
+
+      <!-- Badge row (7160:4369): pill LEFT, text RIGHT (per Figma) -->
+      <div class="logo-section__badge-row">
+        <span class="logo-section__pill">
+          <span class="logo-section__pill-text">LMS tích hợp </span><span class="logo-section__pill-highlight">AI
+            Mentor</span>
+        </span>
+        <span class="logo-section__trust-text">Được tin dùng bởi hơn 100+ doanh nghiệp</span>
+      </div>
+
+      <!-- Company logo row (7160:4373): 6 logos, gap ~69px -->
+      <div class="logo-section__logos">
+        <div class="logo-section__track">
+          <div class="logo-section__logo-wrap" style="width:111px; height:38px;"><img
+              src="https://nesso.vn/wp-content/uploads/2026/06/logo-company-1.png" alt="Company 1" class="logo-section__logo"></div>
+          <div class="logo-section__logo-wrap" style="width:69px; height:30px;"><img
+              src="https://nesso.vn/wp-content/uploads/2026/06/logo-company-2.png" alt="Company 2" class="logo-section__logo"></div>
+          <div class="logo-section__logo-wrap" style="width:106px; height:29px;"><img
+              src="https://nesso.vn/wp-content/uploads/2026/06/logo-company-3.png" alt="Company 3" class="logo-section__logo"></div>
+          <div class="logo-section__logo-wrap" style="width:45px; height:45px;"><img
+              src="https://nesso.vn/wp-content/uploads/2026/06/logo-company-4.png" alt="Company 4" class="logo-section__logo"></div>
+          <div class="logo-section__logo-wrap" style="width:79px; height:48px;"><img
+              src="https://nesso.vn/wp-content/uploads/2026/06/logo-company-5.png" alt="Company 5" class="logo-section__logo"></div>
+          <div class="logo-section__logo-wrap" style="width:84px; height:48px;"><img
+              src="https://nesso.vn/wp-content/uploads/2026/06/logo-company-6.png" alt="Company 6" class="logo-section__logo"></div>
+          <!-- Duplicate for seamless loop -->
+          <div class="logo-section__logo-wrap" style="width:111px; height:38px;"><img
+              src="https://nesso.vn/wp-content/uploads/2026/06/logo-company-1.png" alt="Company 1" class="logo-section__logo"></div>
+          <div class="logo-section__logo-wrap" style="width:69px; height:30px;"><img
+              src="https://nesso.vn/wp-content/uploads/2026/06/logo-company-2.png" alt="Company 2" class="logo-section__logo"></div>
+          <div class="logo-section__logo-wrap" style="width:106px; height:29px;"><img
+              src="https://nesso.vn/wp-content/uploads/2026/06/logo-company-3.png" alt="Company 3" class="logo-section__logo"></div>
+          <div class="logo-section__logo-wrap" style="width:45px; height:45px;"><img
+              src="https://nesso.vn/wp-content/uploads/2026/06/logo-company-4.png" alt="Company 4" class="logo-section__logo"></div>
+          <div class="logo-section__logo-wrap" style="width:79px; height:48px;"><img
+              src="https://nesso.vn/wp-content/uploads/2026/06/logo-company-5.png" alt="Company 5" class="logo-section__logo"></div>
+          <div class="logo-section__logo-wrap" style="width:84px; height:48px;"><img
+              src="https://nesso.vn/wp-content/uploads/2026/06/logo-company-6.png" alt="Company 6" class="logo-section__logo"></div>
+        </div>
+      </div>
+
+      <!-- Gradient divider line (7160:4388): 1120px, gradient stroke, blur -->
+      <div class="logo-section__divider" aria-hidden="true"></div>
+
+    </section>
+
+    <!-- ============================================================
+         SECTION 4A: UNIQUE SELLING POINT BANNER
+         Figma node: 7160:4077 (Div [framer-p0fkk])
+         1280×413, border-radius 29px, gradient glow bottom
+         ============================================================ -->
+    <section class="usp-section" id="usp-section">
+      <div class="usp-card">
+        <!-- Border overlay with gradient stroke -->
+        <div class="usp-card__border" aria-hidden="true"></div>
+
+        <!-- USP Effect glow -->
+        <img src="https://nesso.vn/wp-content/uploads/2026/06/usp-effect.png" alt="" class="usp-card__effect" aria-hidden="true">
+
+        <!-- Left: Heading -->
+        <div class="usp-card__left">
+          <div class="usp-card__heading-accent" aria-hidden="true"></div>
+          <h2 class="usp-card__heading"><span class="usp-card__heading-cyan">Thế mạnh</span> vượt trội</h2>
+        </div>
+
+        <!-- Star icon (node 7160:4089) -->
+        <img src="https://nesso.vn/wp-content/uploads/2026/06/usp-star-figma.svg" alt="" class="usp-card__star" aria-hidden="true" width="60"
+          height="60">
+
+        <!-- Pill 1: 10 năm -->
+        <div class="usp-pill usp-pill--1">
+          <span class="usp-pill__text"><span class="usp-pill__cyan usp-pill__cyan--bold">10 năm</span> kinh nghiệm trong
+            lĩnh vực Visual</span>
+        </div>
+
+        <!-- Pill 2: 25 năm (gradient bg) -->
+        <div class="usp-pill usp-pill--2">
+          <span class="usp-pill__text">Sắc bén từ <span class="usp-pill__cyan usp-pill__cyan--large">25 năm</span> "lăn
+            lộn" ngành Nhân Sự</span>
+        </div>
+
+        <!-- Pill 3: mở khoá -->
+        <div class="usp-pill usp-pill--3">
+          <span class="usp-pill__text">Nesso mang đến giải pháp tối ưu bằng phương pháp thiết kế chiến lược đào tạo hiện
+            đại. Giúp bạn bứt tốc và <span class="usp-pill__cyan">"mở khoá"</span> mọi Thành tựu</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 4B: GIÁ TRỊ CỐT LÕI / LMS TÍCH HỢP AI TIMELINE
+         Figma nodes: 7160:4391 (badge), 7160:4393 (heading),
+         7160:4067/4068 (cards), vectors (connector lines)
+         ============================================================ -->
+    <section class="core-values" id="core-values">
+      <!-- Left column -->
+      <div class="core-values__left">
+        <span class="core-values__badge">Giá trị cốt lõi</span>
+        <h2 class="core-values__heading">
+          <span class="core-values__heading-cyan">LMS tích hợp AI</span> giúp đội ngũ
+          <br><span class="core-values__heading-cyan">vận hành hiệu quả hơn</span>
+        </h2>
+      </div>
+
+      <!-- Right column: timeline + cards -->
+      <div class="core-values__right">
+        <!-- Timeline vertical line -->
+        <div class="core-values__timeline" aria-hidden="true">
+          <div class="core-values__timeline-line"></div>
+          <div class="core-values__timeline-dot core-values__timeline-dot--1"></div>
+          <div class="core-values__timeline-dot core-values__timeline-dot--2"></div>
+          <div class="core-values__timeline-dot core-values__timeline-dot--3"></div>
+          <div class="core-values__connector core-values__connector--1"><svg width="101" height="56" viewBox="0 0 101 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M101 55.5H43.5688C37.4937 55.5 32.5688 50.5751 32.5688 44.5V11.5C32.5688 5.42487 27.644 0.500002 21.5688 0.500002H0" stroke="url(#paint0_linear_7249_1987)"/>
+<defs>
+<linearGradient id="paint0_linear_7249_1987" x1="101" y1="28" x2="0" y2="28" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0"/>
+<stop offset="0.514423" stop-color="#25D0FF"/>
+<stop offset="1" stop-opacity="0"/>
+</linearGradient>
+</defs>
+</svg></div>
+          <div class="core-values__connector core-values__connector--2"><svg width="101" height="56" viewBox="0 0 101 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M101 55.5H43.5688C37.4937 55.5 32.5688 50.5751 32.5688 44.5V11.5C32.5688 5.42487 27.644 0.500002 21.5688 0.500002H0" stroke="url(#paint0_linear_7249_1987)"/>
+<defs>
+<linearGradient id="paint0_linear_7249_1987" x1="101" y1="28" x2="0" y2="28" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0"/>
+<stop offset="0.514423" stop-color="#25D0FF"/>
+<stop offset="1" stop-opacity="0"/>
+</linearGradient>
+</defs>
+</svg></div>
+          <div class="core-values__connector core-values__connector--3"><svg width="101" height="56" viewBox="0 0 101 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M101 55.5H43.5688C37.4937 55.5 32.5688 50.5751 32.5688 44.5V11.5C32.5688 5.42487 27.644 0.500002 21.5688 0.500002H0" stroke="url(#paint0_linear_7249_1987)"/>
+<defs>
+<linearGradient id="paint0_linear_7249_1987" x1="101" y1="28" x2="0" y2="28" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0"/>
+<stop offset="0.514423" stop-color="#25D0FF"/>
+<stop offset="1" stop-opacity="0"/>
+</linearGradient>
+</defs>
+</svg></div>
+        </div>
+
+        <!-- Card 01 -->
+        <div class="core-values__card core-values__card--1">
+          <span class="core-values__card-number">01</span>
+          <p class="core-values__card-text">Kế thừa và phát huy tri thức chuyên môn, kinh nghiệm thực tiễn của <span
+              class="core-values__cyan">“đầu tàu”</span> doanh nghiệp</p>
+        </div>
+
+        <!-- Card 02 -->
+        <div class="core-values__card core-values__card--2">
+          <span class="core-values__card-number">02</span>
+          <p class="core-values__card-text">Đảm bảo hiệu quả đào tạo tối ưu thông qua các giải pháp <span
+              class="core-values__cyan">E-learning</span> trọn gói, được xây dựng bằng các video cực “dính”, học liệu
+            trực quan và mô phỏng thực tiễn</p>
+        </div>
+
+        <!-- Card 03 -->
+        <div class="core-values__card core-values__card--3">
+          <span class="core-values__card-number">03</span>
+          <p class="core-values__card-text">Mang đến năng lực đào tạo nhanh chóng, dễ mở rộng quy mô với chất lượng nhất
+            quán và <span class="core-values__cyan">hiệu quả chi phí vượt trội</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 5: ECOSYSTEM OVERVIEW
+         ============================================================ -->
+    <section class="ecosystem" id="ecosystem">
+      <div class="ecosystem__wrapper">
+        <div class="ecosystem__content">
+          <!-- Left column -->
+          <div class="ecosystem__left">
+            <span class="ecosystem__badge">Giải pháp</span>
+            <h2 class="ecosystem__heading"><span class="ecosystem__heading-gradient">Số hoá trải nghiệm</span><br>học
+              tập</h2>
+
+            <!-- Monitor mockup -->
+            <div class="ecosystem__monitor">
+              <div class="ecosystem__monitor-frame">
+                <img src="https://nesso.vn/wp-content/uploads/2026/06/laptop-lms.png" alt="NESSO LMS Dashboard" class="ecosystem__monitor-screen">
+              </div>
+            </div>
+          </div>
+
+          <!-- Right column: 2x2 card grid -->
+          <div class="ecosystem__right">
+            <div class="ecosystem__grid">
+              <!-- Card 1: Top-left -->
+              <div class="ecosystem__card">
+                <img src="https://nesso.vn/wp-content/uploads/2026/06/globe.png" alt="Globe" class="ecosystem__card-icon">
+                <h3 class="ecosystem__card-title">Nền tảng LMS/LXP<br>& Tự động hoá đào tạo</h3>
+                <p class="ecosystem__card-desc">Hệ sinh thái LMS, tư vấn thiết kế giảng dạy và sản xuất E-learning trọn
+                  gói.</p>
+              </div>
+
+              <!-- Card 2: Top-right -->
+              <div class="ecosystem__card">
+                <img src="https://nesso.vn/wp-content/uploads/2026/06/structure.png" alt="Structure" class="ecosystem__card-icon">
+                <h3 class="ecosystem__card-title">Thiết kế trải nghiệm học tập tương tác cá nhân hoá</h3>
+                <p class="ecosystem__card-desc">Chuyển đổi tài liệu tĩnh thành trải nghiệm học tập trực quan với Video
+                  tương tác và Gamification được thiết kế theo phương pháp luận từ chuyên gia.</p>
+              </div>
+
+              <!-- Card 3: Bottom-left -->
+              <div class="ecosystem__card">
+                <img src="https://nesso.vn/wp-content/uploads/2026/06/paper.png" alt="Paper" class="ecosystem__card-icon">
+                <h3 class="ecosystem__card-title">Quản trị tri thức</h3>
+                <p class="ecosystem__card-desc">Rút trích và hệ thống hóa chất xám độc quyền của C-Level thành tài sản
+                  số doanh nghiệp, hỗ trợ đào tạo thế hệ kế thừa.</p>
+              </div>
+
+              <!-- Card 4: Bottom-right -->
+              <div class="ecosystem__card">
+                <img src="https://nesso.vn/wp-content/uploads/2026/06/star-icon.png" alt="Star" class="ecosystem__card-icon">
+                <h3 class="ecosystem__card-title">Tăng tốc sản xuất học liệu bằng AI</h3>
+                <p class="ecosystem__card-desc">Ứng dụng AI giúp giảm đến 70% thời gian và chi phí sản xuất học liệu số.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ecosystem__bottom-glow"></div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 6: FEATURES GRID — Hệ sinh thái nhân sự toàn diện
+         ============================================================ -->
+    <section class="features" id="features">
+      <span class="features__badge">Tại sao chọn Nesso?</span>
+      <h2 class="features__heading">Hệ sinh thái nhân sự <span class="features__heading-gradient">toàn diện</span></h2>
+      <p class="features__subtitle">Hệ sinh thái nhân lực toàn diện <span class="features__highlight">25 năm</span> kinh
+        nghiệm trong ngành tư vấn nhân sự<br>của Le & Associates và hệ thống phần mềm công nghệ quản trị nhân lực từ
+        SKALE.</p>
+
+      <div class="features__cards-wrapper">
+        <!-- Decorative vector lines (from Figma) -->
+        <div class="features__vector features__vector--left"><svg width="545" height="297" viewBox="0 0 545 297" fill="none" xmlns="http://www.w3.org/2000/svg">
+<foreignObject x="-536.2" y="-379.2" width="1460.4" height="1055.4"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(189.6px);height:100%;width:100%"></div></foreignObject><path data-figma-bg-blur-radius="379.2" d="M545 1H94.3695C80.5624 1 69.3696 12.1929 69.3696 26V271C69.3696 284.807 58.1767 296 44.3696 296H-157" stroke="url(#paint0_linear_7252_3481)" stroke-opacity="0.6" stroke-width="2"/>
+<defs>
+<linearGradient id="paint0_linear_7252_3481" x1="545" y1="148.5" x2="-157" y2="148.5" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0"/>
+<stop offset="0.514423" stop-color="#25D0FF"/>
+<stop offset="1" stop-opacity="0"/>
+</linearGradient>
+</defs>
+</svg></div>
+        <div class="features__vector features__vector--right"><svg width="524" height="297" viewBox="0 0 524 297" fill="none" xmlns="http://www.w3.org/2000/svg">
+<foreignObject x="-379.2" y="-379.2" width="1460.4" height="1055.4"><div xmlns="http://www.w3.org/1999/xhtml" style="backdrop-filter:blur(189.6px);height:100%;width:100%"></div></foreignObject><path data-figma-bg-blur-radius="379.2" d="M2.86102e-06 1H450.63C464.438 1 475.63 12.1929 475.63 26V271C475.63 284.807 486.823 296 500.63 296H702" stroke="url(#paint0_linear_7252_3482)" stroke-opacity="0.6" stroke-width="2"/>
+<defs>
+<linearGradient id="paint0_linear_7252_3482" x1="0" y1="148.5" x2="702" y2="148.5" gradientUnits="userSpaceOnUse">
+<stop stop-opacity="0"/>
+<stop offset="0.514423" stop-color="#25D0FF"/>
+<stop offset="1" stop-opacity="0"/>
+</linearGradient>
+</defs>
+</svg></div>
+
+        <!-- Card 1: Left -->
+        <div class="features__card features__card--left">
+          <img src="https://nesso.vn/wp-content/uploads/2026/06/human-resources.png" alt="" class="features__card-icon">
+          <div class="features__card-content">
+            <h3 class="features__card-title">Thầu nhân lực, tối ưu tuyển dụng</h3>
+            <p class="features__card-desc">Cung cấp trọn gói thầu nhân lực đến tối ưu tuyển dụng</p>
+          </div>
+        </div>
+
+        <!-- Card 2: Right -->
+        <div class="features__card features__card--right">
+          <img src="https://nesso.vn/wp-content/uploads/2026/06/reload-icon.png" alt="" class="features__card-icon">
+          <div class="features__card-content">
+            <h3 class="features__card-title">Vận hành & đào tạo toàn diện</h3>
+            <p class="features__card-desc">Vận hành, đào tạo theo mọi quy mô doanh nghiệp với trải nghiệm học tập dựa
+              trên phương pháp luận hiện đại</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom decorative line (from Figma) -->
+      <div class="features__bottom-line"><svg width="1120" height="1" viewBox="0 0 1120 1" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 0.5H1120" stroke="url(#paint0_linear_7249_2303)"/>
+<defs>
+<linearGradient id="paint0_linear_7249_2303" x1="1120" y1="1" x2="0" y2="1" gradientUnits="userSpaceOnUse">
+<stop/>
+<stop offset="0.514423" stop-color="#25D0FF"/>
+<stop offset="1"/>
+</linearGradient>
+</defs>
+</svg></div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 7: PRICING PLANS — Gói dịch vụ
+         ============================================================ -->
+    <section class="pricing" id="pricing">
+      <h2 class="pricing__heading">Gói dịch vụ</h2>
+      <p class="pricing__subtitle">Các gói dịch vụ linh hoạt được thiết kế phù hợp với quy<br>mô, mục tiêu và định hướng
+        phát triển của doanh nghiệp</p>
+
+      <div class="pricing__switch pricing__switch--lms" role="tablist" aria-label="Chọn nhóm gói dịch vụ">
+        <button class="pricing__switch-option pricing__switch-option--active" type="button" role="tab"
+          aria-selected="true" aria-controls="pricing-lms-panel" data-pricing-tab="lms">LMS</button>
+        <button class="pricing__switch-option" type="button" role="tab" aria-selected="false"
+          aria-controls="pricing-content-panel" data-pricing-tab="content">Chuyển đổi nội dung</button>
+      </div>
+
+      <article class="pricing__panel" id="pricing-content-panel" role="tabpanel" data-pricing-panel="content" hidden>
+        <div class="pricing__content-page" data-pricing-content-page="3" hidden>
+          <div class="pricing__hero">
+            <div class="pricing__plan-line">
+              <button class="pricing__plan-button" type="button" data-pricing-content-trigger="1">Gói tiêu
+                chuẩn</button>
+              <span class="pricing__dot-separator">•</span>
+              <button class="pricing__plan-button" type="button" data-pricing-content-trigger="2">Gói nâng cao</button>
+              <span class="pricing__dot-separator">•</span>
+              <button class="pricing__plan-button pricing__plan-button--active" type="button" aria-current="true"
+                data-pricing-content-trigger="3" data-pricing-plan-label="pro">Gói chuyên nghiệp</button>
+            </div>
+            <div class="pricing__pager" aria-label="Chọn trang gói chuyển đổi nội dung">
+              <button class="pricing__pager-dot" type="button" aria-label="Trang 1"
+                data-pricing-content-trigger="1"></button>
+              <button class="pricing__pager-dot" type="button" aria-label="Trang 2"
+                data-pricing-content-trigger="2"></button>
+              <button class="pricing__pager-dot pricing__pager-dot--active" type="button" aria-label="Trang 3"
+                aria-current="true" data-pricing-content-trigger="3"></button>
+            </div>
+            <div class="pricing__price">116.000.000đ</div>
+            <p class="pricing__vat">Giá chưa bao gồm VAT</p>
+          </div>
+
+          <div class="pricing__body">
+            <div class="pricing__feature-grid">
+              <div class="pricing__feature">
+                <span class="pricing__feature-mark" aria-hidden="true">*</span>
+                <div>
+                  <h3>Tích hợp</h3>
+                  <p>Phù hợp bài giảng cốt lõi, yêu cầu tính tương tác và thẩm mỹ cao nhất. Thích hợp cho <strong>5-6
+                      khoá học.</strong></p>
+                </div>
+              </div>
+
+              <div class="pricing__feature">
+                <span class="pricing__feature-mark" aria-hidden="true">*</span>
+                <div>
+                  <h3>Assignment</h3>
+                  <p>Upload files, viết luận, test tính thời gian<br>Lên đến <strong>7 Assignment</strong></p>
+                </div>
+              </div>
+
+              <div class="pricing__feature">
+                <span class="pricing__feature-mark" aria-hidden="true">*</span>
+                <div>
+                  <h3>Nội dung bài giảng</h3>
+                  <p><strong>8 giờ thời lượng học</strong> (Word, PDF, PPT -> 35-50 Infographic, 5 sơ đồ, văn bản,
+                    audio) + <strong>50 phút video cơ bản*</strong></p>
+                </div>
+              </div>
+
+              <div class="pricing__feature">
+                <span class="pricing__feature-mark" aria-hidden="true">*</span>
+                <div>
+                  <h3>Video AI</h3>
+                  <p>Voice over, avatar (hoạt hình/người thật/mua bản quyền), ngữ cảnh cụ thể, hiệu ứng âm thanh, chất
+                    lượng nhất quán<br><strong>25-30 phút tổng thời lượng</strong></p>
+                </div>
+              </div>
+
+              <div class="pricing__feature">
+                <span class="pricing__feature-mark" aria-hidden="true">*</span>
+                <div>
+                  <h3>Quiz/Test</h3>
+                  <p><strong>9-12 gamification</strong> (kéo thả, đố vui...), <strong>50 MCQ</strong></p>
+                </div>
+              </div>
+
+              <a href="#contact" class="pricing__contact" data-contact-open>Liên hệ với Nesso</a>
+            </div>
+
+            <div class="pricing__divider"></div>
+
+            <div class="pricing__notes">
+              <p><span aria-hidden="true">*</span>Tất cả các gói đều sử dụng phương pháp Instructional<br>Design để đóng
+                gói chuẩn SCORM</p>
+              <p><span aria-hidden="true">*</span>Video cơ bản: hướng dẫn sử dụng/nội dung có voice<br>over, cắt ghép từ
+                nguồn có sẵn</p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="pricing__content-page" data-pricing-content-page="2" hidden>
+          <div class="pricing__hero">
+            <div class="pricing__plan-line">
+              <button class="pricing__plan-button" type="button" data-pricing-content-trigger="1">Gói tiêu
+                chuẩn</button>
+              <span class="pricing__dot-separator">•</span>
+              <button class="pricing__plan-button pricing__plan-button--active" type="button" aria-current="true"
+                data-pricing-content-trigger="2">Gói nâng cao</button>
+              <span class="pricing__dot-separator">•</span>
+              <button class="pricing__plan-button" type="button" data-pricing-content-trigger="3"
+                data-pricing-plan-label="pro">Gói chuyên nghiệp</button>
+            </div>
+            <div class="pricing__pager" aria-label="Chọn trang gói chuyển đổi nội dung">
+              <button class="pricing__pager-dot" type="button" aria-label="Trang 1"
+                data-pricing-content-trigger="1"></button>
+              <button class="pricing__pager-dot pricing__pager-dot--active" type="button" aria-label="Trang 2"
+                aria-current="true" data-pricing-content-trigger="2"></button>
+              <button class="pricing__pager-dot" type="button" aria-label="Trang 3"
+                data-pricing-content-trigger="3"></button>
+            </div>
+            <div class="pricing__price-row">
+              <div class="pricing__price">55.000.000đ</div>
+              <span class="pricing__popular-badge">Phổ biến</span>
+            </div>
+            <p class="pricing__vat">Giá chưa bao gồm VAT</p>
+          </div>
+
+          <div class="pricing__body">
+            <div class="pricing__feature-grid">
+              <div class="pricing__feature">
+                <span class="pricing__feature-mark" aria-hidden="true">*</span>
+                <div>
+                  <h3>Tích hợp</h3>
+                  <p>Phù hợp bài giảng kỹ năng, kết hợp công nghệ AI hiện đại. Thích hợp cho <strong>3 khoá
+                      học.</strong></p>
+                </div>
+              </div>
+
+              <div class="pricing__feature">
+                <span class="pricing__feature-mark" aria-hidden="true">*</span>
+                <div>
+                  <h3>Assignment</h3>
+                  <p>Upload files, viết luận, test tính thời gian<br>Lên đến <strong>4 Assignment</strong></p>
+                </div>
+              </div>
+
+              <div class="pricing__feature">
+                <span class="pricing__feature-mark" aria-hidden="true">*</span>
+                <div>
+                  <h3>Nội dung bài giảng</h3>
+                  <p><strong>5 giờ thời lượng học</strong> (Word, PDF, PPT -> 20-35 Infographic, 3 sơ đồ, văn bản,
+                    audio) + <strong>40 phút video cơ bản*</strong></p>
+                </div>
+              </div>
+
+              <div class="pricing__feature">
+                <span class="pricing__feature-mark" aria-hidden="true">*</span>
+                <div>
+                  <h3>Video AI</h3>
+                  <p>Voice over, avatar (hoạt hình/người thật/mua bản quyền), ngữ cảnh cụ thể, hiệu ứng âm thanh, chất
+                    lượng nhất quán<br><strong>10-15 phút tổng thời lượng</strong></p>
+                </div>
+              </div>
+
+              <div class="pricing__feature">
+                <span class="pricing__feature-mark" aria-hidden="true">*</span>
+                <div>
+                  <h3>Quiz/Test</h3>
+                  <p><strong>5-8 gamification</strong> (kéo thả, đố vui...), <strong>50 MCQ</strong></p>
+                </div>
+              </div>
+
+              <a href="#contact" class="pricing__contact" data-contact-open>Liên hệ với Nesso</a>
+            </div>
+
+            <div class="pricing__divider"></div>
+
+            <div class="pricing__notes">
+              <p><span aria-hidden="true">*</span>Tất cả các gói đều sử dụng phương pháp Instructional<br>Design để đóng
+                gói chuẩn SCORM.</p>
+              <p><span aria-hidden="true">*</span>Video cơ bản: hướng dẫn sử dụng/nội dung có voice<br>over, cắt ghép từ
+                nguồn có sẵn</p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="pricing__content-page pricing__content-page--active" data-pricing-content-page="1">
+          <div class="pricing__hero">
+            <div class="pricing__plan-line">
+              <button class="pricing__plan-button pricing__plan-button--active" type="button" aria-current="true"
+                data-pricing-content-trigger="1">Gói tiêu chuẩn</button>
+              <span class="pricing__dot-separator">•</span>
+              <button class="pricing__plan-button" type="button" data-pricing-content-trigger="2">Gói nâng cao</button>
+              <span class="pricing__dot-separator">•</span>
+              <button class="pricing__plan-button" type="button" data-pricing-content-trigger="3"
+                data-pricing-plan-label="pro">Gói chuyên nghiệp</button>
+            </div>
+            <div class="pricing__pager" aria-label="Chọn trang gói chuyển đổi nội dung">
+              <button class="pricing__pager-dot pricing__pager-dot--active" type="button" aria-label="Trang 1"
+                aria-current="true" data-pricing-content-trigger="1"></button>
+              <button class="pricing__pager-dot" type="button" aria-label="Trang 2"
+                data-pricing-content-trigger="2"></button>
+              <button class="pricing__pager-dot" type="button" aria-label="Trang 3"
+                data-pricing-content-trigger="3"></button>
+            </div>
+            <div class="pricing__price">24.000.000đ</div>
+            <p class="pricing__vat">Giá chưa bao gồm VAT</p>
+          </div>
+
+          <div class="pricing__body">
+            <div class="pricing__feature-grid">
+              <div class="pricing__feature">
+                <span class="pricing__feature-mark" aria-hidden="true">*</span>
+                <div>
+                  <h3>Tích hợp</h3>
+                  <p>Phù hợp bài giảng lý thuyết, tài liệu nội bộ, tối ưu chi phí. Thích hợp cho <strong>1 khoá
+                      học.</strong></p>
+                </div>
+              </div>
+
+              <div class="pricing__feature">
+                <span class="pricing__feature-mark" aria-hidden="true">*</span>
+                <div>
+                  <h3>Assignment</h3>
+                  <p>Upload files, viết luận, test tính thời gian<br>Lên đến <strong>2 Assignment</strong></p>
+                </div>
+              </div>
+
+              <div class="pricing__feature">
+                <span class="pricing__feature-mark" aria-hidden="true">*</span>
+                <div>
+                  <h3>Nội dung bài giảng</h3>
+                  <p><strong>2 giờ thời lượng học</strong> (Word, PDF, PPT -> lên đến 20 Infographic, 2 sơ đồ, văn bản,
+                    audio) + <strong>30 phút video cơ bản*</strong></p>
+                </div>
+              </div>
+
+              <div class="pricing__feature">
+                <span class="pricing__feature-mark" aria-hidden="true">*</span>
+                <div>
+                  <h3>Video AI</h3>
+                  <p>Voice over, avatar (hoạt hình/người thật/mua bản quyền), ngữ cảnh cụ thể, hiệu ứng âm thanh, chất
+                    lượng nhất quán<br><strong>Không áp dụng</strong></p>
+                </div>
+              </div>
+
+              <div class="pricing__feature">
+                <span class="pricing__feature-mark" aria-hidden="true">*</span>
+                <div>
+                  <h3>Quiz/Test</h3>
+                  <p><strong>2-4 gamification</strong> (kéo thả, đố vui...), <strong>50 MCQ</strong></p>
+                </div>
+              </div>
+
+              <a href="#contact" class="pricing__contact" data-contact-open>Liên hệ với Nesso</a>
+            </div>
+
+            <div class="pricing__divider"></div>
+
+            <div class="pricing__notes">
+              <p><span aria-hidden="true">*</span>Tất cả các gói đều sử dụng phương pháp Instructional<br>Design để đóng
+                gói chuẩn SCORM</p>
+              <p><span aria-hidden="true">*</span>Video cơ bản: hướng dẫn sử dụng/nội dung có voice<br>over, cắt ghép từ
+                nguồn có sẵn</p>
+            </div>
+
+          </div>
+        </div>
+      </article>
+
+      <div class="pricing__mini-card">
+        <h3>Gói DN theo năm</h3>
+        <p>Liên hệ với Nesso để báo giá chi tiết</p>
+        <a href="#contact" class="pricing__mini-contact" data-contact-open>Liên hệ với Nesso</a>
+      </div>
+
+      <article class="pricing__panel pricing__panel--lms pricing__panel--active" id="pricing-lms-panel" role="tabpanel"
+        data-pricing-panel="lms">
+        <div class="pricing__lms-card">
+          <div class="pricing__lms-top">
+            <div>
+              <h3>Nesso LMS</h3>
+              <p>Triển khai hệ thống</p>
+            </div>
+          </div>
+
+          <div class="pricing__lms-price-row">
+            <span>Từ</span>
+            <strong>57.500.000đ</strong>
+          </div>
+
+          <div class="pricing__lms-divider"></div>
+
+          <div class="pricing__lms-feature-grid">
+            <div class="pricing__lms-feature">
+              <span>#01</span>
+              <p>Bảo mật tài sản trí tuệ<br>Xóa bỏ rào cản địa lý<br>Tối ưu 80% nguồn lực quản trị</p>
+            </div>
+
+            <div class="pricing__lms-feature">
+              <span>#02</span>
+              <p>Thiết kế độc bản toàn bộ UX/UI<br>Chuẩn hoá giao diện theo Brand Guideline<br>Thiết kế bộ huy hiệu,
+                chứng chỉ độc quyền</p>
+            </div>
+
+            <div class="pricing__lms-feature">
+              <span>#03</span>
+              <p>Bảo hành miễn phí 24/7 trong 6 tháng đầu<br>Bảo hành hằng năm (tính sau khi hết hạn bảo hành miễn phí)
+              </p>
+            </div>
+
+            <div class="pricing__lms-feature">
+              <span>#04</span>
+              <p>Số hoá tài sản tri thức<br>Tối ưu hiệu suất đào tạo<br>Nhân bản năng lực bằng AI</p>
+            </div>
+          </div>
+
+          <a href="#contact" class="pricing__lms-contact" data-contact-open>Liên hệ với Nesso</a>
+        </div>
+      </article>
+    </section>
+
+    <!-- ============================================================
+         SECTION 8: CLIENT TESTIMONIALS
+         ============================================================ -->
+    <section class="testimonials" id="testimonials">
+      <div class="testimonials__wrapper">
+        <!-- Left: Quote -->
+        <div class="testimonials__left">
+          <span class="testimonials__badge">Client Testimonials</span>
+          <blockquote class="testimonials__quote">
+            <span class="testimonials__quote-mark">"</span>Nesso không chỉ cung cấp LMS mà còn mang đến tư duy quản trị đào tạo bài bản. Nhờ đó, chúng tôi tối ưu 40% chi phí đào tạo nhưng vẫn đảm bảo tính đồng bộ trên toàn hệ thống.<span class="testimonials__quote-mark">"</span>
+          </blockquote>
+          <p class="testimonials__author">Bà Nguyễn Phạm Minh Uyên - <em>Giám đốc nhân sự</em></p>
+        </div>
+
+        <!-- Right: Visual + overlay cards -->
+        <div class="testimonials__right">
+          <img src="https://nesso.vn/wp-content/uploads/2026/06/testimonial.png" alt="" class="testimonials__visual">
+
+
+          <!-- Overlay card 2 -->
+          <div class="testimonials__overlay-card testimonials__overlay-card--2">
+            <img src="https://nesso.vn/wp-content/uploads/2026/08/testimonial3.avif" alt="Ông Võ Anh Tuấn" class="testimonials__overlay-avatar">
+            <p class="testimonials__overlay-text">"Nesso giúp số hóa SOP nhanh, trực quan và chuẩn hóa vận hành hiệu quả."</p>
+            <span class="testimonials__overlay-author">Ông Võ Anh Tuấn - Quản lý đào tạo</span>
+          </div>
+
+          <!-- Overlay card 3 -->
+          <div class="testimonials__overlay-card testimonials__overlay-card--3">
+            <img src="https://nesso.vn/wp-content/uploads/2026/08/testimonial1.webp" alt="Ông Trần Phạm Duy Khang" class="testimonials__overlay-avatar">
+            <p class="testimonials__overlay-text">"Chúng tôi tin tưởng Nesso trong triển khai LMS và số hóa đào tạo phục vụ mở rộng quy mô."</p>
+            <span class="testimonials__overlay-author">Ông Trần Phạm Duy Khang - Giám đốc điều hành</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 9+10 WRAPPER: shared BG
+         ============================================================ -->
+    <div class="cta-footer-wrapper">
+      <img src="https://nesso.vn/wp-content/uploads/2026/06/hero-bg-texture.png" alt="" class="cta-footer-wrapper__bg">
+      <img src="https://nesso.vn/wp-content/uploads/2026/06/SVG_mask.png" alt="" class="cta-footer-wrapper__mask" aria-hidden="true">
+
+      <!-- CTA FINAL -->
+      <section class="cta-final" id="cta-final">
+        <div class="cta-final__content">
+          <h2 class="cta-final__heading">Nâng tầm<br>doanh nghiệp của bạn</h2>
+          <div class="cta-final__buttons">
+            <a href="#contact" class="cta-final__btn-primary" data-contact-open>Liên hệ với Nesso</a>
+            <a href="#proposal-view" class="cta-final__btn-secondary" data-proposal-open data-proposal-footer-toggle>Xem Proposal</a>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer" id="footer">
+        <div class="footer__card">
+          <div class="footer__top">
+            <div class="footer__brand">
+              <img src="https://nesso.vn/wp-content/uploads/2026/06/footer-logo.svg" alt="NESSO" class="footer__logo">
+              <p class="footer__member">NESSO IS A MEMBER OF L&A HOLDINGS</p>
+              <p class="footer__address">Address: 11 Huynh Dinh Hai Street, Binh Thanh Ward, Ho Chi Minh City</p>
+            </div>
+            <div class="footer__right">
+              <div class="footer__connect">
+                <span class="footer__connect-label">CONNECT WITH US</span>
+                <div class="footer__email-input" data-footer-contact-open>
+                  <input type="email" placeholder="Enter your email" class="footer__input" readonly aria-label="Đi tới trang liên hệ">
+                  <button class="footer__submit" type="button" aria-label="Đi tới trang liên hệ"><img src="https://nesso.vn/wp-content/uploads/2026/06/arrow.png" alt="Submit"
+                      class="footer__arrow"></button>
+                </div>
+              </div>
+              <div class="footer__disclaimer">
+                <p>*Chúng tôi cam kết cung cấp giải pháp LMS an toàn. Bằng cách đặt an toàn dữ liệu là ưu tiên hàng đầu
+                  trong quá trình thiết kế, phát triển, triển khai và bảo trì, chúng tôi hướng tới xây dựng một hệ thống
+                  mạnh mẽ và đáng tin cậy.</p>
+              </div>
+            </div>
+          </div>
+          <div class="footer__bottom">
+            <span class="footer__copyright">©2026 NESSO. All rights reserved</span>
+            <div class="footer__bottom-right">
+              <span class="footer__contact-email">CONTACT@NESSO.VN</span>
+              <div class="footer__social">
+                <a href="#"><img src="https://nesso.vn/wp-content/uploads/2026/06/social-instagram.svg" alt="Instagram"></a>
+                <a href="https://www.facebook.com/profile.php?id=61591278305440" target="_blank" rel="noopener noreferrer" aria-label="Facebook Nesso"><img src="https://nesso.vn/wp-content/uploads/2026/06/social-facebook.svg" alt="Facebook"></a>
+                <a href="https://www.linkedin.com/company/nesso-e-learning-production/?viewAsMember=true" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Nesso"><img src="https://nesso.vn/wp-content/uploads/2026/06/social-linkedin.svg" alt="LinkedIn"></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+  </div>
+
+  <script src="script.js?v=lms-features-v358"></script>
+</body>
+
+</html>
+

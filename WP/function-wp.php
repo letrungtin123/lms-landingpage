@@ -413,6 +413,12 @@ function nesso_lms_proposal_rewrite() {
     );
 
     add_rewrite_rule(
+        '^lms-e-learning-page/lms-feature-details/?$',
+        'index.php?page_id=4351&nesso_lms_view=feature-details',
+        'top'
+    );
+
+    add_rewrite_rule(
         '^lms-e-learning-page/482917306584/([^/]+)/?$',
         'index.php?page_id=4351&nesso_lms_view=lucky',
         'top'
@@ -436,9 +442,9 @@ function nesso_lms_proposal_rewrite() {
         'top'
     );
 
-    if ( get_option('nesso_lms_proposal_rewrite_version') !== '10' ) {
+    if ( get_option('nesso_lms_proposal_rewrite_version') !== '11' ) {
         flush_rewrite_rules(false);
-        update_option('nesso_lms_proposal_rewrite_version', '10');
+        update_option('nesso_lms_proposal_rewrite_version', '11');
     }
 }
 
@@ -446,7 +452,7 @@ add_filter('redirect_canonical', 'nesso_lms_keep_proposal_route', 10, 2);
 function nesso_lms_keep_proposal_route($redirect_url, $requested_url) {
     $request_path = isset($_SERVER['REQUEST_URI']) ? wp_parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) : '';
 
-    if ( preg_match('#/lms-e-learning-page/(proposal|lms-blog|contact|lms-features|482917306584|9184726503918274|6402819573064918)(?:/[^/]+)?/?$#', $request_path) ) {
+    if ( preg_match('#/lms-e-learning-page/(proposal|lms-blog|contact|lms-features|lms-feature-details|482917306584|9184726503918274|6402819573064918)(?:/[^/]+)?/?$#', $request_path) ) {
         return false;
     }
 

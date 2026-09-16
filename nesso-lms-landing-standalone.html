@@ -5227,6 +5227,1108 @@ html.nesso-lang-en .hero__body {
   }
 }
 
+/* LMS feature detail: lighter typography and full-size exported banner art. */
+body.lms-feature-details-mode .lms-feature-details-view,
+html.lms-feature-details-boot .lms-feature-details-view {
+  font-weight: 360;
+}
+
+body.lms-feature-details-mode .lms-feature-details-view :is(h1, h2, h3, p, strong, a, button, span),
+html.lms-feature-details-boot .lms-feature-details-view :is(h1, h2, h3, p, strong, a, button, span) {
+  font-weight: 360 !important;
+}
+
+body.lms-feature-details-mode .header__demo-cta,
+html.lms-feature-details-boot .header__demo-cta {
+  font-weight: 400 !important;
+}
+
+.lms-feature-details-hero h1 em {
+  color: transparent;
+  background: linear-gradient(90deg, #16D7F5 0%, #46E2F7 52%, #9AF3FF 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: inherit;
+}
+
+@media (min-width: 1025px) {
+  .lms-feature-details-hero__visual {
+    width: 660px;
+    max-width: none;
+    height: 530px;
+    margin: 6px -44px 0 auto;
+    transform: scale(1.25);
+    transform-origin: center right;
+  }
+
+  .lms-feature-details-hero__copy {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+@media (min-width: 721px) and (max-width: 1024px) {
+  .lms-feature-details-hero__visual {
+    width: min(100%, 590px);
+    height: 480px;
+    margin-right: -18px;
+  }
+}
+
+/* Final mobile cascade for the LMS features route. */
+@media (max-width: 720px) {
+  .lms-features-hero {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 0 0 18px;
+  }
+
+  .lms-features-hero__bg {
+    background-position: 58% center;
+    background-size: auto 100%;
+  }
+
+  /* Enlarge and anchor the artwork so the mobile CTAs stay on the darker part. */
+  body.lms-features-mode .lms-features-hero__bg,
+  html.lms-features-boot .lms-features-hero__bg {
+    background-position: 76% 0 !important;
+    background-size: auto 134% !important;
+  }
+
+  .lms-features-hero__content,
+  html.nesso-lang-en .lms-features-hero__content {
+    width: 100%;
+    padding: 62px 20px 0;
+  }
+
+  .lms-features-hero__eyebrow {
+    margin-bottom: 12px;
+    font-size: 15px;
+  }
+
+  .lms-features-hero__heading,
+  html.nesso-lang-en .lms-features-hero__heading {
+    font-size: clamp(38px, 10.8vw, 44px);
+    line-height: 1.08;
+  }
+
+  .lms-features-hero__checks,
+  html.nesso-lang-en .lms-features-hero__checks {
+    gap: 11px;
+    margin-top: 22px;
+    font-size: 15px;
+    line-height: 1.42;
+  }
+
+  .lms-features-hero__checks li {
+    padding-left: 27px;
+  }
+
+  .lms-features-hero__checks li::before {
+    top: 7px;
+    width: 13px;
+    height: 7px;
+    border-width: 0 0 2px 2px;
+  }
+
+  .lms-features-hero__actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 30px;
+  }
+
+  .lms-features-hero__primary,
+  .lms-features-hero__secondary {
+    width: 100%;
+    min-width: 0;
+    height: 52px;
+    padding: 0 10px;
+    font-size: 14px;
+  }
+
+  .lms-features-hero__tag-block {
+    max-width: none;
+    margin-top: 32px;
+  }
+
+  .lms-features-hero__tag-block p {
+    margin-bottom: 13px;
+    font-size: 15px;
+  }
+
+  .lms-features-hero__tags {
+    gap: 8px;
+  }
+
+  .lms-features-hero__tags span {
+    min-height: 36px;
+    padding: 0 13px;
+    font-size: 14px;
+  }
+
+  .lms-features-hero__laptop {
+    position: relative;
+    z-index: 1;
+    right: auto;
+    bottom: auto;
+    align-self: center;
+    width: min(132vw, 520px);
+    max-width: none;
+    margin: 0 auto -42px;
+    transform: translateX(4%);
+  }
+
+  .lms-features-grid-section {
+    padding: 56px 0 60px;
+  }
+
+  .lms-features-grid-section__intro {
+    width: min(100% - 40px, 560px);
+    margin-bottom: 30px;
+  }
+
+  .lms-features-grid-section__intro h2 {
+    font-size: 32px;
+    line-height: 1.12;
+  }
+
+  .lms-features-grid-section__intro p {
+    margin-top: 14px;
+    font-size: 15px;
+    line-height: 1.48;
+  }
+
+  .lms-features-grid-section__visual {
+    width: min(100% - 32px, 560px);
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lms-features-grid-card {
+    min-height: 390px;
+    border-right: 0 !important;
+    border-bottom: 1px solid rgba(106, 227, 255, 0.18) !important;
+  }
+
+  .lms-features-grid-card:last-child {
+    border-bottom: 0 !important;
+  }
+
+  .lms-features-grid-card__copy {
+    padding: 24px 24px 0;
+  }
+
+  .lms-features-grid-card__copy h3 {
+    min-height: 42px;
+    padding: 0 15px;
+    font-size: 18px;
+  }
+
+  .lms-features-grid-card__copy p {
+    max-width: 310px;
+    margin-top: 15px;
+    font-size: 14px;
+    line-height: 1.42;
+  }
+
+  .lms-features-grid-card__media {
+    inset: 176px 0 0;
+  }
+
+  .lms-features-grid-card--learning .lms-features-grid-card__media {
+    inset: 158px -14px -8px 0;
+  }
+
+  .lms-features-grid-card--learning .lms-features-grid-card__media img {
+    transform: translateX(4px);
+  }
+
+  .lms-features-grid-card--cms .lms-features-grid-card__media {
+    top: 165px;
+  }
+
+  .lms-features-grid-card--brand .lms-features-grid-card__media img {
+    transform: translateY(-28px);
+  }
+
+  .lms-features-library {
+    padding: 0 0 48px;
+  }
+
+  .lms-features-library__card {
+    width: min(100% - 32px, 560px);
+    border-radius: 22px;
+  }
+
+  .lms-features-library__button {
+    top: 32% !important;
+    min-width: 112px !important;
+    height: 34px !important;
+    padding: 0 10px !important;
+    font-size: 11px !important;
+  }
+
+  .lms-features-hero__laptop {
+    display: none !important;
+  }
+
+  .lms-features-library__card {
+    width: min(100% - 16px, 600px) !important;
+    min-height: 232px;
+  }
+
+  .lms-features-library__card img {
+    height: 232px !important;
+    object-fit: cover !important;
+    object-position: center;
+  }
+
+  body.lms-features-mode .lms-features-library,
+  html.lms-features-boot .lms-features-library {
+    padding-bottom: 16px !important;
+  }
+
+  body.lms-features-mode .cta-footer-wrapper,
+  html.lms-features-boot .cta-footer-wrapper {
+    padding-top: 28px !important;
+  }
+}
+
+/* LMS features route: compact single-column mobile composition. */
+@media (max-width: 720px) {
+  .lms-features-hero {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 0 0 18px;
+  }
+
+  .lms-features-hero__bg {
+    background-position: 58% center;
+    background-size: auto 100%;
+  }
+
+  .lms-features-hero__content,
+  html.nesso-lang-en .lms-features-hero__content {
+    width: 100%;
+    padding: 62px 20px 0;
+  }
+
+  .lms-features-hero__eyebrow {
+    margin-bottom: 12px;
+    font-size: 15px;
+  }
+
+  .lms-features-hero__heading,
+  html.nesso-lang-en .lms-features-hero__heading {
+    font-size: clamp(38px, 10.8vw, 44px);
+    line-height: 1.08;
+  }
+
+  .lms-features-hero__checks,
+  html.nesso-lang-en .lms-features-hero__checks {
+    gap: 11px;
+    margin-top: 22px;
+    font-size: 15px;
+    line-height: 1.42;
+  }
+
+  .lms-features-hero__checks li {
+    padding-left: 27px;
+  }
+
+  .lms-features-hero__checks li::before {
+    top: 7px;
+    width: 13px;
+    height: 7px;
+    border-width: 0 0 2px 2px;
+  }
+
+  .lms-features-hero__actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 30px;
+  }
+
+  .lms-features-hero__primary,
+  .lms-features-hero__secondary {
+    width: 100%;
+    min-width: 0;
+    height: 52px;
+    padding: 0 10px;
+    font-size: 14px;
+  }
+
+  .lms-features-hero__tag-block {
+    max-width: none;
+    margin-top: 32px;
+  }
+
+  .lms-features-hero__tag-block p {
+    margin-bottom: 13px;
+    font-size: 15px;
+  }
+
+  .lms-features-hero__tags {
+    gap: 8px;
+  }
+
+  .lms-features-hero__tags span {
+    min-height: 36px;
+    padding: 0 13px;
+    font-size: 14px;
+  }
+
+  .lms-features-hero__laptop {
+    position: relative;
+    z-index: 1;
+    right: auto;
+    bottom: auto;
+    align-self: center;
+    width: min(132vw, 520px);
+    max-width: none;
+    margin: 0 auto -42px;
+    transform: translateX(4%);
+  }
+
+  .lms-features-grid-section {
+    padding: 56px 0 60px;
+  }
+
+  .lms-features-grid-section__intro {
+    width: min(100% - 40px, 560px);
+    margin-bottom: 30px;
+  }
+
+  .lms-features-grid-section__intro h2 {
+    font-size: 32px;
+    line-height: 1.12;
+  }
+
+  .lms-features-grid-section__intro p {
+    margin-top: 14px;
+    font-size: 15px;
+    line-height: 1.48;
+  }
+
+  .lms-features-grid-section__visual {
+    width: min(100% - 32px, 560px);
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lms-features-grid-card {
+    min-height: 390px;
+    border-right: 0 !important;
+    border-bottom: 1px solid rgba(106, 227, 255, 0.18) !important;
+  }
+
+  .lms-features-grid-card:last-child {
+    border-bottom: 0 !important;
+  }
+
+  .lms-features-grid-card__copy {
+    padding: 24px 24px 0;
+  }
+
+  .lms-features-grid-card__copy h3 {
+    min-height: 42px;
+    padding: 0 15px;
+    font-size: 18px;
+  }
+
+  .lms-features-grid-card__copy p {
+    max-width: 310px;
+    margin-top: 15px;
+    font-size: 14px;
+    line-height: 1.42;
+  }
+
+  .lms-features-grid-card__media {
+    inset: 176px 0 0;
+  }
+
+  .lms-features-grid-card--learning .lms-features-grid-card__media {
+    inset: 158px -14px -8px 0;
+  }
+
+  .lms-features-grid-card--learning .lms-features-grid-card__media img {
+    transform: translateX(4px);
+  }
+
+  .lms-features-grid-card--cms .lms-features-grid-card__media {
+    top: 165px;
+  }
+
+  .lms-features-grid-card--brand .lms-features-grid-card__media img {
+    transform: translateY(-28px);
+  }
+
+  .lms-features-library {
+    padding: 0 0 48px;
+  }
+
+  .lms-features-library__card {
+    width: min(100% - 32px, 560px);
+    border-radius: 22px;
+  }
+
+  .lms-features-library__button {
+    top: 43%;
+    min-width: 0;
+    height: 40px;
+    padding: 0 17px;
+    font-size: 12px;
+  }
+}
+
+/* Sticky feature navigation and mobile details-route refinements. */
+body.lms-feature-details-mode .lms-feature-details-discovery,
+html.lms-feature-details-boot .lms-feature-details-discovery {
+  overflow: visible;
+  padding-bottom: 36px !important;
+  background: #000000 !important;
+}
+
+body.lms-feature-details-mode .lms-feature-details-filters,
+html.lms-feature-details-boot .lms-feature-details-filters {
+  --lms-detail-filter-top: 96px;
+  position: sticky;
+  top: var(--lms-detail-filter-top);
+  z-index: 900;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 10px max(24px, calc((100% - 920px) / 2)) 12px;
+  background: transparent;
+  border-bottom: 0;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition: top 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body.lms-feature-details-mode.lms-feature-details-mode .lms-feature-details-filters button,
+html.lms-feature-details-boot.lms-feature-details-boot .lms-feature-details-filters button {
+  background: rgba(0, 0, 0, 0.46) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(18px) saturate(145%);
+  -webkit-backdrop-filter: blur(18px) saturate(145%);
+}
+
+body.lms-feature-details-mode.lms-feature-details-mode .lms-feature-details-filters button.is-active,
+html.lms-feature-details-boot.lms-feature-details-boot .lms-feature-details-filters button.is-active {
+  border-style: solid;
+  border-color: rgba(22, 215, 244, 0.92) !important;
+  background: rgba(8, 144, 176, 0.52) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body.lms-feature-details-mode.lms-feature-details-mode .lms-feature-details-filters button:hover,
+  html.lms-feature-details-boot.lms-feature-details-boot .lms-feature-details-filters button:hover {
+    border-color: rgba(126, 234, 255, 0.96) !important;
+    color: #FFFFFF !important;
+    background: rgba(8, 144, 176, 0.58) !important;
+    box-shadow: none !important;
+  }
+}
+
+body.lms-feature-details-mode .lms-feature-details-filters.lms-feature-details-filters--header-hidden,
+html.lms-feature-details-boot .lms-feature-details-filters.lms-feature-details-filters--header-hidden {
+  --lms-detail-filter-top: 8px;
+}
+
+@media (max-width: 720px) {
+  body.lms-feature-details-mode .lms-feature-details-filters,
+  html.lms-feature-details-boot .lms-feature-details-filters {
+    --lms-detail-filter-top: 76px;
+    gap: 9px;
+    padding: 9px 16px 11px;
+  }
+
+  body.lms-feature-details-mode .lms-feature-details-section__more,
+  html.lms-feature-details-boot .lms-feature-details-section__more {
+    justify-self: center;
+    width: min(100%, 280px);
+    min-width: 0;
+    margin: 26px auto 0 !important;
+    text-align: center;
+  }
+
+  body.lms-feature-details-mode .lms-feature-details-outro,
+  html.lms-feature-details-boot .lms-feature-details-outro {
+    width: calc(100% - 24px) !important;
+    margin: 18px auto 44px !important;
+    border-radius: 26px;
+  }
+
+  body.lms-feature-details-mode .lms-feature-details-outro__content a,
+  html.lms-feature-details-boot .lms-feature-details-outro__content a {
+    top: 38%;
+    min-width: 108px;
+    height: 36px;
+    padding: 0 16px;
+    font-size: 11px;
+  }
+}
+
+/* Keep these mobile overrides ahead of the later legacy cascade. */
+body.lms-feature-details-mode.lms-feature-details-mode .page,
+html.lms-feature-details-boot.lms-feature-details-boot .page {
+  overflow: visible !important;
+}
+
+@media (max-width: 720px) {
+  body.lms-feature-details-mode.lms-feature-details-mode .lms-feature-details-section__more,
+  html.lms-feature-details-boot.lms-feature-details-boot .lms-feature-details-section__more {
+    display: flex;
+    justify-self: center;
+    width: min(100%, 280px) !important;
+    min-width: 0 !important;
+    margin: 26px auto 0 !important;
+  }
+
+  body.lms-feature-details-mode.lms-feature-details-mode .lms-feature-details-outro,
+  html.lms-feature-details-boot.lms-feature-details-boot .lms-feature-details-outro {
+    width: calc(100% - 24px) !important;
+    margin: 18px auto 44px !important;
+    border-radius: 26px !important;
+  }
+
+  body.lms-feature-details-mode.lms-feature-details-mode .lms-feature-details-outro__content a,
+  html.lms-feature-details-boot.lms-feature-details-boot .lms-feature-details-outro__content a {
+    top: 38% !important;
+    min-width: 108px !important;
+    height: 36px !important;
+    padding: 0 16px !important;
+    font-size: 11px !important;
+  }
+}
+
+/* Final cascade guard: keep the hero highlight clipped to the letters. */
+.lms-feature-details-hero h1 em {
+  color: transparent !important;
+  background: linear-gradient(90deg, #16D7F5 0%, #46E2F7 52%, #9AF3FF 100%) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Keep the banner emphasis on the letters, not on an inline text box. */
+.lms-feature-details-hero h1 em {
+  color: transparent !important;
+  background: linear-gradient(90deg, #16D7F5 0%, #46E2F7 52%, #9AF3FF 100%) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+
+/* Match the LMS feature hero's desktop sizing and viewport-fit behavior. */
+@media (min-width: 1025px) {
+  body.lms-feature-details-mode .lms-feature-details-hero,
+  html.lms-feature-details-boot .lms-feature-details-hero {
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    background-size: auto calc(100% + 360px);
+    background-position: center bottom;
+  }
+
+  body.lms-feature-details-mode .lms-feature-details-hero__inner,
+  html.lms-feature-details-boot .lms-feature-details-hero__inner {
+    height: 100%;
+    min-height: 0;
+    box-sizing: border-box;
+    align-items: start;
+    padding-top: calc(clamp(96px, 11.5vh, 108px) + 88px);
+    padding-bottom: clamp(32px, 5vh, 64px);
+  }
+
+  .lms-feature-details-hero__visual {
+    align-self: center;
+  }
+
+  .lms-feature-details-hero h1 {
+    font-size: 60px;
+    line-height: 1.06;
+  }
+
+  .lms-feature-details-hero p {
+    max-width: 500px;
+    font-size: 18px;
+    line-height: 1.45;
+  }
+
+  .lms-feature-details-hero__actions {
+    margin-top: 40px;
+  }
+
+  .lms-feature-details-hero__actions a,
+  .lms-feature-details-hero__actions button {
+    height: 56px;
+    font-size: 17px;
+  }
+
+  .lms-feature-details-hero__actions a {
+    min-width: 238px;
+  }
+
+  .lms-feature-details-hero__actions button {
+    min-width: 206px;
+  }
+}
+
+@media (min-width: 1025px) and (max-height: 800px) {
+  body.lms-feature-details-mode .lms-feature-details-hero__inner,
+  html.lms-feature-details-boot .lms-feature-details-hero__inner {
+    padding-top: 132px;
+    padding-bottom: 12px;
+  }
+
+  .lms-feature-details-hero h1 {
+    font-size: 48px;
+  }
+
+  .lms-feature-details-hero p {
+    font-size: 15px;
+  }
+
+  .lms-feature-details-hero__actions {
+    margin-top: 20px;
+  }
+
+  .lms-feature-details-hero__actions a,
+  .lms-feature-details-hero__actions button {
+    height: 46px;
+    font-size: 15px;
+  }
+
+  .lms-feature-details-hero__visual {
+    width: 580px;
+    height: 466px;
+  }
+}
+
+/* ============================================================
+   LMS FEATURE DETAILS ROUTE
+   ============================================================ */
+.lms-feature-details-view[hidden] {
+  display: none !important;
+}
+
+.lms-feature-details-copy--en {
+  display: none;
+}
+
+html.nesso-lang-en .lms-feature-details-copy--vi {
+  display: none !important;
+}
+
+html.nesso-lang-en .lms-feature-details-copy--en {
+  display: inline;
+}
+
+body.lms-feature-details-mode .page > :not(.header):not(.lms-feature-details-view):not(.demo-embed):not(.cta-footer-wrapper),
+html.lms-feature-details-boot .page > :not(.header):not(.lms-feature-details-view):not(.demo-embed):not(.cta-footer-wrapper) {
+  display: none !important;
+}
+
+html.lms-feature-details-boot .lms-feature-details-view[hidden] {
+  display: block !important;
+}
+
+body.lms-feature-details-mode .page,
+html.lms-feature-details-boot .page {
+  padding-top: 0 !important;
+  background: #000000;
+  overflow: visible;
+}
+
+body.lms-feature-details-mode .cta-footer-wrapper .reveal,
+body.lms-feature-details-mode .cta-footer-wrapper.reveal,
+html.lms-feature-details-boot .cta-footer-wrapper .reveal,
+html.lms-feature-details-boot .cta-footer-wrapper.reveal {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.lms-feature-details-view {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  overflow: clip;
+  color: #FFFFFF;
+  background: #000000;
+}
+
+.lms-feature-details-view__backdrop {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 720px at 14% 5%, rgba(5, 123, 155, 0.24), transparent 67%),
+    radial-gradient(740px 620px at 88% 38%, rgba(0, 100, 127, 0.2), transparent 72%),
+    #000000;
+}
+
+.lms-feature-details-intro {
+  width: min(100% - 48px, 780px);
+  margin: 0 auto;
+  padding: 190px 0 100px;
+  text-align: center;
+}
+
+.lms-feature-details-intro__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 14px;
+  border: 1px solid rgba(0, 212, 255, 0.62);
+  border-radius: 999px;
+  color: #6FEAFF;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.lms-feature-details-intro h1 {
+  margin: 22px 0 0;
+  color: #FFFFFF;
+  font-size: clamp(46px, 5.2vw, 76px);
+  font-weight: 540;
+  line-height: 1.04;
+  letter-spacing: 0;
+}
+
+.lms-feature-details-intro p {
+  width: min(100%, 620px);
+  margin: 22px auto 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 17px;
+  font-weight: 380;
+  line-height: 1.55;
+}
+
+.lms-feature-details-list {
+  width: min(100% - 96px, 1280px);
+  margin: 0 auto;
+  padding: 0 0 80px;
+}
+
+.lms-feature-details-section {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(370px, 0.92fr);
+  gap: clamp(54px, 8vw, 126px);
+  align-items: center;
+  min-height: 580px;
+  padding: 70px 0;
+}
+
+.lms-feature-details-section--reverse .lms-feature-details-section__media {
+  order: 2;
+}
+
+.lms-feature-details-section--reverse .lms-feature-details-section__content {
+  order: 1;
+}
+
+.lms-feature-details-section__media {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+
+.lms-feature-details-section__media::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 68%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(0, 200, 236, 0.15);
+  filter: blur(64px);
+}
+
+.lms-feature-details-section__media img {
+  display: block;
+  width: min(100%, 590px);
+  height: auto;
+  max-width: none;
+  object-fit: contain;
+  filter: drop-shadow(0 28px 54px rgba(0, 0, 0, 0.42));
+}
+
+.lms-feature-details-section__content {
+  position: relative;
+  max-width: 490px;
+}
+
+.lms-feature-details-section__index {
+  display: block;
+  margin-bottom: 14px;
+  color: rgba(94, 223, 255, 0.74);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.lms-feature-details-section h2 {
+  margin: 0;
+  color: #FFFFFF;
+  font-size: clamp(36px, 3.3vw, 52px);
+  font-weight: 540;
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+
+.lms-feature-details-section__lead {
+  margin: 18px 0 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 16px;
+  font-weight: 380;
+  line-height: 1.52;
+}
+
+.lms-feature-details-rows {
+  position: relative;
+  display: grid;
+  gap: 18px;
+  margin-top: 34px;
+}
+
+.lms-feature-details-rows__line {
+  position: absolute;
+  top: 23px;
+  bottom: 23px;
+  left: 22px;
+  width: 2px;
+  max-width: none;
+  height: calc(100% - 46px);
+  object-fit: fill;
+  opacity: 0.76;
+}
+
+.lms-feature-details-row {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 46px minmax(0, 1fr);
+  gap: 15px;
+  align-items: start;
+}
+
+.lms-feature-details-row > img {
+  display: block;
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+}
+
+.lms-feature-details-row > div {
+  display: grid;
+  gap: 5px;
+  padding-top: 2px;
+}
+
+.lms-feature-details-row strong {
+  color: rgba(255, 255, 255, 0.96);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.lms-feature-details-row span:not(.lms-feature-details-copy) {
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 14px;
+  font-weight: 380;
+  line-height: 1.45;
+}
+
+.lms-feature-details-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 28px;
+}
+
+.lms-feature-details-divider img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  opacity: 0.74;
+}
+
+.lms-feature-details-outro {
+  position: relative;
+  width: min(100% - 96px, 1280px);
+  min-height: 460px;
+  margin: 10px auto 80px;
+  overflow: hidden;
+  background: #001F29;
+}
+
+.lms-feature-details-outro > img {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+}
+
+.lms-feature-details-outro::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(0, 8, 11, 0.74), rgba(0, 8, 11, 0.16) 68%, rgba(0, 8, 11, 0.28));
+}
+
+.lms-feature-details-outro__content {
+  position: relative;
+  z-index: 2;
+  width: min(100% - 96px, 620px);
+  padding: 104px 0 98px 72px;
+}
+
+.lms-feature-details-outro h2 {
+  margin: 0;
+  color: #FFFFFF;
+  font-size: clamp(38px, 4vw, 60px);
+  font-weight: 540;
+  line-height: 1.04;
+  letter-spacing: 0;
+}
+
+.lms-feature-details-outro a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 174px;
+  height: 48px;
+  margin-top: 28px;
+  padding: 0 22px;
+  border: 1px solid rgba(115, 233, 255, 0.8);
+  border-radius: 999px;
+  color: #FFFFFF;
+  background: rgba(0, 14, 19, 0.42);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  transition: border-color 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .lms-feature-details-outro a:hover {
+    border-color: #FFFFFF;
+    color: #000000;
+    background-color: #FFFFFF;
+  }
+}
+
+@media (min-width: 1025px) {
+  body.lms-feature-details-mode .header,
+  html.lms-feature-details-boot .header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .lms-feature-details-intro {
+    padding-top: 148px;
+  }
+
+  .lms-feature-details-list,
+  .lms-feature-details-outro {
+    width: min(100% - 48px, 760px);
+  }
+
+  .lms-feature-details-section {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 42px;
+    min-height: 0;
+    padding: 56px 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .lms-feature-details-intro {
+    width: min(100% - 40px, 560px);
+    padding: 120px 0 54px;
+  }
+
+  .lms-feature-details-intro h1 {
+    font-size: 42px;
+  }
+
+  .lms-feature-details-intro p {
+    font-size: 15px;
+  }
+
+  .lms-feature-details-list,
+  .lms-feature-details-outro {
+    width: min(100% - 32px, 560px);
+  }
+
+  .lms-feature-details-list {
+    padding-bottom: 48px;
+  }
+
+  .lms-feature-details-section,
+  .lms-feature-details-section--reverse {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    padding: 46px 0;
+  }
+
+  .lms-feature-details-section__media,
+  .lms-feature-details-section--reverse .lms-feature-details-section__media {
+    order: 0;
+  }
+
+  .lms-feature-details-section__content,
+  .lms-feature-details-section--reverse .lms-feature-details-section__content {
+    order: 1;
+  }
+
+  .lms-feature-details-section__media img {
+    width: min(100%, 430px);
+  }
+
+  .lms-feature-details-section h2 {
+    font-size: 38px;
+  }
+
+  .lms-feature-details-outro {
+    min-height: 360px;
+    margin-bottom: 48px;
+  }
+
+  .lms-feature-details-outro::after {
+    background: rgba(0, 8, 11, 0.46);
+  }
+
+  .lms-feature-details-outro__content {
+    width: min(100% - 48px, 400px);
+    padding: 74px 0 64px 24px;
+  }
+}
+
 @media (max-width: 1024px) {
   .pricing {
     padding: 16px 24px 64px !important;
@@ -6227,8 +7329,17 @@ html.nesso-lang-en .lms-features-hero__checks {
   user-select: none;
 }
 
+/* Keep the laptop framing from the wide desktop design while reserving the copy column on narrower PCs. */
+@media (min-width: 769px) {
+  .lms-features-hero__laptop {
+    width: clamp(760px, calc(26.8vw + 485.4px), 1000px);
+    right: clamp(-155px, calc(9.5vw - 252.4px), -70px);
+    bottom: clamp(-90px, calc(38.7px - 6.7vw), -30px);
+  }
+}
+
 /* The LMS hero extends behind the fixed header without moving foreground content. */
-@media (min-width: 1025px) {
+@media (min-width: 769px) {
   body.lms-features-mode .header,
   html.lms-features-boot .header {
     position: fixed;
@@ -6265,7 +7376,7 @@ html.nesso-lang-en .lms-features-hero__checks {
   }
 }
 
-@media (min-width: 1025px) and (max-height: 800px) {
+@media (min-width: 769px) and (max-height: 800px) {
   .lms-features-hero__content {
     padding-top: 132px;
     padding-bottom: 12px;
@@ -6362,6 +7473,7 @@ html.nesso-lang-en .lms-features-hero__checks {
 .lms-features-grid-card {
   --lms-feature-accent: 82, 224, 248;
   --lms-feature-tint: 8, 71, 90;
+  display: block;
   position: relative;
   min-height: 410px;
   overflow: hidden;
@@ -6369,10 +7481,19 @@ html.nesso-lang-en .lms-features-hero__checks {
   border-bottom: 1px solid rgba(106, 227, 255, 0.18);
   background: #000000;
   isolation: isolate;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
   transition:
     border-color 0.32s ease,
     background-color 0.32s ease,
     box-shadow 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.lms-features-grid-card:focus-visible {
+  z-index: 4;
+  outline: 2px solid rgba(132, 239, 255, 0.96);
+  outline-offset: -5px;
 }
 
 .lms-features-grid-card::before,
@@ -10953,6 +12074,768 @@ html.contact-boot .contact-view__subtitle {
   transform: none !important;
   transition: none !important;
 }
+
+/* ============================================================
+   LMS FEATURE DETAILS - FIGMA PDF MATCH (245:1701)
+   ============================================================ */
+.lms-feature-details-view--legacy {
+  display: none !important;
+}
+
+body.lms-feature-details-mode .page,
+html.lms-feature-details-boot .page {
+  max-width: none;
+  margin: 0;
+}
+
+body.lms-feature-details-mode .header,
+html.lms-feature-details-boot .header {
+  --nesso-header-gutter: max(68px, calc((100vw - 1440px) / 2 + 68px));
+  --nesso-header-nav-offset: 80px;
+  position: fixed !important;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom-color: rgba(16, 27, 49, 0.08);
+  box-shadow: none;
+  backdrop-filter: blur(12px) saturate(118%);
+  -webkit-backdrop-filter: blur(12px) saturate(118%);
+}
+
+body.lms-feature-details-mode .header__logo img,
+html.lms-feature-details-boot .header__logo img {
+  filter: brightness(0.16) saturate(0.7);
+}
+
+body.lms-feature-details-mode .header__blog-link,
+body.lms-feature-details-mode .header__blog-link:link,
+body.lms-feature-details-mode .header__blog-link:visited,
+html.lms-feature-details-boot .header__blog-link,
+html.lms-feature-details-boot .header__blog-link:link,
+html.lms-feature-details-boot .header__blog-link:visited {
+  color: #10131B;
+  -webkit-text-fill-color: #10131B;
+}
+
+body.lms-feature-details-mode .header__blog-link:hover,
+body.lms-feature-details-mode .header__blog-link:focus,
+html.lms-feature-details-boot .header__blog-link:hover,
+html.lms-feature-details-boot .header__blog-link:focus {
+  color: #067D9D;
+  -webkit-text-fill-color: #067D9D;
+}
+
+body.lms-feature-details-mode .header__lucky-cta,
+html.lms-feature-details-boot .header__lucky-cta {
+  display: none;
+}
+
+.lms-feature-details-view {
+  background: #000;
+}
+
+.lms-feature-details-view__backdrop {
+  background:
+    radial-gradient(940px 980px at 8% 47%, rgba(3, 170, 206, 0.15), transparent 67%),
+    radial-gradient(920px 880px at 94% 66%, rgba(6, 181, 213, 0.13), transparent 70%),
+    #000;
+}
+
+.lms-feature-details-hero {
+  position: relative;
+  min-height: 710px;
+  overflow: hidden;
+  color: #FFF;
+  background: #5CCEE7 url("https://nesso.vn/wp-content/uploads/2026/09/BG-Banner-scaled.png") center center / cover no-repeat;
+}
+
+.lms-feature-details-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.13), transparent 26%, rgba(5, 7, 62, 0.72) 89%, #000 100%);
+}
+
+.lms-feature-details-hero__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.96fr) minmax(470px, 0.94fr);
+  align-items: center;
+  width: min(100% - 136px, 1304px);
+  min-height: 710px;
+  margin: 0 auto;
+  padding: 118px 0 74px;
+}
+
+.lms-feature-details-hero__copy {
+  width: min(100%, 520px);
+}
+
+.lms-feature-details-hero h1 {
+  margin: 0;
+  color: #FFF;
+  font-size: clamp(46px, 4vw, 60px);
+  font-weight: 460;
+  line-height: 0.96;
+  letter-spacing: 0;
+}
+
+.lms-feature-details-hero h1 em {
+  color: #52DEF9;
+  font-weight: 410;
+}
+
+.lms-feature-details-hero p {
+  max-width: 452px;
+  margin: 22px 0 0;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 15px;
+  font-weight: 380;
+  line-height: 1.48;
+}
+
+.lms-feature-details-hero__actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 32px;
+}
+
+.lms-feature-details-hero__actions a,
+.lms-feature-details-hero__actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 202px;
+  height: 49px;
+  padding: 0 23px;
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  border-radius: 999px;
+  color: #FFF;
+  background: rgba(19, 27, 90, 0.24);
+  box-shadow: none;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 470;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.lms-feature-details-hero__actions a {
+  border-color: #13D9FA;
+  background: #13CFEF;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .lms-feature-details-hero__actions a:hover {
+    border-color: #FFF;
+    color: #111838;
+    background: #FFF;
+  }
+
+  .lms-feature-details-hero__actions button:hover {
+    color: #101835;
+    border-color: #FFF;
+    background: #FFF;
+  }
+}
+
+.lms-feature-details-hero__visual {
+  position: relative;
+  width: min(100%, 570px);
+  height: 470px;
+  margin: 8px 0 0 auto;
+}
+
+.lms-feature-details-hero__visual-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+  object-position: center;
+}
+
+.lms-feature-details-hero__visual-image ~ .lms-detail-dashboard-card {
+  display: none;
+}
+
+.lms-detail-dashboard-card {
+  position: absolute;
+  overflow: hidden;
+  border: 1px solid rgba(41, 19, 96, 0.12);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 18px 38px rgba(19, 9, 72, 0.2);
+  color: #25223D;
+}
+
+.lms-detail-dashboard-card--chart {
+  top: 0;
+  left: 42px;
+  width: 290px;
+  height: 198px;
+  background: repeating-linear-gradient(90deg, #FFF 0 48px, #ECEAF5 49px 50px);
+}
+
+.lms-detail-chart-note {
+  position: absolute;
+  top: 32px;
+  left: 102px;
+  z-index: 2;
+  display: grid;
+  gap: 2px;
+  padding: 12px 17px;
+  border: 2px solid #E6B8FF;
+  border-radius: 8px;
+  background: #FFF;
+  box-shadow: 0 5px 12px rgba(148, 69, 178, 0.25);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.lms-detail-chart-note small {
+  font-size: 9px;
+  font-weight: 500;
+}
+
+.lms-detail-chart-dot {
+  position: absolute;
+  top: 52px;
+  right: 42px;
+  width: 20px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #DE95FF;
+  box-shadow: 0 0 0 7px rgba(222, 149, 255, 0.24);
+}
+
+.lms-detail-chart-line {
+  position: absolute;
+  right: 48px;
+  bottom: 58px;
+  left: 74px;
+  height: 2px;
+  background: linear-gradient(145deg, transparent 28%, #E6B2FF 29% 30%, transparent 31% 52%, #E6B2FF 53% 54%, transparent 55% 69%, #E6B2FF 70% 71%, transparent 72%);
+  transform: skewY(-18deg);
+  transform-origin: right center;
+}
+
+.lms-detail-dashboard-card--bars {
+  bottom: 30px;
+  left: -14px;
+  display: flex;
+  align-items: end;
+  gap: 10px;
+  width: 245px;
+  height: 232px;
+  padding: 78px 28px 45px;
+}
+
+.lms-detail-bars-title {
+  position: absolute;
+  top: 22px;
+  left: 21px;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.lms-detail-dashboard-card--bars i {
+  display: block;
+  width: 18px;
+  background: #E0B1FF;
+}
+
+.lms-detail-dashboard-card--bars i:nth-of-type(1) { height: 54px; }
+.lms-detail-dashboard-card--bars i:nth-of-type(2) { height: 84px; }
+.lms-detail-dashboard-card--bars i:nth-of-type(3) { height: 104px; }
+.lms-detail-dashboard-card--bars i:nth-of-type(4) { height: 76px; }
+.lms-detail-dashboard-card--bars i:nth-of-type(5) { height: 117px; background: #A04CFF; }
+.lms-detail-dashboard-card--bars i:nth-of-type(6) { height: 66px; }
+
+.lms-detail-dashboard-card--badge {
+  top: 210px;
+  right: 4px;
+  display: grid;
+  gap: 4px;
+  width: 238px;
+  min-height: 82px;
+  padding: 19px 20px 16px 64px;
+  font-size: 11px;
+  line-height: 1.2;
+}
+
+.lms-detail-dashboard-card--badge::before {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: 18px;
+  width: 33px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 33%, #FFF 0 10%, transparent 12%), #9A8BFF;
+}
+
+.lms-detail-dashboard-card--badge b { font-size: 13px; }
+
+.lms-detail-dashboard-card--progress {
+  right: -10px;
+  bottom: -4px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  width: 290px;
+  min-height: 205px;
+  padding: 24px 19px 18px;
+}
+
+.lms-detail-dashboard-card--progress b {
+  grid-column: 1 / -1;
+  font-size: 14px;
+}
+
+.lms-detail-dashboard-card--progress i {
+  grid-column: 1 / -1;
+  height: 10px;
+  border-radius: 99px;
+  background: linear-gradient(90deg, #5233FE 0 52%, #9375FF 52% 73%, #C7B7FF 73% 87%, #9FDBFB 87%);
+}
+
+.lms-detail-dashboard-card--progress > span {
+  height: 22px;
+  border-radius: 5px;
+  background: #EFF0F7;
+}
+
+.lms-detail-dashboard-card--progress button {
+  grid-column: 1 / -1;
+  height: 30px;
+  border: 1px solid #DEDDF0;
+  border-radius: 99px;
+  color: #5A418F;
+  background: #FFF;
+  font: inherit;
+  font-size: 11px;
+}
+
+.lms-feature-details-discovery {
+  position: relative;
+  padding: 70px 0 58px;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, transparent 48%, rgba(22, 227, 255, 0.06) 100%),
+    repeating-linear-gradient(90deg, transparent 0 58px, rgba(72, 230, 255, 0.045) 59px 60px),
+    #000;
+}
+
+.lms-feature-details-discovery__inner {
+  width: min(100% - 48px, 920px);
+  margin: 0 auto;
+  text-align: center;
+}
+
+.lms-feature-details-discovery h2 {
+  margin: 0;
+  color: #FFF;
+  font-size: clamp(34px, 3.2vw, 48px);
+  font-weight: 480;
+  line-height: 1.05;
+}
+
+.lms-feature-details-discovery p {
+  margin: 16px auto 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 360;
+  line-height: 1.45;
+}
+
+.lms-feature-details-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 34px;
+}
+
+.lms-feature-details-filters button {
+  min-height: 39px;
+  padding: 0 16px;
+  border: 1px dashed rgba(11, 220, 250, 0.85);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.88);
+  background: transparent;
+  box-shadow: none;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.lms-feature-details-filters button.is-active {
+  border-style: solid;
+  border-color: #16D7F4;
+  color: #FFF;
+  background: #14CDEB;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .lms-feature-details-filters button:hover:not(.is-active) {
+    border-color: #FFF;
+    color: #FFF;
+    background: rgba(23, 201, 230, 0.16);
+  }
+}
+
+.lms-feature-details-list {
+  width: min(100% - 80px, 1096px);
+  padding: 18px 0 112px;
+}
+
+.lms-feature-details-section {
+  grid-template-columns: minmax(0, 510px) minmax(310px, 362px);
+  justify-content: space-between;
+  gap: 64px;
+  min-height: 535px;
+  padding: 75px 0;
+}
+
+.lms-feature-details-section__media {
+  justify-content: flex-start;
+}
+
+.lms-feature-details-section--reverse .lms-feature-details-section__media {
+  justify-content: flex-end;
+}
+
+.lms-feature-details-section__media::before {
+  display: none;
+}
+
+.lms-feature-details-section__media img {
+  width: min(100%, 478px);
+  filter: none;
+}
+
+.lms-feature-details-section__content {
+  max-width: 362px;
+}
+
+.lms-feature-details-section__heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.lms-feature-details-section h2 {
+  color: #15D8F5;
+  font-size: clamp(26px, 2.25vw, 32px);
+  font-weight: 500;
+  line-height: 1.05;
+}
+
+.lms-feature-details-section__heading > span {
+  min-width: 54px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  color: #10C9E5;
+  background: rgba(1, 109, 131, 0.45);
+  font-size: 12px;
+  font-weight: 520;
+  line-height: 1;
+  text-align: center;
+}
+
+.lms-feature-details-section__lead {
+  margin-top: 16px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 15px;
+  font-weight: 380;
+  line-height: 1.42;
+}
+
+.lms-feature-details-rows {
+  gap: 18px;
+  margin-top: 25px;
+}
+
+.lms-feature-details-rows__line {
+  top: 14px;
+  bottom: 14px;
+  left: 12px;
+  width: 1px;
+  height: calc(100% - 28px);
+  opacity: 0.8;
+}
+
+.lms-feature-details-row {
+  grid-template-columns: 27px minmax(0, 1fr);
+  gap: 12px;
+}
+
+.lms-feature-details-row > img {
+  width: 27px;
+  height: 27px;
+}
+
+.lms-feature-details-row > div {
+  gap: 4px;
+  padding: 0;
+}
+
+.lms-feature-details-row strong {
+  color: #10D7F3;
+  font-size: 15px;
+  font-weight: 490;
+  line-height: 1.2;
+}
+
+.lms-feature-details-row span:not(.lms-feature-details-copy) {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
+  font-weight: 360;
+  line-height: 1.37;
+}
+
+.lms-feature-details-section__more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 250px;
+  min-height: 48px;
+  margin-top: 30px;
+  padding: 0 21px;
+  border-radius: 999px;
+  color: #FFF;
+  background: linear-gradient(90deg, #0ACFEB, #9FC5D0);
+  box-shadow: none;
+  font-size: 14px;
+  font-weight: 440;
+  line-height: 1;
+  text-decoration: none;
+  transition: filter 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .lms-feature-details-section__more:hover {
+    color: #041318;
+    background: #FFF;
+    filter: none;
+  }
+}
+
+.lms-feature-details-divider {
+  height: 1px;
+  opacity: 0.42;
+}
+
+.lms-feature-details-divider img {
+  height: 1px;
+  opacity: 0.8;
+}
+
+.lms-feature-details-list.is-filtered .lms-feature-details-divider {
+  display: none;
+}
+
+.lms-feature-details-section[hidden] {
+  display: none !important;
+}
+
+.lms-feature-details-outro {
+  width: min(100% - 136px, 1304px);
+  min-height: 465px;
+  margin: 0 auto 92px;
+  border-radius: 34px;
+  background: #002631;
+}
+
+.lms-feature-details-outro::after {
+  background: linear-gradient(180deg, rgba(0, 22, 31, 0.12), rgba(0, 6, 11, 0.68));
+}
+
+.lms-feature-details-outro__content {
+  width: min(100% - 48px, 760px);
+  margin: 0 auto;
+  padding: 58px 0 0;
+  text-align: center;
+}
+
+.lms-feature-details-outro h2 {
+  color: #FFF;
+  font-size: clamp(38px, 3.6vw, 58px);
+  font-weight: 470;
+  line-height: 1.04;
+}
+
+.lms-feature-details-outro h2 em {
+  color: #12D8F4;
+  font-style: normal;
+}
+
+.lms-feature-details-outro p {
+  max-width: 570px;
+  margin: 20px auto 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 14px;
+  font-weight: 360;
+  line-height: 1.45;
+}
+
+.lms-feature-details-outro a {
+  min-width: 166px;
+  height: 46px;
+  margin-top: 22px;
+  border: 0;
+  color: #FFF;
+  background: #15CEEB;
+  box-shadow: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .lms-feature-details-outro a:hover {
+    color: #06151A;
+    background: #FFF;
+  }
+}
+
+@media (max-width: 1024px) {
+  body.lms-feature-details-mode .header,
+  html.lms-feature-details-boot .header {
+    --nesso-header-gutter: 32px;
+  }
+
+  .lms-feature-details-hero__inner {
+    width: min(100% - 64px, 920px);
+    grid-template-columns: minmax(0, 1fr) minmax(380px, 0.82fr);
+  }
+
+  .lms-feature-details-list {
+    width: min(100% - 64px, 900px);
+  }
+
+  .lms-feature-details-section {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.72fr);
+    gap: 42px;
+  }
+
+  .lms-feature-details-outro {
+    width: min(100% - 64px, 960px);
+  }
+}
+
+@media (max-width: 720px) {
+  body.lms-feature-details-mode .header,
+  html.lms-feature-details-boot .header {
+    background: rgba(0, 12, 24, 0.42);
+  }
+
+  body.lms-feature-details-mode .header__logo img,
+  html.lms-feature-details-boot .header__logo img {
+    filter: none;
+  }
+
+  .lms-feature-details-hero {
+    min-height: 820px;
+  }
+
+  .lms-feature-details-hero__inner {
+    grid-template-columns: 1fr;
+    width: min(100% - 40px, 560px);
+    min-height: 820px;
+    padding: 126px 0 54px;
+  }
+
+  .lms-feature-details-hero__copy {
+    width: 100%;
+  }
+
+  .lms-feature-details-hero h1 {
+    font-size: 44px;
+  }
+
+  .lms-feature-details-hero__actions {
+    gap: 10px;
+  }
+
+  .lms-feature-details-hero__actions a,
+  .lms-feature-details-hero__actions button {
+    min-width: 0;
+    flex: 1;
+    padding: 0 12px;
+    font-size: 13px;
+  }
+
+  .lms-feature-details-hero__visual {
+    width: min(100%, 460px);
+    height: 342px;
+    margin: 10px auto 0;
+    transform: scale(0.82);
+    transform-origin: top center;
+  }
+
+  .lms-feature-details-discovery {
+    padding: 54px 0 46px;
+  }
+
+  .lms-feature-details-discovery h2 {
+    font-size: 32px;
+  }
+
+  .lms-feature-details-filters {
+    gap: 10px;
+  }
+
+  .lms-feature-details-filters button {
+    min-height: 35px;
+    padding: 0 12px;
+    font-size: 13px;
+  }
+
+  .lms-feature-details-list {
+    width: min(100% - 40px, 560px);
+    padding-bottom: 60px;
+  }
+
+  .lms-feature-details-section,
+  .lms-feature-details-section--reverse {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    min-height: 0;
+    padding: 56px 0;
+  }
+
+  .lms-feature-details-section__media,
+  .lms-feature-details-section--reverse .lms-feature-details-section__media {
+    order: 0;
+    justify-content: center;
+  }
+
+  .lms-feature-details-section__content,
+  .lms-feature-details-section--reverse .lms-feature-details-section__content {
+    order: 1;
+    max-width: none;
+  }
+
+  .lms-feature-details-section__media img {
+    width: min(100%, 460px);
+  }
+
+  .lms-feature-details-outro {
+    width: min(100% - 40px, 560px);
+    min-height: 400px;
+    margin-bottom: 52px;
+    border-radius: 24px;
+  }
+
+  .lms-feature-details-outro__content {
+    padding-top: 48px;
+  }
+}
 /* Header grouped CTA mobile fix */
 @media (max-width: 768px) {
   .header__link-group,
@@ -10967,6 +12850,771 @@ html.contact-boot .contact-view__subtitle {
     gap: 0 !important;
     width: 100% !important;
     transform: none !important;
+  }
+}
+
+/* Final LMS detail visual tuning: this block intentionally follows legacy page overrides. */
+.lms-feature-details-hero h1 em {
+  background: linear-gradient(90deg, #16D7F5 0%, #46E2F7 52%, #9AF3FF 100%) !important;
+}
+
+@media (min-width: 1025px) {
+  .lms-feature-details-hero__visual {
+    transform: translate(-270px, -100px) scale(1.25) !important;
+    transform-origin: center right !important;
+    right: clamp(-240px, -12vw, -160px) !important;
+  }
+
+  .lms-feature-details-hero__copy {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+@media (min-width: 1025px) {
+  body.lms-feature-details-mode .lms-feature-details-hero,
+  html.lms-feature-details-boot .lms-feature-details-hero {
+    height: 100vh !important;
+    height: 100dvh !important;
+    min-height: 0 !important;
+    background-size: cover !important;
+    background-position: center top !important;
+  }
+
+  body.lms-feature-details-mode .lms-feature-details-hero__inner,
+  html.lms-feature-details-boot .lms-feature-details-hero__inner {
+    height: 100% !important;
+    min-height: 0 !important;
+    box-sizing: border-box;
+    align-items: start !important;
+    padding-top: calc(clamp(96px, 11.5vh, 108px) + 88px) !important;
+    padding-bottom: clamp(32px, 5vh, 64px) !important;
+  }
+
+  .lms-feature-details-hero__visual {
+    align-self: center !important;
+  }
+
+  .lms-feature-details-hero h1 {
+    font-size: 60px !important;
+    line-height: 1.06 !important;
+  }
+
+  .lms-feature-details-hero p {
+    max-width: 500px !important;
+    font-size: 18px !important;
+    line-height: 1.45 !important;
+  }
+
+  .lms-feature-details-hero__actions {
+    margin-top: 40px !important;
+  }
+
+  .lms-feature-details-hero__actions a,
+  .lms-feature-details-hero__actions button {
+    height: 56px !important;
+    font-size: 17px !important;
+  }
+
+  .lms-feature-details-hero__actions a { min-width: 238px !important; }
+  .lms-feature-details-hero__actions button { min-width: 206px !important; }
+}
+
+@media (min-width: 1025px) and (max-height: 800px) {
+  body.lms-feature-details-mode .lms-feature-details-hero__inner,
+  html.lms-feature-details-boot .lms-feature-details-hero__inner {
+    padding-top: 132px !important;
+    padding-bottom: 12px !important;
+  }
+
+  .lms-feature-details-hero h1 { font-size: 48px !important; }
+  .lms-feature-details-hero p { font-size: 15px !important; }
+  .lms-feature-details-hero__actions { margin-top: 20px !important; }
+  .lms-feature-details-hero__actions a,
+  .lms-feature-details-hero__actions button {
+    height: 46px !important;
+    font-size: 15px !important;
+  }
+  .lms-feature-details-hero__visual {
+    width: 580px !important;
+    height: 466px !important;
+  }
+}
+
+/* The detail route deliberately shares the landing-page header treatment. */
+body.lms-feature-details-mode .header,
+html.lms-feature-details-boot .header {
+  --nesso-header-gutter: max(80px, calc((100vw - 1440px) / 2 + 80px));
+  --nesso-header-nav-offset: 144px;
+  background: rgba(0, 0, 0, 0.46);
+  border-bottom-color: rgba(94, 223, 255, 0.14);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(18px) saturate(145%);
+  -webkit-backdrop-filter: blur(18px) saturate(145%);
+}
+
+body.lms-feature-details-mode .header__logo img,
+html.lms-feature-details-boot .header__logo img {
+  filter: none;
+}
+
+body.lms-feature-details-mode .header__blog-link,
+body.lms-feature-details-mode .header__blog-link:link,
+body.lms-feature-details-mode .header__blog-link:visited,
+html.lms-feature-details-boot .header__blog-link,
+html.lms-feature-details-boot .header__blog-link:link,
+html.lms-feature-details-boot .header__blog-link:visited {
+  color: #FFFFFF;
+  -webkit-text-fill-color: #FFFFFF;
+}
+
+body.lms-feature-details-mode .header__blog-link:hover,
+body.lms-feature-details-mode .header__blog-link:focus,
+html.lms-feature-details-boot .header__blog-link:hover,
+html.lms-feature-details-boot .header__blog-link:focus {
+  color: #5EDFFF;
+  -webkit-text-fill-color: #5EDFFF;
+}
+
+body.lms-feature-details-mode .header__lucky-cta,
+html.lms-feature-details-boot .header__lucky-cta {
+  display: flex;
+}
+
+body.lms-feature-details-mode .header__demo-cta,
+html.lms-feature-details-boot .header__demo-cta {
+  font-weight: 600 !important;
+}
+
+body.lms-feature-details-mode .lms-feature-details-view,
+html.lms-feature-details-boot .lms-feature-details-view {
+  font-weight: 360;
+}
+
+body.lms-feature-details-mode .lms-feature-details-view :is(h1, h2, h3, p, strong, a, button, span),
+html.lms-feature-details-boot .lms-feature-details-view :is(h1, h2, h3, p, strong, a, button, span) {
+  font-weight: 360 !important;
+}
+
+body.lms-feature-details-mode .header__demo-cta,
+html.lms-feature-details-boot .header__demo-cta {
+  font-weight: 400 !important;
+}
+
+.lms-feature-details-hero h1 em {
+  color: transparent !important;
+  background: linear-gradient(90deg, #16D7F5 0%, #46E2F7 52%, #9AF3FF 100%) !important;
+  background-clip: text !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  font-weight: inherit;
+}
+
+/* The detail route uses static controls: hover must not alter their visual state. */
+body.lms-feature-details-mode .lms-feature-details-view :is(a, button),
+html.lms-feature-details-boot .lms-feature-details-view :is(a, button) {
+  animation: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+body.lms-feature-details-mode .lms-feature-details-hero__actions a:hover,
+html.lms-feature-details-boot .lms-feature-details-hero__actions a:hover {
+  border-color: #13D9FA !important;
+  color: #FFF !important;
+  background: #13CFEF !important;
+}
+
+body.lms-feature-details-mode .lms-feature-details-hero__actions button:hover,
+html.lms-feature-details-boot .lms-feature-details-hero__actions button:hover {
+  border-color: rgba(255, 255, 255, 0.92) !important;
+  color: #FFF !important;
+  background: rgba(19, 27, 90, 0.24) !important;
+}
+
+body.lms-feature-details-mode .lms-feature-details-filters button:hover:not(.is-active),
+html.lms-feature-details-boot .lms-feature-details-filters button:hover:not(.is-active) {
+  border-style: solid;
+  border-color: #7EEAFF !important;
+  color: #FFFFFF !important;
+  background: linear-gradient(180deg, #1BCEFF 0%, #40DFFF 100%) !important;
+  box-shadow:
+    0 0 0 1px rgba(126, 234, 255, 0.2),
+    0 8px 22px rgba(17, 207, 244, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+}
+
+body.lms-feature-details-mode .lms-feature-details-filters button,
+html.lms-feature-details-boot .lms-feature-details-filters button {
+  background-image: linear-gradient(115deg, rgba(20, 218, 255, 0.22), rgba(94, 223, 255, 0.035) 45%, rgba(255, 255, 255, 0.12));
+  background-size: 220% 100%;
+  background-position: 100% 50%;
+  transition:
+    border-color 0.28s ease,
+    background-color 0.28s ease,
+    background-position 0.48s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s ease,
+    color 0.28s ease !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body.lms-feature-details-mode .lms-feature-details-filters button.is-active:hover,
+  html.lms-feature-details-boot .lms-feature-details-filters button.is-active:hover {
+    border-color: #7EEAFF !important;
+    background: linear-gradient(180deg, #1BCEFF 0%, #40DFFF 100%) !important;
+    box-shadow:
+      0 0 0 1px rgba(126, 234, 255, 0.2),
+      0 8px 22px rgba(17, 207, 244, 0.24),
+      inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
+  }
+}
+
+body.lms-feature-details-mode .lms-feature-details-section__more:hover,
+html.lms-feature-details-boot .lms-feature-details-section__more:hover {
+  color: #FFF !important;
+  background: linear-gradient(90deg, #0ACFEB, #9FC5D0) !important;
+  filter: none !important;
+}
+
+body.lms-feature-details-mode .lms-feature-details-outro a:hover,
+html.lms-feature-details-boot .lms-feature-details-outro a:hover {
+  color: #FFF !important;
+  background: #15CEEB !important;
+}
+
+body.lms-feature-details-mode .header :is(.header__demo-cta, .header__lucky-cta, .header__language-option),
+html.lms-feature-details-boot .header :is(.header__demo-cta, .header__lucky-cta, .header__language-option) {
+  animation: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+  transition: none !important;
+}
+
+body.lms-feature-details-mode .header__language-option:hover,
+html.lms-feature-details-boot .header__language-option:hover {
+  filter: none !important;
+}
+
+body.lms-feature-details-mode .header__language-toggle--open .header__language-option:not(.header__language-option--active):hover,
+html.lms-feature-details-boot .header__language-toggle--open .header__language-option:not(.header__language-option--active):hover {
+  opacity: 0.42 !important;
+}
+
+/* Match the LMS Features library CTA: the artwork carries all copy. */
+body.lms-feature-details-mode .lms-feature-details-outro,
+html.lms-feature-details-boot .lms-feature-details-outro {
+  width: min(1280px, calc(100% - 160px)) !important;
+  min-height: 0 !important;
+  margin: 18px auto 86px !important;
+  overflow: hidden;
+  border-radius: 36px;
+  background: #00232D;
+}
+
+body.lms-feature-details-mode .lms-feature-details-outro > img,
+html.lms-feature-details-boot .lms-feature-details-outro > img {
+  position: static !important;
+  display: block;
+  width: 100%;
+  height: auto !important;
+  max-width: none;
+  object-fit: initial !important;
+}
+
+body.lms-feature-details-mode .lms-feature-details-outro::after,
+html.lms-feature-details-boot .lms-feature-details-outro::after {
+  display: none;
+}
+
+body.lms-feature-details-mode .lms-feature-details-outro__content,
+html.lms-feature-details-boot .lms-feature-details-outro__content {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: block;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  text-align: initial;
+}
+
+body.lms-feature-details-mode .lms-feature-details-outro__content a,
+html.lms-feature-details-boot .lms-feature-details-outro__content a {
+  position: absolute;
+  top: 42%;
+  left: 50%;
+  min-width: 122px;
+  height: 42px;
+  margin: 0;
+  padding: 0 20px;
+  border: 0;
+  border-radius: 999px;
+  color: #FFFFFF;
+  background: linear-gradient(180deg, #11CCF7 0%, #35DFFF 100%) !important;
+  font-size: 12px;
+  font-weight: 500 !important;
+  transform: translateX(-50%) !important;
+  white-space: nowrap;
+}
+
+/* The detailed feature route starts directly at the course-delivery section. */
+body.lms-feature-details-mode .lms-feature-details-hero,
+html.lms-feature-details-boot .lms-feature-details-hero {
+  display: none !important;
+}
+
+body.lms-feature-details-mode .lms-feature-details-discovery,
+html.lms-feature-details-boot .lms-feature-details-discovery {
+  padding-top: 158px !important;
+}
+
+/* Six detailed feature sections: desktop proportions and per-row timeline from Figma. */
+body.lms-feature-details-mode .lms-feature-details-list,
+html.lms-feature-details-boot .lms-feature-details-list {
+  width: min(960px, calc(100% - 80px)) !important;
+  padding: 0 0 88px !important;
+}
+
+body.lms-feature-details-mode .lms-feature-details-section,
+html.lms-feature-details-boot .lms-feature-details-section {
+  box-sizing: border-box;
+  grid-template-columns: 510px 362px;
+  justify-content: start;
+  gap: 60px;
+  min-height: 575px;
+  padding: 44px 0;
+}
+
+body.lms-feature-details-mode .lms-feature-details-section--reverse,
+html.lms-feature-details-boot .lms-feature-details-section--reverse {
+  grid-template-columns: 362px 510px;
+}
+
+body.lms-feature-details-mode .lms-feature-details-section__media img,
+html.lms-feature-details-boot .lms-feature-details-section__media img {
+  width: min(100%, 500px) !important;
+}
+
+body.lms-feature-details-mode .lms-feature-details-section__content,
+html.lms-feature-details-boot .lms-feature-details-section__content {
+  align-self: start;
+  max-width: 362px;
+  margin-top: 8px;
+}
+
+body.lms-feature-details-mode .lms-feature-details-section__heading,
+html.lms-feature-details-boot .lms-feature-details-section__heading {
+  gap: 12px;
+}
+
+body.lms-feature-details-mode .lms-feature-details-section h2,
+html.lms-feature-details-boot .lms-feature-details-section h2 {
+  font-size: 30px !important;
+  font-weight: 400 !important;
+  line-height: 1.08;
+}
+
+body.lms-feature-details-mode .lms-feature-details-section__heading > span,
+html.lms-feature-details-boot .lms-feature-details-section__heading > span {
+  min-width: 55px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 400 !important;
+}
+
+body.lms-feature-details-mode .lms-feature-details-section__lead,
+html.lms-feature-details-boot .lms-feature-details-section__lead {
+  margin-top: 14px;
+  font-size: 14px;
+  font-weight: 360 !important;
+  line-height: 1.42;
+}
+
+body.lms-feature-details-mode .lms-feature-details-rows,
+html.lms-feature-details-boot .lms-feature-details-rows {
+  display: grid;
+  gap: 0;
+  margin-top: 20px;
+}
+
+body.lms-feature-details-mode .lms-feature-details-rows__line,
+html.lms-feature-details-boot .lms-feature-details-rows__line {
+  display: none !important;
+}
+
+body.lms-feature-details-mode .lms-feature-details-row,
+html.lms-feature-details-boot .lms-feature-details-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  min-height: 0;
+  margin: 0 0 16px;
+  padding: 0 0 16px 30px;
+}
+
+body.lms-feature-details-mode .lms-feature-details-row:last-child,
+html.lms-feature-details-boot .lms-feature-details-row:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+body.lms-feature-details-mode .lms-feature-details-row__timeline,
+html.lms-feature-details-boot .lms-feature-details-row__timeline {
+  position: absolute;
+  top: 0;
+  bottom: -16px;
+  left: 0;
+  display: block;
+  width: 16px !important;
+  height: auto !important;
+  max-width: none;
+  object-fit: fill;
+  object-position: center top;
+}
+
+body.lms-feature-details-mode .lms-feature-details-row:last-child .lms-feature-details-row__timeline,
+html.lms-feature-details-boot .lms-feature-details-row:last-child .lms-feature-details-row__timeline {
+  bottom: 0;
+}
+
+body.lms-feature-details-mode .lms-feature-details-row__icon,
+html.lms-feature-details-boot .lms-feature-details-row__icon {
+  display: block;
+  width: 20px !important;
+  height: 20px !important;
+  max-width: none;
+  object-fit: contain;
+}
+
+body.lms-feature-details-mode .lms-feature-details-row > div,
+html.lms-feature-details-boot .lms-feature-details-row > div {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  padding: 0;
+}
+
+body.lms-feature-details-mode .lms-feature-details-row:not(:last-child)::after,
+html.lms-feature-details-boot .lms-feature-details-row:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 30px;
+  border-top: 1px dashed rgba(190, 207, 210, 0.34);
+}
+
+body.lms-feature-details-mode .lms-feature-details-row strong,
+html.lms-feature-details-boot .lms-feature-details-row strong {
+  color: #10D7F3;
+  font-size: 15px;
+  font-weight: 400 !important;
+  line-height: 20px;
+}
+
+body.lms-feature-details-mode .lms-feature-details-row span:not(.lms-feature-details-copy),
+html.lms-feature-details-boot .lms-feature-details-row span:not(.lms-feature-details-copy) {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 13px;
+  font-weight: 360 !important;
+  line-height: 1.36;
+}
+
+body.lms-feature-details-mode .lms-feature-details-section__more,
+html.lms-feature-details-boot .lms-feature-details-section__more {
+  min-width: 296px;
+  min-height: 52px;
+  margin-top: 26px;
+  font-size: 14px;
+  font-weight: 400 !important;
+}
+
+@media (min-width: 1025px) {
+  body.lms-feature-details-mode .lms-feature-details-section__more,
+  html.lms-feature-details-boot .lms-feature-details-section__more {
+    position: relative;
+    top: 34px;
+  }
+
+  body.lms-feature-details-mode .lms-feature-details-outro__content a,
+  html.lms-feature-details-boot .lms-feature-details-outro__content a {
+    top: 35%;
+  }
+}
+
+body.lms-feature-details-mode .lms-feature-details-divider,
+html.lms-feature-details-boot .lms-feature-details-divider {
+  height: 1px;
+  margin: 0;
+  opacity: 1;
+  background: rgba(20, 132, 153, 0.4);
+}
+
+body.lms-feature-details-mode .lms-feature-details-divider img,
+html.lms-feature-details-boot .lms-feature-details-divider img {
+  display: block;
+  width: 100%;
+  height: 1px;
+  object-fit: fill;
+  opacity: 0.66;
+}
+
+@media (max-width: 1024px) {
+  body.lms-feature-details-mode .lms-feature-details-list,
+  html.lms-feature-details-boot .lms-feature-details-list {
+    width: min(100% - 64px, 900px) !important;
+  }
+
+  body.lms-feature-details-mode .lms-feature-details-section,
+  body.lms-feature-details-mode .lms-feature-details-section--reverse,
+  html.lms-feature-details-boot .lms-feature-details-section,
+  html.lms-feature-details-boot .lms-feature-details-section--reverse {
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.72fr);
+    gap: 42px;
+    min-height: 0;
+  }
+}
+
+@media (max-width: 720px) {
+  body.lms-feature-details-mode .lms-feature-details-list,
+  html.lms-feature-details-boot .lms-feature-details-list {
+    width: min(100% - 40px, 560px) !important;
+    padding-bottom: 60px !important;
+  }
+
+  body.lms-feature-details-mode .lms-feature-details-section,
+  body.lms-feature-details-mode .lms-feature-details-section--reverse,
+  html.lms-feature-details-boot .lms-feature-details-section,
+  html.lms-feature-details-boot .lms-feature-details-section--reverse {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    min-height: 0;
+    padding: 56px 0;
+  }
+
+  body.lms-feature-details-mode .lms-feature-details-section__media,
+  body.lms-feature-details-mode .lms-feature-details-section--reverse .lms-feature-details-section__media,
+  html.lms-feature-details-boot .lms-feature-details-section__media,
+  html.lms-feature-details-boot .lms-feature-details-section--reverse .lms-feature-details-section__media {
+    order: 0;
+    justify-content: center;
+  }
+
+  body.lms-feature-details-mode .lms-feature-details-section__content,
+  body.lms-feature-details-mode .lms-feature-details-section--reverse .lms-feature-details-section__content,
+  html.lms-feature-details-boot .lms-feature-details-section__content,
+  html.lms-feature-details-boot .lms-feature-details-section--reverse .lms-feature-details-section__content {
+    order: 1;
+    max-width: none;
+    margin-top: 0;
+  }
+}
+
+@media (min-width: 1025px) {
+  .lms-feature-details-hero__visual {
+    width: 660px;
+    max-width: none;
+    height: 530px;
+    margin: 6px -44px 0 auto;
+  }
+}
+
+@media (min-width: 721px) and (max-width: 1024px) {
+  .lms-feature-details-hero__visual {
+    width: min(100%, 590px);
+    height: 480px;
+    margin-right: -18px;
+  }
+}
+
+/* Final mobile cascade for the LMS features route. */
+@media (max-width: 720px) {
+  .lms-features-hero {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 0 0 18px;
+  }
+
+  .lms-features-hero__bg {
+    background-position: 58% center;
+    background-size: auto 100%;
+  }
+
+  .lms-features-hero__content,
+  html.nesso-lang-en .lms-features-hero__content {
+    width: 100%;
+    padding: 62px 20px 0;
+  }
+
+  .lms-features-hero__eyebrow {
+    margin-bottom: 12px;
+    font-size: 15px;
+  }
+
+  .lms-features-hero__heading,
+  html.nesso-lang-en .lms-features-hero__heading {
+    font-size: clamp(38px, 10.8vw, 44px);
+    line-height: 1.08;
+  }
+
+  .lms-features-hero__checks,
+  html.nesso-lang-en .lms-features-hero__checks {
+    gap: 11px;
+    margin-top: 22px;
+    font-size: 15px;
+    line-height: 1.42;
+  }
+
+  .lms-features-hero__checks li {
+    padding-left: 27px;
+  }
+
+  .lms-features-hero__checks li::before {
+    top: 7px;
+    width: 13px;
+    height: 7px;
+    border-width: 0 0 2px 2px;
+  }
+
+  .lms-features-hero__actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-top: 30px;
+  }
+
+  .lms-features-hero__primary,
+  .lms-features-hero__secondary {
+    width: 100%;
+    min-width: 0;
+    height: 52px;
+    padding: 0 10px;
+    font-size: 14px;
+  }
+
+  .lms-features-hero__tag-block {
+    max-width: none;
+    margin-top: 32px;
+  }
+
+  .lms-features-hero__tag-block p {
+    margin-bottom: 13px;
+    font-size: 15px;
+  }
+
+  .lms-features-hero__tags {
+    gap: 8px;
+  }
+
+  .lms-features-hero__tags span {
+    min-height: 36px;
+    padding: 0 13px;
+    font-size: 14px;
+  }
+
+  .lms-features-hero__laptop {
+    position: relative;
+    z-index: 1;
+    right: auto;
+    bottom: auto;
+    align-self: center;
+    width: min(132vw, 520px);
+    max-width: none;
+    margin: 0 auto -42px;
+    transform: translateX(4%);
+  }
+
+  .lms-features-grid-section {
+    padding: 56px 0 60px;
+  }
+
+  .lms-features-grid-section__intro {
+    width: min(100% - 40px, 560px);
+    margin-bottom: 30px;
+  }
+
+  .lms-features-grid-section__intro h2 {
+    font-size: 32px;
+    line-height: 1.12;
+  }
+
+  .lms-features-grid-section__intro p {
+    margin-top: 14px;
+    font-size: 15px;
+    line-height: 1.48;
+  }
+
+  .lms-features-grid-section__visual {
+    width: min(100% - 32px, 560px);
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .lms-features-grid-card {
+    min-height: 390px;
+    border-right: 0 !important;
+    border-bottom: 1px solid rgba(106, 227, 255, 0.18) !important;
+  }
+
+  .lms-features-grid-card:last-child {
+    border-bottom: 0 !important;
+  }
+
+  .lms-features-grid-card__copy {
+    padding: 24px 24px 0;
+  }
+
+  .lms-features-grid-card__copy h3 {
+    min-height: 42px;
+    padding: 0 15px;
+    font-size: 18px;
+  }
+
+  .lms-features-grid-card__copy p {
+    max-width: 310px;
+    margin-top: 15px;
+    font-size: 14px;
+    line-height: 1.42;
+  }
+
+  .lms-features-grid-card__media {
+    inset: 176px 0 0;
+  }
+
+  .lms-features-grid-card--learning .lms-features-grid-card__media {
+    inset: 158px -14px -8px 0;
+  }
+
+  .lms-features-grid-card--learning .lms-features-grid-card__media img {
+    transform: translateX(4px);
+  }
+
+  .lms-features-grid-card--cms .lms-features-grid-card__media {
+    top: 165px;
+  }
+
+  .lms-features-grid-card--brand .lms-features-grid-card__media img {
+    transform: translateY(-28px);
+  }
+
+  .lms-features-library {
+    padding: 0 0 48px;
+  }
+
+  .lms-features-library__card {
+    width: min(100% - 32px, 560px);
+    border-radius: 22px;
+  }
+
+  .lms-features-library__button {
+    top: 43%;
+    min-width: 0;
+    height: 40px;
+    padding: 0 17px;
+    font-size: 12px;
   }
 }
 
@@ -10996,7 +13644,7 @@ html.contact-boot .contact-view__subtitle {
           <button class="header__cta header__lucky-cta" type="button" data-lucky-open aria-controls="lucky-wheel-view">Vòng xoay may mắn</button>
           <div class="header__language-toggle" role="group" aria-label="Chuyển đổi ngôn ngữ" data-lang-toggle>
             <button class="header__language-option header__language-option--active" type="button" data-lang-option="vi" aria-label="Tiếng Việt" aria-pressed="true">
-              <img class="header__language-image" src="https://nesso.vn/wp-content/uploads/2026/09/VI-mode.png" alt="VI" width="46" height="20" decoding="async">
+              <img class="header__language-image" src="https://nesso.vn/wp-content/uploads/2026/09/VI-mode-1.png" alt="VI" width="46" height="20" decoding="async">
             </button>
             <span class="header__language-divider" aria-hidden="true">/</span>
             <button class="header__language-option" type="button" data-lang-option="en" aria-label="English" aria-pressed="false">
@@ -11252,7 +13900,7 @@ html.contact-boot .contact-view__subtitle {
             <li><strong>Trợ lý AI thông minh:</strong> Tích hợp AI DISC hỗ trợ phân tích và đồng hành</li>
           </ul>
           <div class="lms-features-hero__actions">
-            <a class="lms-features-hero__primary" href="#contact" data-contact-open>Liên hệ với chúng tôi</a>
+            <a class="lms-features-hero__primary" href="#lms-feature-details" data-lms-feature-details data-nesso-i18n-skip><span class="lms-feature-details-copy lms-feature-details-copy--vi">Xem chi tiết</span><span class="lms-feature-details-copy lms-feature-details-copy--en">View details</span></a>
             <button class="lms-features-hero__secondary" type="button" data-demo-open>Trải nghiệm Demo</button>
           </div>
           <div class="lms-features-hero__tag-block">
@@ -11280,7 +13928,7 @@ html.contact-boot .contact-view__subtitle {
           <p>Nền tảng tập trung vào việc học tập, tự động hoá tri thức và cá nhân hoá trải nghiệm người học.</p>
         </div>
         <div class="lms-features-grid-section__visual" aria-label="Các tính năng LMS gồm Học tập, Đánh giá, Quản trị CMS, Phát triển nội dung, AI và Thương hiệu">
-          <article class="lms-features-grid-card lms-features-grid-card--learning">
+          <a class="lms-features-grid-card lms-features-grid-card--learning" href="#lms-feature-details" data-lms-feature-details aria-label="Xem chi tiết tính năng Học tập">
             <div class="lms-features-grid-card__copy">
               <h3>Học tập</h3>
               <p>Xây dựng khóa học, truyền tải nội dung và dẫn dắt người học qua từng bước trong hành trình học tập của họ.</p>
@@ -11288,8 +13936,8 @@ html.contact-boot .contact-view__subtitle {
             <div class="lms-features-grid-card__media">
               <img src="https://nesso.vn/wp-content/uploads/2026/09/block-1.png" alt="" aria-hidden="true" decoding="async" loading="lazy" data-nesso-lms-features-media="feature-grid-learning" data-nesso-lms-features-src-vi="https://nesso.vn/wp-content/uploads/2026/09/block-1.png" data-nesso-lms-features-src-en="">
             </div>
-          </article>
-          <article class="lms-features-grid-card lms-features-grid-card--assessment">
+          </a>
+          <a class="lms-features-grid-card lms-features-grid-card--assessment" href="#lms-feature-details" data-lms-feature-details aria-label="Xem chi tiết tính năng Đánh giá">
             <div class="lms-features-grid-card__copy">
               <h3>Đánh giá</h3>
               <p>Cung cấp cho người học những phản hồi hữu ích và cung cấp cho các nhà quản lý dữ liệu cần thiết để nắm bắt hiệu quả học tập.</p>
@@ -11297,8 +13945,8 @@ html.contact-boot .contact-view__subtitle {
             <div class="lms-features-grid-card__media">
               <img src="https://nesso.vn/wp-content/uploads/2026/09/block-2.png" alt="" aria-hidden="true" decoding="async" loading="lazy" data-nesso-lms-features-media="feature-grid-assessment" data-nesso-lms-features-src-vi="https://nesso.vn/wp-content/uploads/2026/09/block-2.png" data-nesso-lms-features-src-en="">
             </div>
-          </article>
-          <article class="lms-features-grid-card lms-features-grid-card--cms">
+          </a>
+          <a class="lms-features-grid-card lms-features-grid-card--cms" href="#lms-feature-details" data-lms-feature-details aria-label="Xem chi tiết tính năng Quản trị CMS">
             <div class="lms-features-grid-card__copy">
               <h3>Quản trị CMS</h3>
               <p>Quản lý người dùng, nhóm, quyền hạn và hoạt động đào tạo tại một nơi duy nhất.</p>
@@ -11306,8 +13954,8 @@ html.contact-boot .contact-view__subtitle {
             <div class="lms-features-grid-card__media">
               <img src="https://nesso.vn/wp-content/uploads/2026/09/block-3.png" alt="" aria-hidden="true" decoding="async" loading="lazy" data-nesso-lms-features-media="feature-grid-cms" data-nesso-lms-features-src-vi="https://nesso.vn/wp-content/uploads/2026/09/block-3.png" data-nesso-lms-features-src-en="">
             </div>
-          </article>
-          <article class="lms-features-grid-card lms-features-grid-card--content">
+          </a>
+          <a class="lms-features-grid-card lms-features-grid-card--content" href="#lms-feature-details" data-lms-feature-details aria-label="Xem chi tiết tính năng Phát triển nội dung">
             <div class="lms-features-grid-card__copy">
               <h3>Phát triển nội dung</h3>
               <p>Lưu trữ, sắp xếp và phổ biến tri thức của tổ chức bạn.</p>
@@ -11315,8 +13963,8 @@ html.contact-boot .contact-view__subtitle {
             <div class="lms-features-grid-card__media">
               <img src="https://nesso.vn/wp-content/uploads/2026/09/block-4.png" alt="" aria-hidden="true" decoding="async" loading="lazy" data-nesso-lms-features-media="feature-grid-content" data-nesso-lms-features-src-vi="https://nesso.vn/wp-content/uploads/2026/09/block-4.png" data-nesso-lms-features-src-en="">
             </div>
-          </article>
-          <article class="lms-features-grid-card lms-features-grid-card--ai">
+          </a>
+          <a class="lms-features-grid-card lms-features-grid-card--ai" href="#lms-feature-details" data-lms-feature-details aria-label="Xem chi tiết tính năng AI">
             <div class="lms-features-grid-card__copy">
               <h3>AI</h3>
               <p>Tận dụng kiến thức của AI DISC để giúp người học tìm kiếm câu trả lời, hỗ trợ quản trị viên và tạo nội dung học tập nhanh hơn.</p>
@@ -11324,8 +13972,8 @@ html.contact-boot .contact-view__subtitle {
             <div class="lms-features-grid-card__media">
               <img src="https://nesso.vn/wp-content/uploads/2026/09/block-5.png" alt="" aria-hidden="true" decoding="async" loading="lazy" data-nesso-lms-features-media="feature-grid-ai" data-nesso-lms-features-src-vi="https://nesso.vn/wp-content/uploads/2026/09/block-5.png" data-nesso-lms-features-src-en="">
             </div>
-          </article>
-          <article class="lms-features-grid-card lms-features-grid-card--brand">
+          </a>
+          <a class="lms-features-grid-card lms-features-grid-card--brand" href="#lms-feature-details" data-lms-feature-details aria-label="Xem chi tiết tính năng Thương hiệu">
             <div class="lms-features-grid-card__copy">
               <h3>Thương hiệu</h3>
               <p>Biến hệ thống LMS thành nền tảng mang dấu ấn riêng của bạn.</p>
@@ -11333,15 +13981,177 @@ html.contact-boot .contact-view__subtitle {
             <div class="lms-features-grid-card__media">
               <img src="https://nesso.vn/wp-content/uploads/2026/09/block-6.png" alt="" aria-hidden="true" decoding="async" loading="lazy" data-nesso-lms-features-media="feature-grid-brand" data-nesso-lms-features-src-vi="https://nesso.vn/wp-content/uploads/2026/09/block-6.png" data-nesso-lms-features-src-en="">
             </div>
-          </article>
+          </a>
         </div>
       </section>
 
       <section class="lms-features-library" aria-label="Thư viện khóa học và nội dung số">
         <div class="lms-features-library__card">
           <img src="https://nesso.vn/wp-content/uploads/2026/09/last-cuoi-trang-lms-feature-scaled.png" alt="Học tập đa phương thức, sẵn sàng cho mọi nhu cầu đào tạo" decoding="async" loading="lazy" data-nesso-lms-features-media="library-cta" data-nesso-lms-features-src-vi="https://nesso.vn/wp-content/uploads/2026/09/last-cuoi-trang-lms-feature-scaled.png" data-nesso-lms-features-src-en="">
-          <a class="lms-features-library__button" href="#contact" data-contact-open>Khám phá chi tiết</a>
+          <a class="lms-features-library__button" href="#lms-feature-details" data-lms-feature-details data-nesso-i18n-skip><span class="lms-feature-details-copy lms-feature-details-copy--vi">Khám phá chi tiết</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Explore details</span></a>
         </div>
+      </section>
+    </section>
+
+    <section class="lms-feature-details-view--legacy" id="lms-feature-details-view-legacy" hidden aria-hidden="true" aria-label="Chi tiết tính năng LMS">
+      <div class="lms-feature-details-view__backdrop" aria-hidden="true"></div>
+      <section class="lms-feature-details-intro" aria-labelledby="lms-feature-details-title">
+        <span class="lms-feature-details-intro__eyebrow" data-nesso-i18n-skip><span class="lms-feature-details-copy lms-feature-details-copy--vi">Chức năng LMS</span><span class="lms-feature-details-copy lms-feature-details-copy--en">LMS Features</span></span>
+        <h1 id="lms-feature-details-title-legacy" data-nesso-i18n-skip><span class="lms-feature-details-copy lms-feature-details-copy--vi">Hệ thống LMS toàn diện<br>cho doanh nghiệp</span><span class="lms-feature-details-copy lms-feature-details-copy--en">A complete LMS<br>for your business</span></h1>
+        <p data-nesso-i18n-skip><span class="lms-feature-details-copy lms-feature-details-copy--vi">Từ học tập, đánh giá đến quản trị và cá nhân hóa, mọi công cụ được kết nối trong một hệ thống duy nhất.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">From learning and assessment to administration and personalization, every capability works together in one system.</span></p>
+      </section>
+
+      <section class="lms-feature-details-list" aria-label="Sáu nhóm tính năng LMS">
+        <article class="lms-feature-details-section lms-feature-details-section--learning">
+          <div class="lms-feature-details-section__media">
+            <img src="https://nesso.vn/wp-content/uploads/2026/09/image-section-1.png" alt="Giao diện học tập trên LMS" loading="eager" decoding="async" data-nesso-lms-feature-details-media="section-1" data-nesso-lms-feature-details-src-vi="https://nesso.vn/wp-content/uploads/2026/09/image-section-1.png" data-nesso-lms-feature-details-src-en="">
+          </div>
+          <div class="lms-feature-details-section__content">
+            <span class="lms-feature-details-section__index">01</span>
+            <h2 data-nesso-i18n-skip><span class="lms-feature-details-copy lms-feature-details-copy--vi">Học tập</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Learning</span></h2>
+            <p class="lms-feature-details-section__lead" data-nesso-i18n-skip><span class="lms-feature-details-copy lms-feature-details-copy--vi">Thiết kế hành trình học tập trực quan, linh hoạt và phù hợp với từng nhóm người học.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Design visual, flexible learning journeys for every learner group.</span></p>
+            <div class="lms-feature-details-rows">
+              <img class="lms-feature-details-rows__line" src="https://nesso.vn/wp-content/uploads/2026/09/icon-straigh-line-each-rows-in-section.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+              <div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-1-section-1.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div data-nesso-i18n-skip><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Xây dựng khóa học</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Build courses</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Tổ chức bài học, mô-đun và lộ trình theo cách của bạn.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Organize lessons, modules, and paths your way.</span></span></div></div>
+              <div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-2-section-1.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div data-nesso-i18n-skip><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Học liệu trực quan</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Visual learning assets</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Kết hợp video, tài liệu và hoạt động tương tác.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Combine video, documents, and interactive activities.</span></span></div></div>
+              <div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-3-section-1.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div data-nesso-i18n-skip><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Theo dõi tiến độ</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Track progress</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Nắm bắt hành trình học tập theo thời gian thực.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Follow every learner journey in real time.</span></span></div></div>
+            </div>
+          </div>
+        </article>
+
+        <div class="lms-feature-details-divider" aria-hidden="true"><img src="https://nesso.vn/wp-content/uploads/2026/09/line-between-sections-scaled.png" alt="" loading="lazy" decoding="async"></div>
+
+        <article class="lms-feature-details-section lms-feature-details-section--assessment lms-feature-details-section--reverse">
+          <div class="lms-feature-details-section__media">
+            <img src="https://nesso.vn/wp-content/uploads/2026/09/image-section-2.png" alt="Giao diện đánh giá và báo cáo trên LMS" loading="lazy" decoding="async" data-nesso-lms-feature-details-media="section-2" data-nesso-lms-feature-details-src-vi="https://nesso.vn/wp-content/uploads/2026/09/image-section-2.png" data-nesso-lms-feature-details-src-en="">
+          </div>
+          <div class="lms-feature-details-section__content">
+            <span class="lms-feature-details-section__index">02</span>
+            <h2 data-nesso-i18n-skip><span class="lms-feature-details-copy lms-feature-details-copy--vi">Đánh giá</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Assessment</span></h2>
+            <p class="lms-feature-details-section__lead" data-nesso-i18n-skip><span class="lms-feature-details-copy lms-feature-details-copy--vi">Đo lường hiệu quả học tập với dữ liệu rõ ràng, phản hồi kịp thời và báo cáo dễ theo dõi.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Measure learning impact with clear data, timely feedback, and easy-to-read reports.</span></p>
+            <div class="lms-feature-details-rows">
+              <img class="lms-feature-details-rows__line" src="https://nesso.vn/wp-content/uploads/2026/09/icon-straigh-line-each-rows-in-section.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+              <div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-1-section-2.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div data-nesso-i18n-skip><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Bài tập &amp; kiểm tra</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Assignments &amp; tests</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Thiết kế đa dạng hình thức đánh giá.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Create assessment formats that fit each goal.</span></span></div></div>
+              <div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-2-section-2.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div data-nesso-i18n-skip><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Phản hồi kịp thời</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Timely feedback</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Đưa phản hồi rõ ràng ngay trong hành trình học.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Give clear feedback during the learning journey.</span></span></div></div>
+              <div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-3-section-2.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div data-nesso-i18n-skip><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Báo cáo trực quan</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Visual reporting</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Theo dõi kết quả để tối ưu chương trình đào tạo.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Use learning data to improve every program.</span></span></div></div>
+            </div>
+          </div>
+        </article>
+
+        <div class="lms-feature-details-divider" aria-hidden="true"><img src="https://nesso.vn/wp-content/uploads/2026/09/line-between-sections-scaled.png" alt="" loading="lazy" decoding="async"></div>
+
+        <article class="lms-feature-details-section lms-feature-details-section--cms">
+          <div class="lms-feature-details-section__media"><img src="https://nesso.vn/wp-content/uploads/2026/09/image-section-3.png" alt="Giao diện quản trị CMS" loading="lazy" decoding="async" data-nesso-lms-feature-details-media="section-3" data-nesso-lms-feature-details-src-vi="https://nesso.vn/wp-content/uploads/2026/09/image-section-3.png" data-nesso-lms-feature-details-src-en=""></div>
+          <div class="lms-feature-details-section__content"><span class="lms-feature-details-section__index">03</span><h2 data-nesso-i18n-skip><span class="lms-feature-details-copy lms-feature-details-copy--vi">Quản trị CMS</span><span class="lms-feature-details-copy lms-feature-details-copy--en">CMS administration</span></h2><p class="lms-feature-details-section__lead" data-nesso-i18n-skip><span class="lms-feature-details-copy lms-feature-details-copy--vi">Vận hành hệ thống đào tạo mạch lạc, bảo mật và linh hoạt theo cơ cấu doanh nghiệp.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Run a secure, flexible training system that matches your organization.</span></p><div class="lms-feature-details-rows"><img class="lms-feature-details-rows__line" src="https://nesso.vn/wp-content/uploads/2026/09/icon-straigh-line-each-rows-in-section.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-1-section-3.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div data-nesso-i18n-skip><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Quản lý người dùng</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Manage users</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Sắp xếp người học, nhóm và đơn vị thuận tiện.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Organize learners, groups, and business units easily.</span></span></div></div><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-2-section-3.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div data-nesso-i18n-skip><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Phân quyền linh hoạt</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Flexible permissions</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Kiểm soát quyền truy cập theo từng vai trò.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Control access by role and responsibility.</span></span></div></div><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-3-section-3.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div data-nesso-i18n-skip><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Vận hành tập trung</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Centralized operations</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Theo dõi toàn bộ hoạt động trên một nền tảng.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">See every activity from one platform.</span></span></div></div></div></div>
+        </article>
+
+        <div class="lms-feature-details-divider" aria-hidden="true"><img src="https://nesso.vn/wp-content/uploads/2026/09/line-between-sections-scaled.png" alt="" loading="lazy" decoding="async"></div>
+
+        <article class="lms-feature-details-section lms-feature-details-section--content lms-feature-details-section--reverse">
+          <div class="lms-feature-details-section__media"><img src="https://nesso.vn/wp-content/uploads/2026/09/image-section-4.png" alt="Giao diện phát triển nội dung" loading="lazy" decoding="async" data-nesso-lms-feature-details-media="section-4" data-nesso-lms-feature-details-src-vi="https://nesso.vn/wp-content/uploads/2026/09/image-section-4.png" data-nesso-lms-feature-details-src-en=""></div>
+          <div class="lms-feature-details-section__content"><span class="lms-feature-details-section__index">04</span><h2 data-nesso-i18n-skip><span class="lms-feature-details-copy lms-feature-details-copy--vi">Phát triển nội dung</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Content development</span></h2><p class="lms-feature-details-section__lead" data-nesso-i18n-skip><span class="lms-feature-details-copy lms-feature-details-copy--vi">Biến tri thức nội bộ thành học liệu số mạch lạc, dễ dùng và dễ mở rộng.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Turn internal knowledge into clear, reusable digital learning assets.</span></p><div class="lms-feature-details-rows"><img class="lms-feature-details-rows__line" src="https://nesso.vn/wp-content/uploads/2026/09/icon-straigh-line-each-rows-in-section.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-1-section-4.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div data-nesso-i18n-skip><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Thư viện học liệu</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Learning library</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Lưu trữ nội dung có cấu trúc và dễ tìm kiếm.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Store content in a structured, searchable library.</span></span></div></div><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-2-section-4.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div data-nesso-i18n-skip><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Chuẩn hóa kiến thức</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Standardize knowledge</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Giữ nội dung luôn nhất quán trong toàn tổ chức.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Keep content consistent across the organization.</span></span></div></div><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-3-section-4.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div data-nesso-i18n-skip><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Phổ biến nhanh chóng</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Publish quickly</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Đưa kiến thức đến đúng nhóm người học.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Deliver knowledge to the right learner groups.</span></span></div></div></div></div>
+        </article>
+
+        <div class="lms-feature-details-divider" aria-hidden="true"><img src="https://nesso.vn/wp-content/uploads/2026/09/line-between-sections-scaled.png" alt="" loading="lazy" decoding="async"></div>
+
+        <article class="lms-feature-details-section lms-feature-details-section--ai">
+          <div class="lms-feature-details-section__media"><img src="https://nesso.vn/wp-content/uploads/2026/09/image-section-5.png" alt="Trợ lý AI trong LMS" loading="lazy" decoding="async" data-nesso-lms-feature-details-media="section-5" data-nesso-lms-feature-details-src-vi="https://nesso.vn/wp-content/uploads/2026/09/image-section-5.png" data-nesso-lms-feature-details-src-en=""></div>
+          <div class="lms-feature-details-section__content"><span class="lms-feature-details-section__index">05</span><h2 data-nesso-i18n-skip><span class="lms-feature-details-copy lms-feature-details-copy--vi">AI</span><span class="lms-feature-details-copy lms-feature-details-copy--en">AI</span></h2><p class="lms-feature-details-section__lead" data-nesso-i18n-skip><span class="lms-feature-details-copy lms-feature-details-copy--vi">Tăng tốc hành trình học tập và vận hành đào tạo bằng trợ lý AI đồng hành cùng đội ngũ.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Accelerate learning and operations with an AI assistant that works alongside your team.</span></p><div class="lms-feature-details-rows"><img class="lms-feature-details-rows__line" src="https://nesso.vn/wp-content/uploads/2026/09/icon-straigh-line-each-rows-in-section.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-1-section-5.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div data-nesso-i18n-skip><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Trợ lý học tập</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Learning assistant</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Hỗ trợ tìm kiếm và giải đáp ngay trong lúc học.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Find answers and guidance while learning.</span></span></div></div><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-2-section-5.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div data-nesso-i18n-skip><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Phân tích thông minh</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Smart analysis</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Nhận diện nhu cầu và gợi ý hành động phù hợp.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Recognize needs and suggest the right next step.</span></span></div></div><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-3-section-5.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div data-nesso-i18n-skip><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Tạo nội dung nhanh hơn</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Create content faster</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Rút ngắn thời gian chuẩn bị học liệu số.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Reduce the time needed to prepare learning assets.</span></span></div></div></div></div>
+        </article>
+
+        <div class="lms-feature-details-divider" aria-hidden="true"><img src="https://nesso.vn/wp-content/uploads/2026/09/line-between-sections-scaled.png" alt="" loading="lazy" decoding="async"></div>
+
+        <article class="lms-feature-details-section lms-feature-details-section--brand lms-feature-details-section--reverse">
+          <div class="lms-feature-details-section__media"><img src="https://nesso.vn/wp-content/uploads/2026/09/image-section-6.png" alt="Tùy biến thương hiệu trên LMS" loading="lazy" decoding="async" data-nesso-lms-feature-details-media="section-6" data-nesso-lms-feature-details-src-vi="https://nesso.vn/wp-content/uploads/2026/09/image-section-6.png" data-nesso-lms-feature-details-src-en=""></div>
+          <div class="lms-feature-details-section__content"><span class="lms-feature-details-section__index">06</span><h2 data-nesso-i18n-skip><span class="lms-feature-details-copy lms-feature-details-copy--vi">Thương hiệu</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Brand</span></h2><p class="lms-feature-details-section__lead" data-nesso-i18n-skip><span class="lms-feature-details-copy lms-feature-details-copy--vi">Tạo trải nghiệm LMS mang nhận diện riêng, thống nhất với thương hiệu của doanh nghiệp.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Create an LMS experience that is unmistakably and consistently your brand.</span></p><div class="lms-feature-details-rows"><img class="lms-feature-details-rows__line" src="https://nesso.vn/wp-content/uploads/2026/09/icon-straigh-line-each-rows-in-section.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-1-section-6.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div data-nesso-i18n-skip><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Cá nhân hóa giao diện</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Personalize the interface</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Đồng bộ giao diện theo nhận diện thương hiệu.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Align every interface with your brand system.</span></span></div></div><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-2-section-6.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div data-nesso-i18n-skip><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Tài sản thương hiệu</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Brand assets</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Quản lý màu sắc, hình ảnh và các thành phần trực quan.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Manage colors, imagery, and visual components.</span></span></div></div><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-3-section-6.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div data-nesso-i18n-skip><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Trải nghiệm nhất quán</span><span class="lms-feature-details-copy lms-feature-details-copy--en">A consistent experience</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Giữ dấu ấn thương hiệu xuyên suốt hành trình học.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Carry your brand through the complete learning journey.</span></span></div></div></div></div>
+        </article>
+      </section>
+
+      <section class="lms-feature-details-outro" aria-label="Nâng tầm doanh nghiệp">
+        <img src="https://nesso.vn/wp-content/uploads/2026/09/image-above-footer-scaled.png" alt="" aria-hidden="true" width="2560" height="1570" loading="eager" decoding="async" data-nesso-lms-feature-details-media="outro" data-nesso-lms-feature-details-src-vi="https://nesso.vn/wp-content/uploads/2026/09/image-above-footer-scaled.png" data-nesso-lms-feature-details-src-en="">
+        <div class="lms-feature-details-outro__content" data-nesso-i18n-skip><h2><span class="lms-feature-details-copy lms-feature-details-copy--vi">Nâng tầm<br>doanh nghiệp của bạn</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Elevate<br>your business</span></h2><a href="#contact" data-contact-open><span class="lms-feature-details-copy lms-feature-details-copy--vi">Liên hệ với Nesso</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Contact Nesso</span></a></div>
+      </section>
+    </section>
+
+    <section class="lms-feature-details-view" id="lms-feature-details-view" hidden aria-hidden="true" aria-label="Chi tiết tính năng LMS">
+      <div class="lms-feature-details-view__backdrop" aria-hidden="true"></div>
+
+      <section class="lms-feature-details-hero" aria-labelledby="lms-feature-details-title">
+        <div class="lms-feature-details-hero__inner">
+          <div class="lms-feature-details-hero__copy" data-nesso-i18n-skip>
+            <h1 id="lms-feature-details-title">
+              <span class="lms-feature-details-copy lms-feature-details-copy--vi">Biến đào tạo nội bộ<br>thành <em>hành trình</em><br>học tập cuốn hút</span>
+              <span class="lms-feature-details-copy lms-feature-details-copy--en">Turn internal training<br>into an <em>engaging journey</em></span>
+            </h1>
+            <p><span class="lms-feature-details-copy lms-feature-details-copy--vi">Tạo môi trường học tập tương tác với hệ thống huy hiệu, lộ trình cá nhân hóa và gamification hiện đại. Giúp đội ngũ chủ động nâng cao năng lực và gắn kết hơn với mục tiêu của doanh nghiệp.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Create an interactive learning environment with badges, personalized paths, and modern gamification. Help teams build capability and stay connected to business goals.</span></p>
+            <div class="lms-feature-details-hero__actions"><a href="#contact" data-contact-open><span class="lms-feature-details-copy lms-feature-details-copy--vi">Liên hệ với chúng tôi</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Contact us</span></a><button type="button" data-demo-open><span class="lms-feature-details-copy lms-feature-details-copy--vi">Trải nghiệm Demo</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Try the demo</span></button></div>
+          </div>
+          <div class="lms-feature-details-hero__visual" aria-hidden="true">
+            <img class="lms-feature-details-hero__visual-image" src="https://nesso.vn/wp-content/uploads/2026/09/Banner-elements.png" alt="" decoding="async" data-nesso-lms-feature-details-media="hero" data-nesso-lms-feature-details-src-vi="https://nesso.vn/wp-content/uploads/2026/09/Banner-elements.png" data-nesso-lms-feature-details-src-en="">
+            <div class="lms-detail-dashboard-card lms-detail-dashboard-card--chart"><span class="lms-detail-chart-note">+120%<small><span class="lms-feature-details-copy lms-feature-details-copy--vi">Tiến bộ tháng</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Monthly growth</span></small></span><span class="lms-detail-chart-dot"></span><span class="lms-detail-chart-line"></span></div>
+            <div class="lms-detail-dashboard-card lms-detail-dashboard-card--bars"><span class="lms-detail-bars-title"><span class="lms-feature-details-copy lms-feature-details-copy--vi">Phân tích nâng cao</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Advanced analytics</span></span><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="lms-detail-dashboard-card lms-detail-dashboard-card--badge"><b>New Badge!</b><span class="lms-feature-details-copy lms-feature-details-copy--vi">Chúc mừng bạn đã mở khóa danh hiệu mới</span><span class="lms-feature-details-copy lms-feature-details-copy--en">You have unlocked a new achievement</span></div>
+            <div class="lms-detail-dashboard-card lms-detail-dashboard-card--progress"><b><span class="lms-feature-details-copy lms-feature-details-copy--vi">Nguyễn Minh</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Alex Morgan</span></b><i></i><span></span><span></span><span></span><span></span><button><span class="lms-feature-details-copy lms-feature-details-copy--vi">Chi tiết</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Details</span></button></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="lms-feature-details-discovery" aria-label="Khám phá tính năng">
+        <div class="lms-feature-details-discovery__inner" data-nesso-i18n-skip>
+          <h2><span class="lms-feature-details-copy lms-feature-details-copy--vi">Khóa học &amp; phân phối đào tạo</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Courses &amp; learning delivery</span></h2>
+          <p><span class="lms-feature-details-copy lms-feature-details-copy--vi">Sắp xếp khóa học theo chủ đề, chương trình hoặc nhóm năng lực để người học dễ tìm.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Organize courses by topic, program, or competency group so learners find what they need.</span></p>
+        </div>
+      </section>
+
+      <nav class="lms-feature-details-filters" aria-label="Điều hướng nhóm tính năng" data-nesso-i18n-skip>
+            <button type="button" data-lms-feature-filter="learning"><span class="lms-feature-details-copy lms-feature-details-copy--vi">Học tập</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Learning</span></button>
+            <button type="button" data-lms-feature-filter="assessment"><span class="lms-feature-details-copy lms-feature-details-copy--vi">Đánh giá</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Assessment</span></button>
+            <button type="button" data-lms-feature-filter="cms"><span class="lms-feature-details-copy lms-feature-details-copy--vi">Quản trị CMS</span><span class="lms-feature-details-copy lms-feature-details-copy--en">CMS administration</span></button>
+            <button type="button" data-lms-feature-filter="content"><span class="lms-feature-details-copy lms-feature-details-copy--vi">Phát triển nội dung</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Content development</span></button>
+            <button type="button" data-lms-feature-filter="ai">AI</button>
+            <button type="button" data-lms-feature-filter="brand"><span class="lms-feature-details-copy lms-feature-details-copy--vi">Thương hiệu</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Brand</span></button>
+      </nav>
+
+      <section class="lms-feature-details-list" aria-label="Sáu nhóm tính năng LMS">
+        <article class="lms-feature-details-section lms-feature-details-section--learning" data-lms-feature-category="learning">
+          <div class="lms-feature-details-section__media"><img src="https://nesso.vn/wp-content/uploads/2026/09/image-section-1.png" alt="Giao diện học tập trên LMS" loading="eager" decoding="async" data-nesso-lms-feature-details-media="section-1" data-nesso-lms-feature-details-src-vi="https://nesso.vn/wp-content/uploads/2026/09/image-section-1.png" data-nesso-lms-feature-details-src-en=""></div>
+          <div class="lms-feature-details-section__content" data-nesso-i18n-skip><div class="lms-feature-details-section__heading"><h2><span class="lms-feature-details-copy lms-feature-details-copy--vi">Học tập</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Learning</span></h2><span>03/15</span></div><p class="lms-feature-details-section__lead"><span class="lms-feature-details-copy lms-feature-details-copy--vi">Biến bài giảng thành trải nghiệm học đa dạng: video, bài đọc, câu hỏi, sơ đồ và hoạt động tương tác.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Turn every lesson into a rich learning experience with video, readings, questions, diagrams, and interactive activities.</span></p><div class="lms-feature-details-rows"><img class="lms-feature-details-rows__line" src="https://nesso.vn/wp-content/uploads/2026/09/icon-straigh-line-each-rows-in-section.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-1-section-1.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Soạn cấu trúc bài học</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Build lesson structures</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Xây dựng chương, bài, phần học và sắp xếp nội dung theo trình tự.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Build modules, lessons, and learning units in the right order.</span></span></div></div><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-2-section-1.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Video bài học</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Lesson video</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Đưa video vào bài học bằng đường dẫn hoặc tệp tải lên.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Add a video with a link or upload it directly.</span></span></div></div><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-3-section-1.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Ô chữ tương tác</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Interactive crossword</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Biến nội dung học thành hoạt động vui, có gợi ý và đáp án.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Turn knowledge into an activity with hints and answers.</span></span></div></div></div><a class="lms-feature-details-section__more" href="#contact" data-contact-open><span class="lms-feature-details-copy lms-feature-details-copy--vi">Khám phá thêm 12 chức năng khác</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Explore 12 more capabilities</span></a></div>
+        </article>
+        <div class="lms-feature-details-divider" aria-hidden="true"><img src="https://nesso.vn/wp-content/uploads/2026/09/line-between-sections-scaled.png" alt="" loading="lazy" decoding="async"></div>
+
+        <article class="lms-feature-details-section lms-feature-details-section--assessment lms-feature-details-section--reverse" data-lms-feature-category="assessment">
+          <div class="lms-feature-details-section__media"><img src="https://nesso.vn/wp-content/uploads/2026/09/image-section-2.png" alt="Giao diện đánh giá và báo cáo trên LMS" loading="lazy" decoding="async" data-nesso-lms-feature-details-media="section-2" data-nesso-lms-feature-details-src-vi="https://nesso.vn/wp-content/uploads/2026/09/image-section-2.png" data-nesso-lms-feature-details-src-en=""></div>
+          <div class="lms-feature-details-section__content" data-nesso-i18n-skip><div class="lms-feature-details-section__heading"><h2><span class="lms-feature-details-copy lms-feature-details-copy--vi">Đánh giá</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Assessment</span></h2><span>03/15</span></div><p class="lms-feature-details-section__lead"><span class="lms-feature-details-copy lms-feature-details-copy--vi">Khép kín quá trình học bằng giao bài, nộp bài, chấm điểm và phản hồi.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Close the learning loop with assignments, submissions, grading, and feedback.</span></p><div class="lms-feature-details-rows"><img class="lms-feature-details-rows__line" src="https://nesso.vn/wp-content/uploads/2026/09/icon-straigh-line-each-rows-in-section.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-1-section-2.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Chấm điểm thang 100</span><span class="lms-feature-details-copy lms-feature-details-copy--en">100-point grading</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Người chấm có thể gửi điểm và trạng thái cho bài nộp.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Graders can send marks and a status for each submission.</span></span></div></div><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-2-section-2.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Tạo bài tập trong khóa học</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Create course assignments</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Giao bài tự luận hoặc yêu cầu thực hành cho học viên.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Set essays or practical tasks for learners.</span></span></div></div><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-3-section-2.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Nhận điểm và phản hồi</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Receive marks and feedback</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Học viên xem nhận xét, điểm số và tệp phản hồi từ người chấm.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Learners see comments, grades, and feedback files from graders.</span></span></div></div></div><a class="lms-feature-details-section__more" href="#contact" data-contact-open><span class="lms-feature-details-copy lms-feature-details-copy--vi">Khám phá thêm 12 chức năng khác</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Explore 12 more capabilities</span></a></div>
+        </article>
+        <div class="lms-feature-details-divider" aria-hidden="true"><img src="https://nesso.vn/wp-content/uploads/2026/09/line-between-sections-scaled.png" alt="" loading="lazy" decoding="async"></div>
+
+        <article class="lms-feature-details-section lms-feature-details-section--cms" data-lms-feature-category="cms">
+          <div class="lms-feature-details-section__media"><img src="https://nesso.vn/wp-content/uploads/2026/09/image-section-3.png" alt="Giao diện quản trị CMS" loading="lazy" decoding="async" data-nesso-lms-feature-details-media="section-3" data-nesso-lms-feature-details-src-vi="https://nesso.vn/wp-content/uploads/2026/09/image-section-3.png" data-nesso-lms-feature-details-src-en=""></div>
+          <div class="lms-feature-details-section__content" data-nesso-i18n-skip><div class="lms-feature-details-section__heading"><h2><span class="lms-feature-details-copy lms-feature-details-copy--vi">Quản trị CMS</span><span class="lms-feature-details-copy lms-feature-details-copy--en">CMS administration</span></h2><span>03/17</span></div><p class="lms-feature-details-section__lead"><span class="lms-feature-details-copy lms-feature-details-copy--vi">Giao đúng phạm vi việc cho từng người, theo dõi lịch sử thay đổi và giảm rủi ro thao tác sai.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Give each person the right scope of work, track changes, and reduce operational risk.</span></p><div class="lms-feature-details-rows"><img class="lms-feature-details-rows__line" src="https://nesso.vn/wp-content/uploads/2026/09/icon-straigh-line-each-rows-in-section.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-1-section-3.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Phân loại vai trò người dùng</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Classify user roles</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Phân biệt người học, người vận hành và người quản lý.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Differentiate learners, operators, and managers.</span></span></div></div><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-2-section-3.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Nhật ký hoạt động</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Activity log</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Xem lại các thao tác quan trọng như tạo mới, cập nhật, xóa.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Review important actions such as creating, updating, and deleting.</span></span></div></div><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-3-section-3.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Lịch sử phản hồi bài tập</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Assignment feedback history</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Lưu lại các lần phản hồi để theo dõi quá trình chấm và trao đổi.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Keep every feedback round visible for grading and discussion.</span></span></div></div></div><a class="lms-feature-details-section__more" href="#contact" data-contact-open><span class="lms-feature-details-copy lms-feature-details-copy--vi">Khám phá thêm 14 chức năng khác</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Explore 14 more capabilities</span></a></div>
+        </article>
+        <div class="lms-feature-details-divider" aria-hidden="true"><img src="https://nesso.vn/wp-content/uploads/2026/09/line-between-sections-scaled.png" alt="" loading="lazy" decoding="async"></div>
+
+        <article class="lms-feature-details-section lms-feature-details-section--content lms-feature-details-section--reverse" data-lms-feature-category="content">
+          <div class="lms-feature-details-section__media"><img src="https://nesso.vn/wp-content/uploads/2026/09/image-section-4.png" alt="Giao diện phát triển nội dung" loading="lazy" decoding="async" data-nesso-lms-feature-details-media="section-4" data-nesso-lms-feature-details-src-vi="https://nesso.vn/wp-content/uploads/2026/09/image-section-4.png" data-nesso-lms-feature-details-src-en=""></div>
+          <div class="lms-feature-details-section__content" data-nesso-i18n-skip><div class="lms-feature-details-section__heading"><h2><span class="lms-feature-details-copy lms-feature-details-copy--vi">Phát triển nội dung</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Content development</span></h2><span>03/13</span></div><p class="lms-feature-details-section__lead"><span class="lms-feature-details-copy lms-feature-details-copy--vi">Tạo hành trình học mượt từ trang chính, khám phá khóa học, tiếp tục học đến hoàn thành.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Create a smooth journey from the home screen through discovery, continuing, and completion.</span></p><div class="lms-feature-details-rows"><img class="lms-feature-details-rows__line" src="https://nesso.vn/wp-content/uploads/2026/09/icon-straigh-line-each-rows-in-section.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-1-section-4.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Danh mục khóa học</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Course categories</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Sắp xếp khóa học theo chủ đề, chương trình hoặc nhóm năng lực.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Organize courses by topic, program, or competency group.</span></span></div></div><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-2-section-4.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Tệp đính kèm trong khóa học</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Course attachments</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Đưa tài liệu tham khảo vào khóa học để học viên tải hoặc xem.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Add supporting material for learners to view or download.</span></span></div></div><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-3-section-4.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Thông điệp theo từng phần học</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Section messages</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Hiển thị thông báo hoặc lời nhắc riêng cho từng phần học.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Show tailored notices and reminders for each learning unit.</span></span></div></div></div><a class="lms-feature-details-section__more" href="#contact" data-contact-open><span class="lms-feature-details-copy lms-feature-details-copy--vi">Khám phá thêm 10 chức năng khác</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Explore 10 more capabilities</span></a></div>
+        </article>
+        <div class="lms-feature-details-divider" aria-hidden="true"><img src="https://nesso.vn/wp-content/uploads/2026/09/line-between-sections-scaled.png" alt="" loading="lazy" decoding="async"></div>
+
+        <article class="lms-feature-details-section lms-feature-details-section--ai" data-lms-feature-category="ai">
+          <div class="lms-feature-details-section__media"><img src="https://nesso.vn/wp-content/uploads/2026/09/image-section-5.png" alt="Trợ lý AI trong LMS" loading="lazy" decoding="async" data-nesso-lms-feature-details-media="section-5" data-nesso-lms-feature-details-src-vi="https://nesso.vn/wp-content/uploads/2026/09/image-section-5.png" data-nesso-lms-feature-details-src-en=""></div>
+          <div class="lms-feature-details-section__content" data-nesso-i18n-skip><div class="lms-feature-details-section__heading"><h2>AI</h2><span>03/10</span></div><p class="lms-feature-details-section__lead"><span class="lms-feature-details-copy lms-feature-details-copy--vi">Dùng tài liệu doanh nghiệp để hỗ trợ hỏi đáp, vận hành và soạn bài nhanh hơn.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Use enterprise knowledge to support Q&amp;A, operations, and faster course authoring.</span></p><div class="lms-feature-details-rows"><img class="lms-feature-details-rows__line" src="https://nesso.vn/wp-content/uploads/2026/09/icon-straigh-line-each-rows-in-section.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-1-section-5.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Kho tri thức AI</span><span class="lms-feature-details-copy lms-feature-details-copy--en">AI knowledge base</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Tạo một tập hợp tài liệu để trợ lý AI trả lời theo doanh nghiệp.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Create an enterprise knowledge set for AI answers.</span></span></div></div><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-2-section-5.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Trợ lý AI hỗ trợ soạn bài</span><span class="lms-feature-details-copy lms-feature-details-copy--en">AI course authoring assistant</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">AI hỗ trợ đề xuất cấu trúc bài học và đưa vào khóa học.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">AI suggests a lesson structure and adds it to the course.</span></span></div></div><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-3-section-5.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Theo dõi trạng thái học liệu</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Track learning material status</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Biết tài liệu nào đã học xong, đang xử lý hoặc cần thử lại.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Know which material is complete, in progress, or needs another try.</span></span></div></div></div><a class="lms-feature-details-section__more" href="#contact" data-contact-open><span class="lms-feature-details-copy lms-feature-details-copy--vi">Khám phá thêm 07 chức năng khác</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Explore 07 more capabilities</span></a></div>
+        </article>
+        <div class="lms-feature-details-divider" aria-hidden="true"><img src="https://nesso.vn/wp-content/uploads/2026/09/line-between-sections-scaled.png" alt="" loading="lazy" decoding="async"></div>
+
+        <article class="lms-feature-details-section lms-feature-details-section--brand lms-feature-details-section--reverse" data-lms-feature-category="brand">
+          <div class="lms-feature-details-section__media"><img src="https://nesso.vn/wp-content/uploads/2026/09/image-section-6.png" alt="Tùy biến thương hiệu trên LMS" loading="lazy" decoding="async" data-nesso-lms-feature-details-media="section-6" data-nesso-lms-feature-details-src-vi="https://nesso.vn/wp-content/uploads/2026/09/image-section-6.png" data-nesso-lms-feature-details-src-en=""></div>
+          <div class="lms-feature-details-section__content" data-nesso-i18n-skip><div class="lms-feature-details-section__heading"><h2><span class="lms-feature-details-copy lms-feature-details-copy--vi">Thương hiệu</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Brand</span></h2><span>03/14</span></div><p class="lms-feature-details-section__lead"><span class="lms-feature-details-copy lms-feature-details-copy--vi">Đưa người dùng vào đúng không gian của khách hàng, có nhận diện và hồ sơ cá nhân rõ ràng.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Bring people into the right customer environment with clear identity and profiles.</span></p><div class="lms-feature-details-rows"><img class="lms-feature-details-rows__line" src="https://nesso.vn/wp-content/uploads/2026/09/icon-straigh-line-each-rows-in-section.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-1-section-6.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Hồ sơ cá nhân</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Personal profile</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Người dùng cập nhật thông tin, ảnh đại diện, liên hệ và giới thiệu.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Users update their information, avatar, contact details, and introduction.</span></span></div></div><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-2-section-6.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Đổi mật khẩu</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Change password</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Người dùng tự bảo vệ tài khoản mà không cần nhờ đội vận hành.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Users secure their accounts without operational support.</span></span></div></div><div class="lms-feature-details-row"><img src="https://nesso.vn/wp-content/uploads/2026/09/icon-row-3-section-6.png" alt="" aria-hidden="true" loading="lazy" decoding="async"><div><strong><span class="lms-feature-details-copy lms-feature-details-copy--vi">Thương hiệu riêng cho khách hàng</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Customer-specific branding</span></strong><span><span class="lms-feature-details-copy lms-feature-details-copy--vi">Thiết lập không gian thương hiệu riêng cho từng khách hàng.</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Configure a dedicated branded space for each customer.</span></span></div></div></div><a class="lms-feature-details-section__more" href="#contact" data-contact-open><span class="lms-feature-details-copy lms-feature-details-copy--vi">Khám phá thêm 11 chức năng khác</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Explore 11 more capabilities</span></a></div>
+        </article>
+      </section>
+
+      <section class="lms-feature-details-outro" aria-label="Một nền tảng trọn vẹn hành trình học tập">
+        <img src="https://nesso.vn/wp-content/uploads/2026/09/image-above-footer-scaled.png" alt="" aria-hidden="true" loading="lazy" decoding="async" data-nesso-lms-feature-details-media="outro" data-nesso-lms-feature-details-src-vi="https://nesso.vn/wp-content/uploads/2026/09/image-above-footer-scaled.png" data-nesso-lms-feature-details-src-en="">
+        <div class="lms-feature-details-outro__content" data-nesso-i18n-skip><a href="#demo-embed" data-demo-open aria-controls="demo-embed-section" aria-expanded="false"><span class="lms-feature-details-copy lms-feature-details-copy--vi">Demo</span><span class="lms-feature-details-copy lms-feature-details-copy--en">Demo</span></a></div>
       </section>
     </section>
 
@@ -12218,6 +15028,14 @@ function applyNessoLmsFeaturesMediaLanguage(lang = NESSO_LANGUAGE_DEFAULT) {
 
     element.style.backgroundImage = `url("${source}")`;
   });
+
+  document.querySelectorAll('[data-nesso-lms-feature-details-media]').forEach(element => {
+    const viSource = element.getAttribute('data-nesso-lms-feature-details-src-vi') || '';
+    const enSource = element.getAttribute('data-nesso-lms-feature-details-src-en') || '';
+    const source = safeLang === 'en' && enSource ? enSource : viSource;
+    if (!source) return;
+    if (element.tagName === 'IMG' && element.getAttribute('src') !== source) element.setAttribute('src', source);
+  });
 }
 
 const NESSO_I18N_EN = new Map([
@@ -12762,6 +15580,10 @@ function getNessoLmsViewMode() {
     return 'features';
   }
 
+  if (document.body && document.body.classList.contains('lms-feature-details-mode')) {
+    return 'feature-details';
+  }
+
   if (document.body && document.body.classList.contains('lucky-mode')) {
     return 'lucky';
   }
@@ -13213,6 +16035,7 @@ function clearNessoLmsDemoRoute() {
         || document.body.classList.contains('blog-mode')
         || document.body.classList.contains('contact-mode')
         || document.body.classList.contains('lms-features-mode')
+        || document.body.classList.contains('lms-feature-details-mode')
         || document.body.classList.contains('lucky-mode');
     }
 
@@ -13380,6 +16203,35 @@ document.addEventListener('DOMContentLoaded', () => {
   const proposalFooterToggle = document.querySelector('[data-proposal-footer-toggle]');
   const blogView = document.querySelector('#blog-view');
   const lmsFeaturesView = document.querySelector('#lms-features-view');
+  const lmsFeatureDetailsView = document.querySelector('#lms-feature-details-view');
+  const lmsFeatureTimelineAsset = 'https://nesso.vn/wp-content/uploads/2026/09/icon-straigh-line-each-rows-in-section.png';
+
+  if (lmsFeatureDetailsView) {
+    lmsFeatureDetailsView.querySelectorAll('.lms-feature-details-section__media img').forEach(image => {
+      image.loading = 'eager';
+    });
+
+    lmsFeatureDetailsView.querySelectorAll('.lms-feature-details-rows').forEach(rows => {
+      rows.querySelector('.lms-feature-details-rows__line')?.remove();
+
+      rows.querySelectorAll('.lms-feature-details-row').forEach(row => {
+        const rowIcon = row.querySelector(':scope > img:not(.lms-feature-details-row__timeline)');
+        if (rowIcon) rowIcon.classList.add('lms-feature-details-row__icon');
+
+        if (row.querySelector('.lms-feature-details-row__timeline')) return;
+
+        const timeline = document.createElement('img');
+        timeline.className = 'lms-feature-details-row__timeline';
+        timeline.src = lmsFeatureTimelineAsset;
+        timeline.alt = '';
+        timeline.setAttribute('aria-hidden', 'true');
+        timeline.loading = 'lazy';
+        timeline.decoding = 'async';
+        row.prepend(timeline);
+      });
+    });
+  }
+
   const lmsFeaturesRevealTargets = lmsFeaturesView
     ? [
         ...lmsFeaturesView.querySelectorAll('.lms-features-hero__content > *'),
@@ -13390,9 +16242,33 @@ document.addEventListener('DOMContentLoaded', () => {
     : [];
   let lmsFeaturesRevealObserver = null;
   let lmsFeaturesRevealFrame = 0;
+  const lmsFeatureDetailsRevealTargets = lmsFeatureDetailsView
+    ? [
+        ...lmsFeatureDetailsView.querySelectorAll('.lms-feature-details-hero__copy > *'),
+        lmsFeatureDetailsView.querySelector('.lms-feature-details-hero__visual'),
+        lmsFeatureDetailsView.querySelector('.lms-feature-details-discovery__inner'),
+        ...lmsFeatureDetailsView.querySelectorAll('.lms-feature-details-section__media, .lms-feature-details-section__content'),
+        lmsFeatureDetailsView.querySelector('.lms-feature-details-outro')
+      ].filter(Boolean)
+    : [];
+  let lmsFeatureDetailsRevealObserver = null;
+  let lmsFeatureDetailsRevealFrame = 0;
+  let lmsFeatureDetailsFilterLastScrollY = 0;
+  let lmsFeatureDetailsFilterHeaderHidden = false;
+  let lmsFeatureDetailsScrollAnimationFrame = 0;
   const blogOpenTriggers = document.querySelectorAll('[data-blog-open]');
   const homeOpenTriggers = document.querySelectorAll('[data-home-open]');
   const lmsFeatureTriggers = document.querySelectorAll('[data-lms-features]');
+  const lmsFeatureDetailsTriggers = document.querySelectorAll('[data-lms-feature-details]');
+  const lmsFeatureDetailsFilters = lmsFeatureDetailsView
+    ? lmsFeatureDetailsView.querySelectorAll('[data-lms-feature-filter]')
+    : [];
+  const lmsFeatureDetailsFilterBar = lmsFeatureDetailsView
+    ? lmsFeatureDetailsView.querySelector('.lms-feature-details-filters')
+    : null;
+  const lmsFeatureDetailsList = lmsFeatureDetailsView
+    ? lmsFeatureDetailsView.querySelector('.lms-feature-details-list')
+    : null;
   const contactView = document.querySelector('#contact-view');
   const luckyWheelView = document.querySelector('#lucky-wheel-view');
   const imageRouteView = document.querySelector('#image-route-view');
@@ -13514,6 +16390,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (document.body.classList.contains('lms-features-mode')) {
       setLmsFeaturesMode(false, { syncRoute: !parentOwnsRoute });
+    }
+    if (document.body.classList.contains('lms-feature-details-mode')) {
+      setLmsFeatureDetailsMode(false, { syncRoute: !parentOwnsRoute });
     }
     if (document.body.classList.contains('lucky-mode')) {
       setLuckyMode(false, { syncRoute: !parentOwnsRoute });
@@ -13974,6 +16853,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function isLmsFeaturesHash() {
     return window.location.hash === '#lms-features';
+  }
+
+  function isLmsFeatureDetailsHash() {
+    return window.location.hash === '#lms-feature-details';
   }
 
   function getBlogSlugFromHash() {
@@ -14793,6 +17676,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  function syncLmsFeatureDetailsRoute(isActive = true, options = {}) {
+    if (window.history && window.history.replaceState) {
+      const nextUrl = isActive
+        ? '#lms-feature-details'
+        : `${window.location.pathname}${window.location.search}`;
+      window.history.replaceState(null, '', nextUrl);
+    }
+
+    if (isInIframe) {
+      window.parent.postMessage({
+        type: 'NESSO_FEATURE_DETAILS_ROUTE',
+        active: isActive,
+        historyAction: options.historyAction || 'push'
+      }, '*');
+    }
+  }
+
   function syncLuckyRoute(isActive = true, options = {}) {
     if (window.history && window.history.replaceState) {
       const nextUrl = isActive ? '#lucky-wheel' : `${window.location.pathname}${window.location.search}`;
@@ -14864,6 +17764,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isActive && document.body.classList.contains('blog-mode')) setBlogMode(false, { syncRoute: false });
     if (isActive && document.body.classList.contains('contact-mode')) setContactMode(false, { syncRoute: false });
     if (isActive && document.body.classList.contains('lms-features-mode')) setLmsFeaturesMode(false, { syncRoute: false });
+    if (isActive && document.body.classList.contains('lms-feature-details-mode')) setLmsFeatureDetailsMode(false, { syncRoute: false });
     if (isActive && document.body.classList.contains('lucky-mode')) setLuckyMode(false, { syncRoute: false });
     if (isActive && document.body.classList.contains('demo-embed-mode')) closeDemoEmbed(false);
 
@@ -14891,6 +17792,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (isActive && document.body.classList.contains('blog-mode')) setBlogMode(false, { syncRoute: false });
     if (isActive && document.body.classList.contains('contact-mode')) setContactMode(false, { syncRoute: false });
     if (isActive && document.body.classList.contains('lms-features-mode')) setLmsFeaturesMode(false, { syncRoute: false });
+    if (isActive && document.body.classList.contains('lms-feature-details-mode')) setLmsFeatureDetailsMode(false, { syncRoute: false });
     if (isActive && document.body.classList.contains('demo-embed-mode')) closeDemoEmbed(false);
 
     document.body.classList.toggle('lucky-mode', isActive);
@@ -14941,6 +17843,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (isActive && document.body.classList.contains('lms-features-mode')) {
       setLmsFeaturesMode(false, { syncRoute: false });
+    }
+    if (isActive && document.body.classList.contains('lms-feature-details-mode')) {
+      setLmsFeatureDetailsMode(false, { syncRoute: false });
     }
 
     document.body.classList.toggle('contact-mode', isActive);
@@ -15026,6 +17931,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function setLmsFeaturesMode(isActive, options = {}) {
     if (!lmsFeaturesView) return;
     if (isActive && document.body.classList.contains('image-route-mode')) setImageRouteMode(false, '', { syncRoute: false });
+    if (isActive && document.body.classList.contains('lms-feature-details-mode')) setLmsFeatureDetailsMode(false, { syncRoute: false });
 
     if (isActive && document.body.classList.contains('proposal-mode')) {
       setProposalMode(false, { syncRoute: false });
@@ -15076,6 +17982,92 @@ document.addEventListener('DOMContentLoaded', () => {
     window.setTimeout(notifyLayoutChange, 420);
   }
 
+  function stopLmsFeatureDetailsReveals() {
+    if (lmsFeatureDetailsRevealObserver) {
+      lmsFeatureDetailsRevealObserver.disconnect();
+      lmsFeatureDetailsRevealObserver = null;
+    }
+    if (lmsFeatureDetailsRevealFrame) {
+      window.cancelAnimationFrame(lmsFeatureDetailsRevealFrame);
+      lmsFeatureDetailsRevealFrame = 0;
+    }
+  }
+
+  function startLmsFeatureDetailsReveals() {
+    if (!lmsFeatureDetailsRevealTargets.length) return;
+
+    stopLmsFeatureDetailsReveals();
+    let sectionIndex = 0;
+    lmsFeatureDetailsRevealTargets.forEach(target => {
+      target.classList.remove('lms-features-reveal--visible', 'lms-features-reveal--delay');
+      target.classList.add('lms-features-reveal');
+      const isIntro = target.closest('.lms-feature-details-hero, .lms-feature-details-discovery');
+      const delay = isIntro ? sectionIndex++ * 75 : (sectionIndex++ % 2) * 100;
+      target.style.setProperty('--lms-features-reveal-delay', `${delay}ms`);
+    });
+
+    if (!('IntersectionObserver' in window)) {
+      lmsFeatureDetailsRevealTargets.forEach(target => target.classList.add('lms-features-reveal--visible'));
+      return;
+    }
+
+    lmsFeatureDetailsRevealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('lms-features-reveal--visible');
+        lmsFeatureDetailsRevealObserver.unobserve(entry.target);
+      });
+    }, {
+      root: null,
+      rootMargin: '0px 0px -10% 0px',
+      threshold: 0.08
+    });
+
+    lmsFeatureDetailsRevealFrame = window.requestAnimationFrame(() => {
+      lmsFeatureDetailsRevealFrame = 0;
+      lmsFeatureDetailsRevealTargets.forEach(target => lmsFeatureDetailsRevealObserver.observe(target));
+    });
+  }
+
+  function setLmsFeatureDetailsMode(isActive, options = {}) {
+    if (!lmsFeatureDetailsView) return;
+    if (isActive && document.body.classList.contains('image-route-mode')) setImageRouteMode(false, '', { syncRoute: false });
+    if (isActive && document.body.classList.contains('proposal-mode')) setProposalMode(false, { syncRoute: false });
+    if (isActive && document.body.classList.contains('blog-mode')) setBlogMode(false, { syncRoute: false });
+    if (isActive && document.body.classList.contains('contact-mode')) setContactMode(false, { syncRoute: false });
+    if (isActive && document.body.classList.contains('lms-features-mode')) setLmsFeaturesMode(false, { syncRoute: false });
+    if (isActive && document.body.classList.contains('lucky-mode')) setLuckyMode(false, { syncRoute: false });
+    if (isActive && document.body.classList.contains('demo-embed-mode')) closeDemoEmbed(false);
+
+    document.body.classList.toggle('lms-feature-details-mode', isActive);
+    document.documentElement.classList.toggle('lms-feature-details-boot', isActive);
+    lmsFeatureDetailsView.hidden = !isActive;
+    lmsFeatureDetailsView.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+    resetStickyHeader();
+    lmsFeatureDetailsFilterLastScrollY = 0;
+    setLmsFeatureDetailsFilterHeaderHidden(false);
+
+    if (proposalFooterToggle && !document.body.classList.contains('proposal-mode') && !document.body.classList.contains('blog-mode') && !document.body.classList.contains('contact-mode')) {
+      proposalFooterToggle.textContent = isActive ? 'Trang chủ' : 'Xem Proposal';
+      proposalFooterToggle.setAttribute('href', isActive ? '#' : '#proposal-view');
+      proposalFooterToggle.setAttribute('aria-label', isActive ? 'Quay về trang chủ' : 'Xem Proposal');
+    }
+
+    if (isActive) {
+      if (options.syncRoute !== false) syncLmsFeatureDetailsRoute(true, { historyAction: options.historyAction });
+      blogParentLastScrollY = 0;
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      startLmsFeatureDetailsReveals();
+    } else {
+      stopLmsFeatureDetailsReveals();
+      if (options.syncRoute !== false) syncLmsFeatureDetailsRoute(false, { historyAction: options.historyAction });
+    }
+
+    window.requestAnimationFrame(notifyLayoutChange);
+    window.setTimeout(notifyLayoutChange, 120);
+    window.setTimeout(notifyLayoutChange, 420);
+  }
+
   function setBlogMode(isActive, options = {}) {
     if (!blogView) return;
     if (isActive && document.body.classList.contains('image-route-mode')) setImageRouteMode(false, '', { syncRoute: false });
@@ -15094,6 +18086,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (isActive && document.body.classList.contains('lms-features-mode')) {
       setLmsFeaturesMode(false, { syncRoute: false });
+    }
+    if (isActive && document.body.classList.contains('lms-feature-details-mode')) {
+      setLmsFeatureDetailsMode(false, { syncRoute: false });
     }
 
     document.body.classList.toggle('blog-mode', isActive);
@@ -15168,6 +18163,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (isActive && document.body.classList.contains('lms-features-mode')) {
       setLmsFeaturesMode(false, { syncRoute: false });
+    }
+    if (isActive && document.body.classList.contains('lms-feature-details-mode')) {
+      setLmsFeatureDetailsMode(false, { syncRoute: false });
     }
 
     document.body.classList.toggle('proposal-mode', isActive);
@@ -15553,6 +18551,14 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    if (event.data.type === 'NESSO_PARENT_FEATURE_DETAILS_OPEN') {
+      if (document.body.classList.contains('demo-embed-mode')) {
+        closeDemoEmbed(false);
+      }
+      setLmsFeatureDetailsMode(true, { syncRoute: false });
+      return;
+    }
+
     if (event.data.type === 'NESSO_PARENT_LUCKY_OPEN') {
       if (document.body.classList.contains('demo-embed-mode')) {
         closeDemoEmbed(false);
@@ -15598,6 +18604,8 @@ document.addEventListener('DOMContentLoaded', () => {
         setContactMode(false, { syncRoute: false });
       } else if (document.body.classList.contains('lms-features-mode')) {
         setLmsFeaturesMode(false, { syncRoute: false });
+      } else if (document.body.classList.contains('lms-feature-details-mode')) {
+        setLmsFeatureDetailsMode(false, { syncRoute: false });
       } else if (document.body.classList.contains('lucky-mode')) {
         setLuckyMode(false, { syncRoute: false });
       } else if (document.body.classList.contains('image-route-mode')) {
@@ -15631,6 +18639,134 @@ document.addEventListener('DOMContentLoaded', () => {
       setLmsFeaturesMode(true);
     });
   });
+
+  lmsFeatureDetailsTriggers.forEach(trigger => {
+    trigger.addEventListener('click', event => {
+      event.preventDefault();
+      closeHeaderNav();
+      setLmsFeatureDetailsMode(true);
+    });
+  });
+
+  function setLmsFeatureDetailsFilterHeaderHidden(isHidden) {
+    if (!lmsFeatureDetailsFilterBar) return;
+    const nextHidden = !!isHidden;
+    if (lmsFeatureDetailsFilterHeaderHidden === nextHidden) return;
+
+    lmsFeatureDetailsFilterHeaderHidden = nextHidden;
+    lmsFeatureDetailsFilterBar.classList.toggle('lms-feature-details-filters--header-hidden', nextHidden);
+  }
+
+  function updateLmsFeatureDetailsFilterStickyState(scrollY, directionDelta) {
+    if (!lmsFeatureDetailsFilterBar || !document.body.classList.contains('lms-feature-details-mode')) return;
+
+    const nextScrollY = Math.max(0, Number(scrollY) || 0);
+    const delta = Number.isFinite(directionDelta) && directionDelta !== 0
+      ? directionDelta
+      : nextScrollY - lmsFeatureDetailsFilterLastScrollY;
+
+    if (nextScrollY <= 12 || delta < -0.5) {
+      setLmsFeatureDetailsFilterHeaderHidden(false);
+    } else if (delta > 4 && nextScrollY > 92) {
+      setLmsFeatureDetailsFilterHeaderHidden(true);
+    }
+
+    lmsFeatureDetailsFilterLastScrollY = nextScrollY;
+  }
+
+  function getLmsFeatureDetailsStickyOffset(headerWillBeHidden) {
+    if (headerWillBeHidden) return 8;
+
+    const fallbackHeaderHeight = window.matchMedia('(max-width: 720px)').matches ? 76 : 88;
+    const headerHeight = header ? header.getBoundingClientRect().height : 0;
+    return (headerHeight || fallbackHeaderHeight) + 8;
+  }
+
+  function cancelLmsFeatureDetailsScrollAnimation() {
+    if (!lmsFeatureDetailsScrollAnimationFrame) return;
+
+    window.cancelAnimationFrame(lmsFeatureDetailsScrollAnimationFrame);
+    lmsFeatureDetailsScrollAnimationFrame = 0;
+    setProposalInstantScrollMode(window, false);
+  }
+
+  function getLmsFeatureDetailsScrollDuration(distance) {
+    return Math.max(950, Math.min(1950, 780 + Math.abs(distance) * 0.26));
+  }
+
+  function animateLmsFeatureDetailsScroll(targetY) {
+    const maxScrollY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    const safeTargetY = Math.max(0, Math.min(targetY, maxScrollY));
+    const startY = window.scrollY;
+    const distance = safeTargetY - startY;
+
+    cancelLmsFeatureDetailsScrollAnimation();
+
+    if (Math.abs(distance) < 2) {
+      window.scrollTo({ top: safeTargetY, left: 0, behavior: 'auto' });
+      return;
+    }
+
+    const duration = getLmsFeatureDetailsScrollDuration(distance);
+    let startTime = 0;
+    setProposalInstantScrollMode(window, true);
+
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+
+      const progress = Math.min(1, (timestamp - startTime) / duration);
+      const nextY = startY + distance * easeProposalScroll(progress);
+      setProposalWindowScrollY(window, nextY);
+
+      if (progress < 1) {
+        lmsFeatureDetailsScrollAnimationFrame = window.requestAnimationFrame(step);
+        return;
+      }
+
+      lmsFeatureDetailsScrollAnimationFrame = 0;
+      setProposalInstantScrollMode(window, false);
+    }
+
+    lmsFeatureDetailsScrollAnimationFrame = window.requestAnimationFrame(step);
+  }
+
+  function scrollLmsFeatureDetailsSectionToCenter(section) {
+    if (!section) return;
+
+    const rect = section.getBoundingClientRect();
+    const sectionTop = window.scrollY + rect.top;
+    const scrollsDown = sectionTop > window.scrollY + 92;
+    const stickyOffset = getLmsFeatureDetailsStickyOffset(scrollsDown);
+    const filterHeight = lmsFeatureDetailsFilterBar ? lmsFeatureDetailsFilterBar.offsetHeight + 12 : 0;
+    const availableHeight = Math.max(0, window.innerHeight - stickyOffset - filterHeight);
+    const maxScrollY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+    const targetY = Math.max(0, Math.min(
+      sectionTop - stickyOffset - filterHeight - Math.max(0, (availableHeight - rect.height) / 2),
+      maxScrollY
+    ));
+
+    animateLmsFeatureDetailsScroll(targetY);
+  }
+
+  lmsFeatureDetailsFilters.forEach(filter => {
+    filter.addEventListener('click', () => {
+      if (!lmsFeatureDetailsView || !lmsFeatureDetailsList) return;
+
+      const targetCategory = filter.getAttribute('data-lms-feature-filter');
+      const targetSection = lmsFeatureDetailsList.querySelector(`[data-lms-feature-category="${targetCategory}"]`);
+
+      lmsFeatureDetailsList.classList.remove('is-filtered');
+      lmsFeatureDetailsList.querySelectorAll('[data-lms-feature-category]').forEach(section => {
+        section.hidden = false;
+      });
+
+      scrollLmsFeatureDetailsSectionToCenter(targetSection);
+      notifyLayoutChange();
+    });
+  });
+
+  window.addEventListener('wheel', cancelLmsFeatureDetailsScrollAnimation, { passive: true });
+  window.addEventListener('touchstart', cancelLmsFeatureDetailsScrollAnimation, { passive: true });
 
   document.addEventListener('click', event => {
     if (!header || !header.classList.contains('header--nav-open')) return;
@@ -16377,6 +19513,11 @@ document.addEventListener('DOMContentLoaded', () => {
       return true;
     }
 
+    if (isLmsFeatureDetailsHash()) {
+      setLmsFeatureDetailsMode(true, { syncRoute: false });
+      return true;
+    }
+
     if (isLmsFeaturesHash()) {
       setLmsFeaturesMode(true, { syncRoute: false });
       return true;
@@ -16771,11 +19912,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('scroll', () => {
     updateStickyHeader(window.scrollY, 0, { parentManaged: false });
+    updateLmsFeatureDetailsFilterStickyState(window.scrollY, 0);
     if (isParentHeaderManaged && isInIframe
       && !document.body.classList.contains('proposal-mode')
       && !document.body.classList.contains('blog-mode')
       && !document.body.classList.contains('contact-mode')
       && !document.body.classList.contains('lms-features-mode')
+      && !document.body.classList.contains('lms-feature-details-mode')
       && !document.body.classList.contains('lucky-mode')
       && !document.body.classList.contains('image-route-mode')
       && !document.body.classList.contains('demo-embed-mode')) {
@@ -16795,6 +19938,16 @@ document.addEventListener('DOMContentLoaded', () => {
       window.parent.postMessage({
         type: 'NESSO_FEATURES_SCROLL',
         scrollY: nextFeaturesScrollY,
+        deltaY
+      }, '*');
+    }
+    if (isParentHeaderManaged && document.body.classList.contains('lms-feature-details-mode') && isInIframe) {
+      const nextFeatureDetailsScrollY = window.scrollY;
+      const deltaY = nextFeatureDetailsScrollY - blogParentLastScrollY;
+      blogParentLastScrollY = nextFeatureDetailsScrollY;
+      window.parent.postMessage({
+        type: 'NESSO_FEATURE_DETAILS_SCROLL',
+        scrollY: nextFeatureDetailsScrollY,
         deltaY
       }, '*');
     }
@@ -16854,6 +20007,7 @@ document.addEventListener('DOMContentLoaded', () => {
       || document.body.classList.contains('blog-mode')
       || document.body.classList.contains('contact-mode')
       || document.body.classList.contains('lms-features-mode')
+      || document.body.classList.contains('lms-feature-details-mode')
       || document.body.classList.contains('lucky-mode')
       || document.body.classList.contains('image-route-mode')
       || document.body.classList.contains('demo-embed-mode')) {

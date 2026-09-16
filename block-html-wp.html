@@ -1339,7 +1339,7 @@
                 <button class="nesso-lms-parent-header__language-option nesso-lms-parent-header__language-option--active"
                     type="button" data-nesso-lms-parent-lang="vi" aria-label="Tiếng Việt" aria-pressed="true">
                     <img class="nesso-lms-parent-header__language-image"
-                        src="https://nesso.vn/wp-content/uploads/2026/09/VI-mode.png" alt="VI" width="46" height="20"
+                        src="https://nesso.vn/wp-content/uploads/2026/09/VI-mode-1.png" alt="VI" width="46" height="20"
                         decoding="async">
                 </button>
                 <span class="nesso-lms-parent-header__language-divider" aria-hidden="true">/</span>
@@ -1356,7 +1356,7 @@
 
 <div class="nesso-lms-iframe-wrap">
     <iframe id="nesso-lms-iframe"
-        data-src="https://nesso.vn/wp-content/uploads/2026/09/nesso-lms-landing-standalone.html?v=nesso-lms-features-route-v358&parentHeader=1"
+        data-src="https://nesso.vn/wp-content/uploads/2026/09/nesso-lms-landing-standalone.html?v=nesso-lms-features-route-v422&parentHeader=1"
         loading="eager" scrolling="no"></iframe>
     <div class="nesso-lms-mobile-scroll-proxy" data-nesso-lms-mobile-scroll-proxy aria-hidden="true"></div>
 </div>
@@ -1416,7 +1416,7 @@
         var iframe = document.getElementById('nesso-lms-iframe');
         if (!iframe) return;
         var mobileScrollProxy = document.querySelector('[data-nesso-lms-mobile-scroll-proxy]');
-        var iframeBaseSrc = iframe.getAttribute('data-src') || 'https://nesso.vn/wp-content/uploads/2026/09/nesso-lms-landing-standalone.html?v=nesso-lms-features-route-v358&parentHeader=1';
+        var iframeBaseSrc = iframe.getAttribute('data-src') || 'https://nesso.vn/wp-content/uploads/2026/09/nesso-lms-landing-standalone.html?v=nesso-lms-features-route-v422&parentHeader=1';
         var iframeTargetOrigin = window.location.origin;
         try {
             iframeTargetOrigin = new URL(iframeBaseSrc, window.location.href).origin;
@@ -1484,6 +1484,7 @@
         var shouldOpenBlog = false;
         var shouldOpenContact = false;
         var shouldOpenFeatures = false;
+        var shouldOpenFeatureDetails = false;
         var shouldOpenLucky = false;
         var shouldOpenImage = false;
         var shouldOpenDemo = false;
@@ -1492,6 +1493,7 @@
         var blogRouteSuffix = '/lms-blog';
         var contactRouteSuffix = '/contact';
         var featuresRouteSuffix = '/lms-features';
+        var featureDetailsRouteSuffix = '/lms-feature-details';
         var luckyRouteSuffix = '/482917306584';
         var imageRouteCodes = ['9184726503918274', '6402819573064918'];
         var currentImageRouteCode = '';
@@ -1503,7 +1505,7 @@
 
         function getLandingPath() {
             var path = normalizePath(window.location.pathname);
-            return path.replace(new RegExp('/(?:proposal|blog|lms-blog|contact|lms-features|482917306584|' + imageRouteCodes.join('|') + ')(?:/.*)?$'), '') || '/';
+            return path.replace(new RegExp('/(?:proposal|blog|lms-blog|contact|lms-features|lms-feature-details|482917306584|' + imageRouteCodes.join('|') + ')(?:/.*)?$'), '') || '/';
         }
 
         function getProposalPath() {
@@ -1524,6 +1526,11 @@
         function getFeaturesPath() {
             var landingPath = getLandingPath();
             return (landingPath === '/' ? '' : landingPath) + featuresRouteSuffix;
+        }
+
+        function getFeatureDetailsPath() {
+            var landingPath = getLandingPath();
+            return (landingPath === '/' ? '' : landingPath) + featureDetailsRouteSuffix;
         }
 
         function getLuckyPath() {
@@ -1551,6 +1558,10 @@
 
         function isFeaturesRoute() {
             return /\/lms-features\/?$/.test(window.location.pathname);
+        }
+
+        function isFeatureDetailsRoute() {
+            return /\/lms-feature-details\/?$/.test(window.location.pathname);
         }
 
         function isLuckyRoute() {
@@ -1598,6 +1609,10 @@
 
             if (isContactRoute()) {
                 return { mode: 'contact', postSlug: '' };
+            }
+
+            if (isFeatureDetailsRoute()) {
+                return { mode: 'feature-details', postSlug: '' };
             }
 
             if (isFeaturesRoute()) {
@@ -1663,6 +1678,8 @@
                 nextPath = getContactPath();
             } else if (mode === 'features') {
                 nextPath = getFeaturesPath();
+            } else if (mode === 'feature-details') {
+                nextPath = getFeatureDetailsPath();
             } else if (mode === 'lucky') {
                 nextPath = getLuckyPath();
             } else if (mode === 'image') {
@@ -1722,6 +1739,10 @@
                 shouldOpenFeatures = true;
                 currentViewMode = 'features';
                 syncProposalRoute('features');
+            } else if (isFeatureDetailsRoute()) {
+                shouldOpenFeatureDetails = true;
+                currentViewMode = 'feature-details';
+                syncProposalRoute('feature-details');
             } else if (isLuckyRoute()) {
                 shouldOpenLucky = true;
                 currentViewMode = 'lucky';
@@ -1745,6 +1766,8 @@
             iframeInitialHash = '#contact';
         } else if (shouldOpenFeatures) {
             iframeInitialHash = '#lms-features';
+        } else if (shouldOpenFeatureDetails) {
+            iframeInitialHash = '#lms-feature-details';
         } else if (shouldOpenLucky) {
             iframeInitialHash = '#lucky-wheel';
         } else if (shouldOpenImage) {
@@ -1769,14 +1792,14 @@
         iframe.classList.toggle('nesso-lms-iframe--demo', shouldOpenDemo);
         iframe.classList.toggle('nesso-lms-iframe--blog', shouldOpenBlog);
         iframe.classList.toggle('nesso-lms-iframe--contact', shouldOpenContact);
-        iframe.classList.toggle('nesso-lms-iframe--features', shouldOpenFeatures);
+        iframe.classList.toggle('nesso-lms-iframe--features', shouldOpenFeatures || shouldOpenFeatureDetails);
         iframe.classList.toggle('nesso-lms-iframe--lucky', shouldOpenLucky);
         iframe.classList.toggle('nesso-lms-iframe--image', shouldOpenImage);
         document.documentElement.classList.toggle('nesso-lms-proposal-open', shouldOpenProposal);
         document.documentElement.classList.toggle('nesso-lms-demo-open', shouldOpenDemo);
         document.documentElement.classList.toggle('nesso-lms-blog-open', shouldOpenBlog);
         document.documentElement.classList.toggle('nesso-lms-contact-open', shouldOpenContact);
-        document.documentElement.classList.toggle('nesso-lms-features-open', shouldOpenFeatures);
+        document.documentElement.classList.toggle('nesso-lms-features-open', shouldOpenFeatures || shouldOpenFeatureDetails);
         document.documentElement.classList.toggle('nesso-lms-lucky-open', shouldOpenLucky);
         document.documentElement.classList.toggle('nesso-lms-image-open', shouldOpenImage);
         if (document.body) {
@@ -1784,16 +1807,16 @@
             document.body.classList.toggle('nesso-lms-demo-open', shouldOpenDemo);
             document.body.classList.toggle('nesso-lms-blog-open', shouldOpenBlog);
             document.body.classList.toggle('nesso-lms-contact-open', shouldOpenContact);
-            document.body.classList.toggle('nesso-lms-features-open', shouldOpenFeatures);
+            document.body.classList.toggle('nesso-lms-features-open', shouldOpenFeatures || shouldOpenFeatureDetails);
             document.body.classList.toggle('nesso-lms-lucky-open', shouldOpenLucky);
             document.body.classList.toggle('nesso-lms-image-open', shouldOpenImage);
         }
-        if (shouldOpenBlog || shouldOpenContact || shouldOpenFeatures || shouldOpenLucky) {
+        if (shouldOpenBlog || shouldOpenContact || shouldOpenFeatures || shouldOpenFeatureDetails || shouldOpenLucky) {
             iframe.style.setProperty('height', '100vh', 'important');
         } else if (shouldOpenImage) {
             iframe.style.removeProperty('height');
         }
-        iframe.setAttribute('scrolling', (shouldOpenProposal || shouldOpenBlog || shouldOpenContact || shouldOpenFeatures || shouldOpenLucky || shouldOpenImage) ? 'yes' : 'no');
+        iframe.setAttribute('scrolling', (shouldOpenProposal || shouldOpenBlog || shouldOpenContact || shouldOpenFeatures || shouldOpenFeatureDetails || shouldOpenLucky || shouldOpenImage) ? 'yes' : 'no');
 
         function setParentHeaderNavOpen(isOpen) {
             if (!parentHeader || !parentHeaderNav || !parentHeaderMenuToggle) return;
@@ -2434,6 +2457,9 @@
                 } else if (mode === 'features') {
                     sessionStorage.setItem('nessoLmsView', 'features');
                     syncProposalRoute('features', options);
+                } else if (mode === 'feature-details') {
+                    sessionStorage.setItem('nessoLmsView', 'feature-details');
+                    syncProposalRoute('feature-details', options);
                 } else if (mode === 'lucky') {
                     sessionStorage.setItem('nessoLmsView', 'lucky');
                     syncProposalRoute('lucky', options);
@@ -2926,6 +2952,20 @@
                 parentHeaderLastScrollY = 0;
                 setParentHeaderHidden(false);
                 postToIframe({ type: 'NESSO_PARENT_FEATURES_OPEN' });
+            } else if (route.mode === 'feature-details') {
+                currentBlogPostSlug = '';
+                setProposalIframeMode(false);
+                setBlogIframeMode(false);
+                setContactIframeMode(false);
+                setLuckyIframeMode(false);
+                setImageIframeMode(false);
+                setFeaturesIframeMode(true);
+                currentViewMode = 'feature-details';
+                rememberViewMode('feature-details', { historyAction: 'replace' });
+                setParentScrollY(0);
+                parentHeaderLastScrollY = 0;
+                setParentHeaderHidden(false);
+                postToIframe({ type: 'NESSO_PARENT_FEATURE_DETAILS_OPEN' });
             } else if (route.mode === 'lucky') {
                 currentBlogPostSlug = '';
                 setProposalIframeMode(false);
@@ -3336,6 +3376,33 @@
                 return;
             }
 
+            if (event.data.type === 'NESSO_FEATURE_DETAILS_ROUTE') {
+                currentBlogPostSlug = '';
+                setDemoIframeMode(false);
+                setProposalIframeMode(false);
+                setBlogIframeMode(false);
+                setContactIframeMode(false);
+                setLuckyIframeMode(false);
+                setImageIframeMode(false);
+                var featureDetailsHistoryAction = event.data.historyAction === 'replace' ? 'replace' : 'push';
+
+                if (event.data.active === false) {
+                    setFeaturesIframeMode(false);
+                    currentViewMode = 'landing';
+                    rememberViewMode('landing', { historyAction: featureDetailsHistoryAction });
+                    resetParentScroll();
+                } else {
+                    setFeaturesIframeMode(true);
+                    currentViewMode = 'feature-details';
+                    rememberViewMode('feature-details', { historyAction: featureDetailsHistoryAction });
+                    setParentScrollY(0);
+                    parentHeaderLastScrollY = 0;
+                    setParentHeaderHidden(false);
+                }
+                requestParentProposalMenuVisibilityUpdate();
+                return;
+            }
+
             if (event.data.type === 'NESSO_LUCKY_ROUTE') {
                 currentBlogPostSlug = '';
                 setDemoIframeMode(false);
@@ -3418,6 +3485,13 @@
                 return;
             }
 
+            if (event.data.type === 'NESSO_FEATURE_DETAILS_SCROLL') {
+                if (currentViewMode === 'feature-details') {
+                    updateParentHeader(Number(event.data.scrollY) || 0, Number(event.data.deltaY) || 0);
+                }
+                return;
+            }
+
             if (event.data.type === 'NESSO_LUCKY_SCROLL') {
                 if (currentViewMode === 'lucky') {
                     updateParentHeader(Number(event.data.scrollY) || 0, Number(event.data.deltaY) || 0);
@@ -3426,7 +3500,7 @@
             }
 
             if (event.data.type === 'NESSO_PARENT_WHEEL') {
-                if (currentViewMode === 'demo' || currentViewMode === 'proposal' || currentViewMode === 'blog' || currentViewMode === 'contact' || currentViewMode === 'features' || currentViewMode === 'lucky' || currentViewMode === 'image') return;
+                if (currentViewMode === 'demo' || currentViewMode === 'proposal' || currentViewMode === 'blog' || currentViewMode === 'contact' || currentViewMode === 'features' || currentViewMode === 'feature-details' || currentViewMode === 'lucky' || currentViewMode === 'image') return;
 
                 var wheelDelta = Number(event.data.deltaY);
                 if (!wheelDelta || !isFinite(wheelDelta)) return;
@@ -3505,6 +3579,13 @@
                 setLuckyIframeMode(false);
                 setImageIframeMode(false);
                 setFeaturesIframeMode(true);
+            } else if (nextMode === 'feature-details') {
+                setProposalIframeMode(false);
+                setBlogIframeMode(false);
+                setContactIframeMode(false);
+                setLuckyIframeMode(false);
+                setImageIframeMode(false);
+                setFeaturesIframeMode(true);
             } else if (nextMode === 'lucky') {
                 setProposalIframeMode(false);
                 setBlogIframeMode(false);
@@ -3527,14 +3608,14 @@
                 var previousMode = currentViewMode;
                 var heightChanged = !lastLandingHeight || Math.abs(nextHeight - lastLandingHeight) >= 4;
                 resetIframeProposalMenuStickyMetrics();
-                if (nextMode !== 'proposal' && nextMode !== 'blog' && nextMode !== 'contact' && nextMode !== 'features' && nextMode !== 'lucky' && nextMode !== 'image') {
+                if (nextMode !== 'proposal' && nextMode !== 'blog' && nextMode !== 'contact' && nextMode !== 'features' && nextMode !== 'feature-details' && nextMode !== 'lucky' && nextMode !== 'image') {
                     if (heightChanged) {
                         lastLandingHeight = nextHeight;
                         iframe.style.removeProperty('height');
                         iframe.style.height = lastLandingHeight + 'px';
                     }
                 }
-                if (nextMode !== 'blog' && nextMode !== 'contact' && nextMode !== 'features' && nextMode !== 'lucky' && nextMode !== 'image') {
+                if (nextMode !== 'blog' && nextMode !== 'contact' && nextMode !== 'features' && nextMode !== 'feature-details' && nextMode !== 'lucky' && nextMode !== 'image') {
                     resetParentBlogMenu();
                 }
                 clampSmoothState();
@@ -3557,7 +3638,7 @@
                     resetParentScroll();
                 }
                 currentViewMode = nextMode || currentViewMode;
-                if (currentViewMode === 'landing' || currentViewMode === 'blog' || currentViewMode === 'contact' || currentViewMode === 'features' || currentViewMode === 'lucky') {
+                if (currentViewMode === 'landing' || currentViewMode === 'blog' || currentViewMode === 'contact' || currentViewMode === 'features' || currentViewMode === 'feature-details' || currentViewMode === 'lucky') {
                     updateParentHeader(window.scrollY, 0);
                     queueParentDemoAutoOpen();
                 } else {
@@ -3627,7 +3708,7 @@
         }, { passive: true });
 
         window.addEventListener('wheel', function (event) {
-            if (!parentHeader || Math.abs(event.deltaY) < 1 || currentViewMode === 'demo' || currentViewMode === 'proposal' || currentViewMode === 'blog' || currentViewMode === 'contact' || currentViewMode === 'features' || currentViewMode === 'lucky') return;
+            if (!parentHeader || Math.abs(event.deltaY) < 1 || currentViewMode === 'demo' || currentViewMode === 'proposal' || currentViewMode === 'blog' || currentViewMode === 'contact' || currentViewMode === 'features' || currentViewMode === 'feature-details' || currentViewMode === 'lucky') return;
 
             if (event.deltaY < 0) {
                 setParentHeaderHidden(false);
@@ -3691,7 +3772,7 @@
             }
 
             function update() {
-                if (currentViewMode === 'demo' || currentViewMode === 'features') {
+                if (currentViewMode === 'demo' || currentViewMode === 'features' || currentViewMode === 'feature-details') {
                     current = window.scrollY;
                     target = window.scrollY;
                     requestAnimationFrame(update);
@@ -3729,7 +3810,7 @@
             }
 
             document.addEventListener('wheel', function (e) {
-                if (currentViewMode === 'demo' || currentViewMode === 'features') {
+                if (currentViewMode === 'demo' || currentViewMode === 'features' || currentViewMode === 'feature-details') {
                     return;
                 }
 

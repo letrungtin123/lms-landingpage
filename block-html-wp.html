@@ -1,6 +1,7 @@
 <style>
     html {
         scroll-behavior: auto !important;
+        scrollbar-gutter: stable;
     }
 
     body,
@@ -48,6 +49,10 @@
         width: 100%;
         background: #000;
         overflow: hidden;
+    }
+
+    body.nesso-lms-native-blog-route .nesso-lms-iframe-wrap {
+        display: none !important;
     }
 
     #nesso-lms-iframe {
@@ -1302,7 +1307,7 @@
 
 <script>
     try {
-        if (/\/lms-e-learning-page\/(?:9184726503918274|6402819573064918)\/?$/.test(window.location.pathname || '')) {
+        if (/\/lms-e-learning\/(?:9184726503918274|6402819573064918)\/?$/.test(window.location.pathname || '')) {
             document.documentElement.classList.add('nesso-lms-image-open');
             if (document.body) document.body.classList.add('nesso-lms-image-open');
         }
@@ -1322,11 +1327,11 @@
         <div class="nesso-lms-parent-header__link-group">
             <a href="#" class="nesso-lms-parent-header__blog" data-nesso-lms-parent-home
                 data-nesso-lms-parent-label="home">Trang chủ</a>
-            <a href="/lms-e-learning-page/lms-features/" class="nesso-lms-parent-header__blog" data-nesso-lms-parent-features
+            <a href="/lms-e-learning/lms-features/" class="nesso-lms-parent-header__blog" data-nesso-lms-parent-features
                 data-nesso-lms-parent-label="features">Chức năng LMS</a>
             <a href="#" class="nesso-lms-parent-header__blog" data-nesso-lms-parent-blog
                 data-nesso-lms-parent-label="blog">Blog</a>
-            <a href="/lms-e-learning-page/contact" class="nesso-lms-parent-header__blog nesso-lms-parent-header__contact"
+            <a href="/lms-e-learning/contact/" class="nesso-lms-parent-header__blog nesso-lms-parent-header__contact"
                 data-nesso-lms-parent-contact data-nesso-lms-parent-label="contact">Liên hệ</a>
         </div>
         <div class="nesso-lms-parent-header__cta-group">
@@ -1356,7 +1361,7 @@
 
 <div class="nesso-lms-iframe-wrap">
     <iframe id="nesso-lms-iframe"
-        data-src="https://nesso.vn/wp-content/uploads/2026/09/nesso-lms-landing-standalone.html?v=nesso-lms-features-route-v422&parentHeader=1"
+        data-src="https://nesso.vn/wp-content/uploads/2026/09/nesso-lms-landing-standalone.html?v=nesso-lms-features-route-v456&parentHeader=1"
         loading="eager" scrolling="no"></iframe>
     <div class="nesso-lms-mobile-scroll-proxy" data-nesso-lms-mobile-scroll-proxy aria-hidden="true"></div>
 </div>
@@ -1416,7 +1421,7 @@
         var iframe = document.getElementById('nesso-lms-iframe');
         if (!iframe) return;
         var mobileScrollProxy = document.querySelector('[data-nesso-lms-mobile-scroll-proxy]');
-        var iframeBaseSrc = iframe.getAttribute('data-src') || 'https://nesso.vn/wp-content/uploads/2026/09/nesso-lms-landing-standalone.html?v=nesso-lms-features-route-v422&parentHeader=1';
+        var iframeBaseSrc = iframe.getAttribute('data-src') || 'https://nesso.vn/wp-content/uploads/2026/09/nesso-lms-landing-standalone.html?v=nesso-lms-features-route-v456&parentHeader=1';
         var iframeTargetOrigin = window.location.origin;
         try {
             iframeTargetOrigin = new URL(iframeBaseSrc, window.location.href).origin;
@@ -1498,6 +1503,21 @@
         var imageRouteCodes = ['9184726503918274', '6402819573064918'];
         var currentImageRouteCode = '';
         var currentBlogPostSlug = '';
+        var nativeBlogArticle = document.querySelector('[data-nesso-lms-native-blog]');
+        var nativeBlogSlug = nativeBlogArticle ? String(nativeBlogArticle.getAttribute('data-nesso-lms-native-blog-slug') || '') : '';
+
+        function setNativeBlogSurface(isActive) {
+            if (!nativeBlogArticle) {
+                nativeBlogArticle = document.querySelector('[data-nesso-lms-native-blog]');
+                nativeBlogSlug = nativeBlogArticle ? String(nativeBlogArticle.getAttribute('data-nesso-lms-native-blog-slug') || '') : '';
+            }
+
+            if (!nativeBlogArticle || !document.body) return false;
+
+            var shouldShow = !!isActive && !!currentBlogPostSlug && nativeBlogSlug === currentBlogPostSlug;
+            document.body.classList.toggle('nesso-lms-native-blog-route', shouldShow);
+            return shouldShow;
+        }
 
         function normalizePath(path) {
             return (path || '/').replace(/\/+$/, '') || '/';
@@ -2488,12 +2508,13 @@
         }
 
         function setBlogIframeMode(isActive) {
-            iframe.classList.toggle('nesso-lms-iframe--blog', isActive);
+            var showNativeBlog = setNativeBlogSurface(isActive);
+            iframe.classList.toggle('nesso-lms-iframe--blog', isActive && !showNativeBlog);
             document.documentElement.classList.toggle('nesso-lms-blog-open', isActive);
             if (document.body) {
                 document.body.classList.toggle('nesso-lms-blog-open', isActive);
             }
-            iframe.setAttribute('scrolling', isActive ? 'yes' : 'no');
+            iframe.setAttribute('scrolling', isActive && !showNativeBlog ? 'yes' : 'no');
             syncParentPageScrollLock();
             resetParentBlogMenu();
 
@@ -2867,6 +2888,7 @@
             parentHeaderDemo.addEventListener('click', function (event) {
                 event.preventDefault();
                 closeParentHeaderNav();
+                setNativeBlogSurface(false);
                 setLuckyIframeMode(false);
                 setImageIframeMode(false);
                 setFeaturesIframeMode(false);

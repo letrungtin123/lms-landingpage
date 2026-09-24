@@ -365,16 +365,109 @@ function add_paged_query_var( $vars ) {
     $vars[] = 'nesso_lms_view';
     $vars[] = 'nesso_lms_blog_slug';
     $vars[] = 'nesso_lms_blog_sitemap';
+    $vars[] = 'nesso_lms_landing_sitemap';
     return $vars;
+}
+
+function nesso_lms_route_base() {
+    return 'lms-e-learning';
+}
+
+function nesso_lms_legacy_route_base() {
+    return 'lms-e-learning-page';
+}
+
+function nesso_lms_get_route_url( $route = '' ) {
+    $route = trim( (string) $route, '/' );
+    $is_file = $route && preg_match( '/\.[a-z0-9]+$/i', $route );
+    $path  = '/' . nesso_lms_route_base() . ( $route ? '/' . $route : '' ) . ( $is_file ? '' : '/' );
+
+    return home_url( $path );
 }
 
 add_action('init', 'nesso_lms_proposal_rewrite');
 function nesso_lms_proposal_rewrite() {
+    $route_bases = array( nesso_lms_route_base(), nesso_lms_legacy_route_base() );
+
     add_rewrite_rule(
-        '^lms-e-learning-page/lms-blog-sitemap\.xml$',
-        'index.php?nesso_lms_blog_sitemap=1',
+        '^' . nesso_lms_route_base() . '/?$',
+        'index.php?page_id=4351&nesso_lms_view=landing',
         'top'
     );
+
+    add_rewrite_rule(
+        '^' . nesso_lms_route_base() . '/lms-sitemap\.xml$',
+        'index.php?nesso_lms_landing_sitemap=1',
+        'top'
+    );
+
+    foreach ( $route_bases as $route_base ) {
+        add_rewrite_rule(
+            '^' . $route_base . '/lms-blog-sitemap\.xml$',
+            'index.php?nesso_lms_blog_sitemap=1',
+            'top'
+        );
+
+        add_rewrite_rule(
+            '^' . $route_base . '/proposal/?$',
+            'index.php?page_id=4351&nesso_lms_view=proposal',
+            'top'
+        );
+
+        add_rewrite_rule(
+            '^' . $route_base . '/lms-blog/([^/]+)/?$',
+            'index.php?page_id=4351&nesso_lms_view=blog&nesso_lms_blog_slug=$matches[1]',
+            'top'
+        );
+
+        add_rewrite_rule(
+            '^' . $route_base . '/lms-blog/?$',
+            'index.php?page_id=4351&nesso_lms_view=blog',
+            'top'
+        );
+
+        add_rewrite_rule(
+            '^' . $route_base . '/contact/?$',
+            'index.php?page_id=4351&nesso_lms_view=contact',
+            'top'
+        );
+
+        add_rewrite_rule(
+            '^' . $route_base . '/lms-features/?$',
+            'index.php?page_id=4351&nesso_lms_view=features',
+            'top'
+        );
+
+        add_rewrite_rule(
+            '^' . $route_base . '/lms-feature-details/?$',
+            'index.php?page_id=4351&nesso_lms_view=feature-details',
+            'top'
+        );
+
+        add_rewrite_rule(
+            '^' . $route_base . '/482917306584/([^/]+)/?$',
+            'index.php?page_id=4351&nesso_lms_view=lucky',
+            'top'
+        );
+
+        add_rewrite_rule(
+            '^' . $route_base . '/482917306584/?$',
+            'index.php?page_id=4351&nesso_lms_view=lucky',
+            'top'
+        );
+
+        add_rewrite_rule(
+            '^' . $route_base . '/9184726503918274/?$',
+            'index.php?page_id=4351&nesso_lms_view=image',
+            'top'
+        );
+
+        add_rewrite_rule(
+            '^' . $route_base . '/6402819573064918/?$',
+            'index.php?page_id=4351&nesso_lms_view=image',
+            'top'
+        );
+    }
 
     add_rewrite_rule(
         '^nesso-lms-blog-sitemap\.xml$',
@@ -382,93 +475,69 @@ function nesso_lms_proposal_rewrite() {
         'top'
     );
 
-    add_rewrite_rule(
-        '^lms-e-learning-page/proposal/?$',
-        'index.php?page_id=4351&nesso_lms_view=proposal',
-        'top'
-    );
-
-    add_rewrite_rule(
-        '^lms-e-learning-page/lms-blog/([^/]+)/?$',
-        'index.php?page_id=4351&nesso_lms_view=blog&nesso_lms_blog_slug=$matches[1]',
-        'top'
-    );
-
-    add_rewrite_rule(
-        '^lms-e-learning-page/lms-blog/?$',
-        'index.php?page_id=4351&nesso_lms_view=blog',
-        'top'
-    );
-
-    add_rewrite_rule(
-        '^lms-e-learning-page/contact/?$',
-        'index.php?page_id=4351&nesso_lms_view=contact',
-        'top'
-    );
-
-    add_rewrite_rule(
-        '^lms-e-learning-page/lms-features/?$',
-        'index.php?page_id=4351&nesso_lms_view=features',
-        'top'
-    );
-
-    add_rewrite_rule(
-        '^lms-e-learning-page/lms-feature-details/?$',
-        'index.php?page_id=4351&nesso_lms_view=feature-details',
-        'top'
-    );
-
-    add_rewrite_rule(
-        '^lms-e-learning-page/482917306584/([^/]+)/?$',
-        'index.php?page_id=4351&nesso_lms_view=lucky',
-        'top'
-    );
-
-    add_rewrite_rule(
-        '^lms-e-learning-page/482917306584/?$',
-        'index.php?page_id=4351&nesso_lms_view=lucky',
-        'top'
-    );
-
-    add_rewrite_rule(
-        '^lms-e-learning-page/9184726503918274/?$',
-        'index.php?page_id=4351&nesso_lms_view=image',
-        'top'
-    );
-
-    add_rewrite_rule(
-        '^lms-e-learning-page/6402819573064918/?$',
-        'index.php?page_id=4351&nesso_lms_view=image',
-        'top'
-    );
-
-    if ( get_option('nesso_lms_proposal_rewrite_version') !== '11' ) {
+    if ( get_option('nesso_lms_proposal_rewrite_version') !== '12' ) {
         flush_rewrite_rules(false);
-        update_option('nesso_lms_proposal_rewrite_version', '11');
+        update_option('nesso_lms_proposal_rewrite_version', '12');
     }
 }
 
 add_filter('redirect_canonical', 'nesso_lms_keep_proposal_route', 10, 2);
 function nesso_lms_keep_proposal_route($redirect_url, $requested_url) {
     $request_path = isset($_SERVER['REQUEST_URI']) ? wp_parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) : '';
+    $route_base   = '(?:' . nesso_lms_route_base() . '|' . nesso_lms_legacy_route_base() . ')';
+    $route_suffix = '(?:proposal|lms-blog(?:/[^/]+)?|contact|lms-features|lms-feature-details|482917306584(?:/[^/]+)?|9184726503918274|6402819573064918|lms-blog-sitemap\.xml)';
 
-    if ( preg_match('#/lms-e-learning-page/(proposal|lms-blog|contact|lms-features|lms-feature-details|482917306584|9184726503918274|6402819573064918)(?:/[^/]+)?/?$#', $request_path) ) {
+    if ( preg_match( '#^/' . $route_base . '(?:/' . $route_suffix . ')?/?$#', $request_path ) ) {
         return false;
     }
 
     return $redirect_url;
 }
 
-add_action( 'template_redirect', 'nesso_lms_redirect_blog_route_trailing_slash', 1 );
-function nesso_lms_redirect_blog_route_trailing_slash() {
+add_action( 'template_redirect', 'nesso_lms_redirect_legacy_routes', 0 );
+function nesso_lms_redirect_legacy_routes() {
     if ( is_admin() || wp_doing_ajax() ) {
         return;
     }
 
     $request_uri  = isset( $_SERVER['REQUEST_URI'] ) ? (string) $_SERVER['REQUEST_URI'] : '';
     $request_path = wp_parse_url( $request_uri, PHP_URL_PATH );
+    $legacy_path  = '/' . nesso_lms_legacy_route_base();
 
-    if ( ! $request_path || ! preg_match( '#^/lms-e-learning-page/lms-blog(?:/[^/]+)?$#', $request_path ) ) {
+    if ( ! $request_path || 0 !== strpos( $request_path, $legacy_path ) || ! preg_match( '#^' . preg_quote( $legacy_path, '#' ) . '(?:/|$)#', $request_path ) ) {
+        return;
+    }
+
+    $query  = wp_parse_url( $request_uri, PHP_URL_QUERY );
+    $suffix = substr( $request_path, strlen( $legacy_path ) );
+    $target_path = '/' . nesso_lms_route_base() . $suffix;
+
+    if ( ! preg_match( '/\.xml$/', $target_path ) ) {
+        $target_path = trailingslashit( $target_path );
+    }
+
+    $target = home_url( $target_path );
+
+    if ( $query ) {
+        $target .= '?' . $query;
+    }
+
+    wp_safe_redirect( $target, 301 );
+    exit;
+}
+
+add_action( 'template_redirect', 'nesso_lms_redirect_route_trailing_slash', 1 );
+function nesso_lms_redirect_route_trailing_slash() {
+    if ( is_admin() || wp_doing_ajax() ) {
+        return;
+    }
+
+    $request_uri  = isset( $_SERVER['REQUEST_URI'] ) ? (string) $_SERVER['REQUEST_URI'] : '';
+    $request_path = wp_parse_url( $request_uri, PHP_URL_PATH );
+    $route_base   = preg_quote( nesso_lms_route_base(), '#' );
+    $route_suffix = '(?:proposal|lms-blog(?:/[^/]+)?|contact|lms-features|lms-feature-details|482917306584(?:/[^/]+)?|9184726503918274|6402819573064918)';
+
+    if ( ! $request_path || preg_match( '#/$#', $request_path ) || ! preg_match( '#^/' . $route_base . '(?:/' . $route_suffix . ')?$#', $request_path ) ) {
         return;
     }
 
@@ -489,7 +558,7 @@ function nesso_lms_get_blog_route_slug() {
     if ( empty( $slug ) && isset( $_SERVER['REQUEST_URI'] ) ) {
         $request_path = wp_parse_url( wp_unslash( $_SERVER['REQUEST_URI'] ), PHP_URL_PATH );
 
-        if ( preg_match( '#/lms-e-learning-page/lms-blog/([^/]+)/?$#', $request_path, $matches ) ) {
+        if ( preg_match( '#/' . preg_quote( nesso_lms_route_base(), '#' ) . '/lms-blog/([^/]+)/?$#', $request_path, $matches ) ) {
             $slug = rawurldecode( $matches[1] );
         }
     }
@@ -538,10 +607,10 @@ function nesso_lms_get_blog_route_url( $post = null ) {
     }
 
     if ( ! $slug ) {
-        return home_url( '/lms-e-learning-page/lms-blog/' );
+        return nesso_lms_get_route_url( 'lms-blog' );
     }
 
-    return home_url( '/lms-e-learning-page/lms-blog/' . $slug . '/' );
+    return nesso_lms_get_route_url( 'lms-blog/' . $slug );
 }
 
 function nesso_lms_is_lms_post_sitemap_object( $object ) {
@@ -604,7 +673,158 @@ function nesso_lms_get_blog_route_title( $post ) {
 }
 
 function nesso_lms_get_blog_sitemap_url() {
-    return home_url( '/lms-e-learning-page/lms-blog-sitemap.xml' );
+    return nesso_lms_get_route_url( 'lms-blog-sitemap.xml' );
+}
+
+function nesso_lms_get_landing_sitemap_url() {
+    return nesso_lms_get_route_url( 'lms-sitemap.xml' );
+}
+
+function nesso_lms_get_public_route_view() {
+    $view = (string) get_query_var( 'nesso_lms_view' );
+
+    return in_array( $view, array( 'landing', 'proposal', 'blog', 'contact', 'features', 'feature-details' ), true ) ? $view : '';
+}
+
+function nesso_lms_get_public_route_url( $view = '' ) {
+    $view = $view ? $view : nesso_lms_get_public_route_view();
+
+    $routes = array(
+        'landing'         => '',
+        'proposal'        => 'proposal',
+        'blog'            => 'lms-blog',
+        'contact'         => 'contact',
+        'features'        => 'lms-features',
+        'feature-details' => 'lms-feature-details',
+    );
+
+    return isset( $routes[ $view ] ) ? nesso_lms_get_route_url( $routes[ $view ] ) : '';
+}
+
+function nesso_lms_get_public_route_meta( $view = '' ) {
+    $view = $view ? $view : nesso_lms_get_public_route_view();
+
+    $metadata = array(
+        'landing' => array(
+            'title'       => 'Nền tảng LMS cho doanh nghiệp | Nesso',
+            'description' => 'Nesso giúp doanh nghiệp tổ chức, quản lý và phát triển trải nghiệm học tập trên một nền tảng LMS thống nhất.',
+        ),
+        'proposal' => array(
+            'title'       => 'Đề xuất giải pháp LMS | Nesso',
+            'description' => 'Khám phá giải pháp LMS của Nesso dành cho nhu cầu đào tạo và phát triển năng lực trong doanh nghiệp.',
+        ),
+        'blog' => array(
+            'title'       => 'Blog LMS và chuyển đổi đào tạo | Nesso',
+            'description' => 'Góc nhìn, hướng dẫn và kinh nghiệm triển khai LMS, thiết kế học tập và chuyển đổi đào tạo từ Nesso.',
+        ),
+        'contact' => array(
+            'title'       => 'Liên hệ tư vấn LMS | Nesso',
+            'description' => 'Liên hệ Nesso để nhận tư vấn về nền tảng LMS và giải pháp đào tạo cho doanh nghiệp.',
+        ),
+        'features' => array(
+            'title'       => 'Chức năng LMS | Nesso',
+            'description' => 'Khám phá các chức năng LMS của Nesso, từ quản lý khóa học, đánh giá, CMS đến AI và thương hiệu.',
+        ),
+        'feature-details' => array(
+            'title'       => 'Tính năng LMS cho doanh nghiệp | Nesso',
+            'description' => 'Tìm hiểu chi tiết các nhóm tính năng LMS hỗ trợ xây dựng, vận hành và phát triển đào tạo trong doanh nghiệp.',
+        ),
+    );
+
+    return isset( $metadata[ $view ] ) ? $metadata[ $view ] : array();
+}
+
+add_filter( 'pre_get_document_title', 'nesso_lms_public_route_document_title', 29 );
+function nesso_lms_public_route_document_title( $title ) {
+    $metadata = nesso_lms_get_public_route_meta();
+
+    return ! empty( $metadata['title'] ) ? $metadata['title'] : $title;
+}
+
+add_filter( 'document_title_parts', 'nesso_lms_public_route_document_title_parts', 29 );
+function nesso_lms_public_route_document_title_parts( $parts ) {
+    $metadata = nesso_lms_get_public_route_meta();
+
+    if ( ! empty( $metadata['title'] ) ) {
+        $parts['title'] = $metadata['title'];
+        unset( $parts['site'] );
+    }
+
+    return $parts;
+}
+
+add_filter( 'get_canonical_url', 'nesso_lms_public_route_core_canonical', 29, 2 );
+function nesso_lms_public_route_core_canonical( $canonical_url, $post ) {
+    $route_url = nesso_lms_get_public_route_url();
+
+    return $route_url ? $route_url : $canonical_url;
+}
+
+add_filter( 'rank_math/frontend/title', 'nesso_lms_public_route_rank_math_title', 29 );
+function nesso_lms_public_route_rank_math_title( $title ) {
+    $metadata = nesso_lms_get_public_route_meta();
+
+    return ! empty( $metadata['title'] ) ? $metadata['title'] : $title;
+}
+
+add_filter( 'rank_math/frontend/description', 'nesso_lms_public_route_rank_math_description', 29 );
+function nesso_lms_public_route_rank_math_description( $description ) {
+    $metadata = nesso_lms_get_public_route_meta();
+
+    return ! empty( $metadata['description'] ) ? $metadata['description'] : $description;
+}
+
+add_filter( 'rank_math/frontend/canonical', 'nesso_lms_public_route_rank_math_canonical', 29 );
+function nesso_lms_public_route_rank_math_canonical( $canonical ) {
+    $route_url = nesso_lms_get_public_route_url();
+
+    return $route_url ? $route_url : $canonical;
+}
+
+add_filter( 'rank_math/opengraph/facebook/title', 'nesso_lms_public_route_rank_math_title', 29 );
+add_filter( 'rank_math/opengraph/facebook/description', 'nesso_lms_public_route_rank_math_description', 29 );
+add_filter( 'rank_math/opengraph/facebook/url', 'nesso_lms_public_route_rank_math_canonical', 29 );
+add_filter( 'rank_math/opengraph/twitter/title', 'nesso_lms_public_route_rank_math_title', 29 );
+add_filter( 'rank_math/opengraph/twitter/description', 'nesso_lms_public_route_rank_math_description', 29 );
+
+add_filter( 'rank_math/json_ld', 'nesso_lms_public_route_rank_math_json_ld', 29, 2 );
+function nesso_lms_public_route_rank_math_json_ld( $data, $jsonld ) {
+    $route_url = nesso_lms_get_public_route_url();
+    $metadata  = nesso_lms_get_public_route_meta();
+
+    if ( ! $route_url || ! is_array( $data ) ) {
+        return $data;
+    }
+
+    foreach ( $data as $key => $entity ) {
+        if ( ! is_array( $entity ) || empty( $entity['@type'] ) ) {
+            continue;
+        }
+
+        $types = (array) $entity['@type'];
+
+        if ( in_array( 'WebPage', $types, true ) || in_array( 'CollectionPage', $types, true ) ) {
+            $data[ $key ]['@id'] = $route_url . '#webpage';
+            $data[ $key ]['url'] = $route_url;
+            $data[ $key ]['name'] = $metadata['title'];
+            $data[ $key ]['description'] = $metadata['description'];
+            $data[ $key ]['inLanguage'] = 'vi-VN';
+        }
+    }
+
+    return $data;
+}
+
+add_filter( 'wp_robots', 'nesso_lms_public_route_robots', 29 );
+function nesso_lms_public_route_robots( $robots ) {
+    if ( nesso_lms_get_public_route_url() ) {
+        unset( $robots['noindex'] );
+        $robots['index'] = true;
+        $robots['follow'] = true;
+        $robots['max-image-preview'] = 'large';
+    }
+
+    return $robots;
 }
 
 function nesso_lms_get_blog_route_schema_data( $post ) {
@@ -786,39 +1006,368 @@ function nesso_lms_blog_route_schema() {
     echo "\n<script type=\"application/ld+json\" class=\"nesso-lms-blog-schema\">" . wp_json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . "</script>\n";
 }
 
-add_action( 'wp_head', 'nesso_lms_blog_route_crawlable_article_style', 9 );
-function nesso_lms_blog_route_crawlable_article_style() {
+add_filter( 'body_class', 'nesso_lms_blog_route_native_body_class', 30 );
+function nesso_lms_blog_route_native_body_class( $classes ) {
+    if ( nesso_lms_get_blog_route_post() ) {
+        $classes[] = 'nesso-lms-native-blog-route';
+        $classes[] = 'nesso-lms-blog-open';
+    }
+
+    return $classes;
+}
+
+function nesso_lms_blog_get_route_categories( $post ) {
+    if ( ! $post instanceof WP_Post ) {
+        return array();
+    }
+
+    $categories = array();
+
+    foreach ( nesso_lms_blog_translation_taxonomies() as $taxonomy ) {
+        if ( ! taxonomy_exists( $taxonomy ) ) {
+            continue;
+        }
+
+        $terms = get_the_terms( $post, $taxonomy );
+
+        if ( is_wp_error( $terms ) || empty( $terms ) ) {
+            continue;
+        }
+
+        foreach ( $terms as $term ) {
+            $categories[ $term->term_id ] = $term;
+        }
+    }
+
+    return array_values( $categories );
+}
+
+function nesso_lms_blog_get_route_reading_minutes( $post ) {
+    $text       = nesso_lms_get_blog_route_plain_text( $post );
+    $word_count = preg_match_all( '/[\p{L}\p{N}]+/u', $text, $matches );
+
+    return max( 1, (int) ceil( $word_count / 200 ) );
+}
+
+function nesso_lms_blog_render_route_content( $blog_post, $content = null ) {
+    if ( ! $blog_post instanceof WP_Post ) {
+        return '';
+    }
+
+    if ( null === $content ) {
+        $content = $blog_post->post_content;
+    }
+
+    global $post;
+
+    $original_post = $post instanceof WP_Post ? $post : null;
+    $post = $blog_post;
+    setup_postdata( $blog_post );
+    $rendered_content = apply_filters( 'the_content', $content );
+
+    if ( $original_post ) {
+        $post = $original_post;
+        setup_postdata( $original_post );
+    } else {
+        wp_reset_postdata();
+    }
+
+    return $rendered_content;
+}
+
+add_action( 'wp_head', 'nesso_lms_blog_route_native_article_style', 9 );
+function nesso_lms_blog_route_native_article_style() {
     if ( ! nesso_lms_get_blog_route_post() ) {
         return;
     }
     ?>
-    <style id="nesso-lms-blog-seo-article-style">
-        .nesso-lms-seo-article {
-            position: absolute !important;
-            left: -10000px !important;
-            top: auto !important;
-            width: 1px !important;
-            height: 1px !important;
-            overflow: hidden !important;
+    <style id="nesso-lms-native-blog-style">
+        .nesso-lms-native-blog {
+            display: none;
+        }
+
+        body.nesso-lms-native-blog-route .nesso-lms-iframe-wrap {
+            display: none !important;
+        }
+
+        body.nesso-lms-native-blog-route .nesso-lms-native-blog {
+            display: block;
+            min-height: 100vh;
+            padding: 148px 24px 88px;
+            color: #f5fbff;
+            background:
+                linear-gradient(180deg, rgba(1, 40, 52, 0.52) 0, rgba(0, 0, 0, 0) 360px),
+                #000;
+            font-family: Inter, Arial, sans-serif;
+        }
+
+        .nesso-lms-native-blog__article {
+            width: min(100%, 920px);
+            margin: 0 auto;
+        }
+
+        .nesso-lms-native-blog__back {
+            display: inline-flex;
+            align-items: center;
+            min-height: 32px;
+            margin-bottom: 34px;
+            color: #26d5f2 !important;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none !important;
+        }
+
+        .nesso-lms-native-blog__back:hover,
+        .nesso-lms-native-blog__back:focus {
+            color: #7eeeff !important;
+            text-decoration: underline !important;
+        }
+
+        .nesso-lms-native-blog__categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .nesso-lms-native-blog__categories span {
+            display: inline-flex;
+            align-items: center;
+            min-height: 28px;
+            padding: 0 11px;
+            border: 1px solid rgba(38, 213, 242, 0.55);
+            border-radius: 999px;
+            color: #48dff8;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .nesso-lms-native-blog__title {
+            max-width: 850px;
+            margin: 0;
+            color: #fff;
+            font-size: clamp(34px, 4.4vw, 56px);
+            font-weight: 700;
+            line-height: 1.12;
+            letter-spacing: 0;
+        }
+
+        .nesso-lms-native-blog__summary {
+            max-width: 720px;
+            margin: 22px 0 0;
+            color: rgba(229, 244, 248, 0.8);
+            font-size: 18px;
+            line-height: 1.65;
+        }
+
+        .nesso-lms-native-blog__meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 14px;
+            margin-top: 24px;
+            color: rgba(216, 237, 242, 0.64);
+            font-size: 14px;
+        }
+
+        .nesso-lms-native-blog__meta span + span::before {
+            margin-right: 14px;
+            color: rgba(38, 213, 242, 0.76);
+            content: '•';
+        }
+
+        .nesso-lms-native-blog__featured {
+            margin: 42px 0 0;
+        }
+
+        .nesso-lms-native-blog__featured img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border: 1px solid rgba(203, 242, 250, 0.35);
+            border-radius: 8px;
+        }
+
+        .nesso-lms-native-blog__content {
+            max-width: 760px;
+            margin: 48px auto 0;
+            color: rgba(239, 249, 251, 0.9);
+            font-size: 17px;
+            line-height: 1.78;
+        }
+
+        .nesso-lms-native-blog__content > :first-child {
+            margin-top: 0;
+        }
+
+        .nesso-lms-native-blog__content h2,
+        .nesso-lms-native-blog__content h3,
+        .nesso-lms-native-blog__content h4 {
+            margin: 46px 0 16px;
+            color: #fff;
+            line-height: 1.28;
+        }
+
+        .nesso-lms-native-blog__content h2 { font-size: 30px; }
+        .nesso-lms-native-blog__content h3 { font-size: 24px; }
+        .nesso-lms-native-blog__content h4 { font-size: 20px; }
+
+        .nesso-lms-native-blog__content p,
+        .nesso-lms-native-blog__content ul,
+        .nesso-lms-native-blog__content ol,
+        .nesso-lms-native-blog__content blockquote {
+            margin: 0 0 20px;
+        }
+
+        .nesso-lms-native-blog__content ul,
+        .nesso-lms-native-blog__content ol {
+            padding-left: 24px;
+        }
+
+        .nesso-lms-native-blog__content li + li {
+            margin-top: 8px;
+        }
+
+        .nesso-lms-native-blog__content a {
+            color: #26d5f2 !important;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .nesso-lms-native-blog__content img,
+        .nesso-lms-native-blog__content video,
+        .nesso-lms-native-blog__content iframe {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .nesso-lms-native-blog__content blockquote {
+            padding: 18px 20px;
+            border-left: 3px solid #26d5f2;
+            color: rgba(233, 248, 251, 0.82);
+            background: rgba(38, 213, 242, 0.08);
+        }
+
+        .nesso-lms-native-blog__content table {
+            display: block;
+            max-width: 100%;
+            overflow-x: auto;
+            border-collapse: collapse;
+        }
+
+        .nesso-lms-native-blog__content th,
+        .nesso-lms-native-blog__content td {
+            padding: 10px 12px;
+            border: 1px solid rgba(207, 239, 245, 0.2);
+            text-align: left;
+        }
+
+        .nesso-lms-native-blog__cta {
+            margin-top: 56px;
+            padding-top: 28px;
+            border-top: 1px solid rgba(38, 213, 242, 0.22);
+        }
+
+        .nesso-lms-native-blog__cta a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 44px;
+            padding: 0 18px;
+            border-radius: 999px;
+            color: #00151c !important;
+            background: #26d5f2;
+            font-size: 14px;
+            font-weight: 700;
+            text-decoration: none !important;
+        }
+
+        .nesso-lms-native-blog__cta a:hover,
+        .nesso-lms-native-blog__cta a:focus {
+            background: #7eeeff;
+        }
+
+        @media (max-width: 768px) {
+            body.nesso-lms-native-blog-route .nesso-lms-native-blog {
+                padding: 108px 18px 56px;
+            }
+
+            .nesso-lms-native-blog__back {
+                margin-bottom: 26px;
+            }
+
+            .nesso-lms-native-blog__title {
+                font-size: 34px;
+            }
+
+            .nesso-lms-native-blog__summary {
+                font-size: 16px;
+            }
+
+            .nesso-lms-native-blog__content {
+                margin-top: 34px;
+                font-size: 16px;
+            }
+
+            .nesso-lms-native-blog__content h2 { font-size: 26px; }
+            .nesso-lms-native-blog__content h3 { font-size: 22px; }
         }
     </style>
     <?php
 }
 
-add_action( 'wp_footer', 'nesso_lms_blog_route_crawlable_article', 1 );
-function nesso_lms_blog_route_crawlable_article() {
+add_action( 'wp_footer', 'nesso_lms_blog_route_native_article', 1 );
+function nesso_lms_blog_route_native_article() {
     $blog_post = nesso_lms_get_blog_route_post();
 
     if ( ! $blog_post ) {
         return;
     }
 
-    $content = apply_filters( 'the_content', $blog_post->post_content );
+    $title          = get_the_title( $blog_post );
+    $description    = nesso_lms_get_blog_route_description( $blog_post );
+    $content        = nesso_lms_blog_render_route_content( $blog_post );
+    $categories     = nesso_lms_blog_get_route_categories( $blog_post );
+    $featured_image = get_the_post_thumbnail_url( $blog_post, 'large' );
+    $author         = get_the_author_meta( 'display_name', $blog_post->post_author );
+    $reading_minutes = nesso_lms_blog_get_route_reading_minutes( $blog_post );
     ?>
-    <article class="nesso-lms-seo-article" aria-label="<?php echo esc_attr( get_the_title( $blog_post ) ); ?>">
-        <h1><?php echo esc_html( get_the_title( $blog_post ) ); ?></h1>
-        <?php echo wp_kses_post( $content ); ?>
-    </article>
+    <main class="nesso-lms-native-blog" data-nesso-lms-native-blog data-nesso-lms-native-blog-slug="<?php echo esc_attr( $blog_post->post_name ); ?>">
+        <article class="nesso-lms-native-blog__article" itemscope itemtype="https://schema.org/BlogPosting">
+            <a class="nesso-lms-native-blog__back" href="<?php echo esc_url( nesso_lms_get_public_route_url( 'blog' ) ); ?>">← Tất cả bài viết</a>
+
+            <?php if ( $categories ) : ?>
+                <div class="nesso-lms-native-blog__categories" aria-label="Danh mục bài viết">
+                    <?php foreach ( $categories as $category ) : ?>
+                        <span><?php echo esc_html( $category->name ); ?></span>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+
+            <h1 class="nesso-lms-native-blog__title" itemprop="headline"><?php echo esc_html( $title ); ?></h1>
+            <p class="nesso-lms-native-blog__summary" itemprop="description"><?php echo esc_html( $description ); ?></p>
+
+            <div class="nesso-lms-native-blog__meta">
+                <span><?php echo esc_html( $author ? $author : 'Nesso' ); ?></span>
+                <span><time itemprop="datePublished" datetime="<?php echo esc_attr( get_the_date( DATE_W3C, $blog_post ) ); ?>"><?php echo esc_html( get_the_date( 'd/m/Y', $blog_post ) ); ?></time></span>
+                <span><?php echo esc_html( $reading_minutes ); ?> phút đọc</span>
+            </div>
+
+            <?php if ( $featured_image ) : ?>
+                <figure class="nesso-lms-native-blog__featured">
+                    <img src="<?php echo esc_url( $featured_image ); ?>" alt="<?php echo esc_attr( $title ); ?>" itemprop="image">
+                </figure>
+            <?php endif; ?>
+
+            <div class="nesso-lms-native-blog__content" itemprop="articleBody">
+                <?php echo wp_kses_post( $content ); ?>
+            </div>
+
+            <footer class="nesso-lms-native-blog__cta">
+                <a href="<?php echo esc_url( nesso_lms_get_public_route_url( 'features' ) ); ?>">Khám phá chức năng LMS</a>
+            </footer>
+        </article>
+    </main>
     <?php
 }
 
@@ -875,10 +1424,58 @@ function nesso_lms_render_blog_sitemap() {
     exit;
 }
 
+function nesso_lms_get_landing_sitemap_entries() {
+    return array(
+        array( 'url' => nesso_lms_get_public_route_url( 'features' ), 'priority' => '0.9' ),
+        array( 'url' => nesso_lms_get_public_route_url( 'feature-details' ), 'priority' => '0.9' ),
+        array( 'url' => nesso_lms_get_public_route_url( 'blog' ), 'priority' => '0.8' ),
+        array( 'url' => nesso_lms_get_public_route_url( 'contact' ), 'priority' => '0.6' ),
+        array( 'url' => nesso_lms_get_public_route_url( 'proposal' ), 'priority' => '0.6' ),
+    );
+}
+
+function nesso_lms_get_landing_sitemap_lastmod() {
+    $lastmod = get_post_modified_time( DATE_W3C, true, 4351 );
+
+    return $lastmod ? $lastmod : gmdate( DATE_W3C );
+}
+
+add_action( 'template_redirect', 'nesso_lms_render_landing_sitemap', 0 );
+function nesso_lms_render_landing_sitemap() {
+    if ( '1' !== (string) get_query_var( 'nesso_lms_landing_sitemap' ) ) {
+        return;
+    }
+
+    status_header( 200 );
+    header_remove( 'Cache-Control' );
+    header_remove( 'Pragma' );
+    header_remove( 'Expires' );
+    header( 'Content-Type: application/xml; charset=UTF-8', true );
+    header( 'Cache-Control: public, max-age=3600, s-maxage=3600', true );
+    header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', time() + HOUR_IN_SECONDS ) . ' GMT', true );
+
+    echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+    echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+
+    foreach ( nesso_lms_get_landing_sitemap_entries() as $entry ) {
+        echo "\t<url>\n";
+        echo "\t\t<loc>" . esc_url( $entry['url'] ) . "</loc>\n";
+        echo "\t\t<lastmod>" . esc_html( nesso_lms_get_landing_sitemap_lastmod() ) . "</lastmod>\n";
+        echo "\t\t<changefreq>weekly</changefreq>\n";
+        echo "\t\t<priority>" . esc_html( $entry['priority'] ) . "</priority>\n";
+        echo "\t</url>\n";
+    }
+
+    echo '</urlset>';
+    exit;
+}
+
 add_filter( 'wp_sitemaps_posts_entry', 'nesso_lms_blog_route_core_sitemap_url', 30, 3 );
 function nesso_lms_blog_route_core_sitemap_url( $entry, $post, $post_type ) {
     if ( 'lms_post' === $post_type && $post instanceof WP_Post ) {
         $entry['loc'] = nesso_lms_get_blog_route_url( $post );
+    } elseif ( 'page' === $post_type && $post instanceof WP_Post && 4351 === (int) $post->ID ) {
+        $entry['loc'] = nesso_lms_get_public_route_url( 'landing' );
     }
 
     return $entry;
@@ -890,6 +1487,8 @@ add_filter( 'rank_math/sitemap/entry', 'nesso_lms_blog_route_rank_math_sitemap_u
 function nesso_lms_blog_route_rank_math_sitemap_url( $url, $type, $object ) {
     if ( 'post' === $type && nesso_lms_is_lms_post_sitemap_object( $object ) ) {
         $url['loc'] = nesso_lms_get_blog_route_url( $object );
+    } elseif ( 'post' === $type && $object instanceof WP_Post && 4351 === (int) $object->ID ) {
+        $url['loc'] = nesso_lms_get_public_route_url( 'landing' );
     }
 
     return $url;
@@ -901,25 +1500,39 @@ function nesso_lms_blog_route_rank_math_xml_post_url( $url, $post ) {
         return nesso_lms_get_blog_route_url( $post );
     }
 
+    if ( $post instanceof WP_Post && 4351 === (int) $post->ID ) {
+        return nesso_lms_get_public_route_url( 'landing' );
+    }
+
     return $url;
 }
 
 add_filter( 'rank_math/sitemap/index', 'nesso_lms_blog_route_rank_math_sitemap_index', 30 );
 function nesso_lms_blog_route_rank_math_sitemap_index( $xml ) {
-    $xml .= "\n\t<sitemap>\n";
-    $xml .= "\t\t<loc>" . esc_url( nesso_lms_get_blog_sitemap_url() ) . "</loc>\n";
-    $xml .= "\t\t<lastmod>" . esc_html( gmdate( DATE_W3C ) ) . "</lastmod>\n";
-    $xml .= "\t</sitemap>\n";
+    foreach ( array( nesso_lms_get_landing_sitemap_url(), nesso_lms_get_blog_sitemap_url() ) as $sitemap_url ) {
+        $xml .= "\n\t<sitemap>\n";
+        $xml .= "\t\t<loc>" . esc_url( $sitemap_url ) . "</loc>\n";
+        $xml .= "\t\t<lastmod>" . esc_html( nesso_lms_get_landing_sitemap_lastmod() ) . "</lastmod>\n";
+        $xml .= "\t</sitemap>\n";
+    }
 
     return $xml;
 }
 
 add_filter( 'robots_txt', 'nesso_lms_blog_route_robots_sitemap', 30, 2 );
 function nesso_lms_blog_route_robots_sitemap( $output, $public ) {
-    $sitemap_line = 'Sitemap: ' . nesso_lms_get_blog_sitemap_url();
+    $sitemap_urls = array(
+        home_url( '/sitemap_index.xml' ),
+        nesso_lms_get_landing_sitemap_url(),
+        nesso_lms_get_blog_sitemap_url(),
+    );
 
-    if ( false === strpos( $output, $sitemap_line ) ) {
-        $output = rtrim( $output ) . "\n" . $sitemap_line . "\n";
+    foreach ( $sitemap_urls as $sitemap_url ) {
+        $sitemap_line = 'Sitemap: ' . $sitemap_url;
+
+        if ( false === strpos( $output, $sitemap_line ) ) {
+            $output = rtrim( $output ) . "\n" . $sitemap_line . "\n";
+        }
     }
 
     return $output;
@@ -1144,11 +1757,15 @@ function nesso_lms_blog_get_rest_object_id( $object ) {
     return 0;
 }
 
-function nesso_lms_blog_render_content_for_rest( $content ) {
+function nesso_lms_blog_render_content_for_rest( $content, $blog_post = null ) {
     $content = trim( (string) $content );
 
     if ( '' === $content ) {
         return '';
+    }
+
+    if ( $blog_post instanceof WP_Post ) {
+        return nesso_lms_blog_render_route_content( $blog_post, $content );
     }
 
     return apply_filters( 'the_content', $content );
@@ -1185,7 +1802,7 @@ function nesso_lms_blog_get_post_translations_rest( $object, $field_name = '', $
     $title_vi       = get_the_title( $post );
     $content_vi_raw = get_post_field( 'post_content', $post_id );
     $excerpt_vi_raw = has_excerpt( $post ) ? get_the_excerpt( $post ) : nesso_lms_blog_get_excerpt_from_content( $content_vi_raw );
-    $content_vi     = nesso_lms_blog_render_content_for_rest( $content_vi_raw );
+    $content_vi     = nesso_lms_blog_render_content_for_rest( $content_vi_raw, $post );
     $excerpt_vi     = wpautop( $excerpt_vi_raw );
 
     $title_en_raw   = get_post_meta( $post_id, '_nesso_lms_title_en', true );
@@ -1199,7 +1816,7 @@ function nesso_lms_blog_get_post_translations_rest( $object, $field_name = '', $
         ? wpautop( nesso_lms_blog_get_excerpt_from_content( $content_en_raw ) )
         : $excerpt_vi;
     $content_en = '' !== trim( (string) $content_en_raw )
-        ? nesso_lms_blog_render_content_for_rest( $content_en_raw )
+        ? nesso_lms_blog_render_content_for_rest( $content_en_raw, $post )
         : $content_vi;
 
     return array(

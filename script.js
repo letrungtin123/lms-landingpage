@@ -346,7 +346,97 @@ const NESSO_I18N_EN = new Map([
   ['Biến hệ thống LMS thành nền tảng mang dấu ấn riêng của bạn.', 'Turn your LMS into a platform that reflects your brand.'],
   ['Thư viện khóa học và nội dung số', 'Course library and digital content'],
   ['Học tập đa phương thức, sẵn sàng cho mọi nhu cầu đào tạo', 'Multimodal learning, ready for every training need'],
-  ['Khám phá chi tiết', 'Explore in detail']
+  ['Khám phá chi tiết', 'Explore in detail'],
+  ['Tùy chỉnh báo giá LMS', 'Customize LMS pricing'],
+  ['Quy mô nhân sự:', 'Team size:'],
+  ['Quy mô nhân sự', 'Team size'],
+  ['Chu kỳ thanh toán', 'Billing cycle'],
+  ['Các gói chuyển đổi nội dung', 'Content conversion packages'],
+  ['Các gói LMS', 'LMS packages'],
+  ['Theo năm (Tiết kiệm 20%)', 'Annual (Save 20%)'],
+  ['Theo tháng', 'Monthly'],
+  ['Định dạng chuẩn hóa: Quy trình SOP, sổ tay nhân sự, chính sách tuân thủ & quy định nội bộ.', 'Structured standardization: SOPs, employee handbooks, compliance policies, and internal regulations.'],
+  ['8.900.000 đ', 'VND 8,900,000'],
+  ['/ module chuẩn (15-20 phút học)', '/ standard module (15-20 learning minutes)'],
+  ['Thời gian bàn giao:', 'Delivery time:'],
+  ['3 – 5 ngày / module', '3–5 days / module'],
+  ['Công nghệ AI:', 'AI technology:'],
+  ['100% Non-AI (Thuần chuyên môn ID)', '100% non-AI (instructional design expertise)'],
+  ['Giọng đọc:', 'Voice-over narration:'],
+  ['Không gồm Voiceover', 'No voice-over'],
+  ['(Đọc - hiểu)', '(reading-based)'],
+  ['Hình ảnh trực quan:', 'Visual assets:'],
+  ['3 – 5 Infographics /', '3–5 infographics /'],
+  ['Sơ đồ tĩnh', 'static diagrams'],
+  ['Chuyên viên ID trực tiếp bóc tách, lọc nội dung cốt lõi', 'Instructional designers directly analyze and distill core content'],
+  ['Biên tập sư phạm cô đọng, chuyển hóa văn bản thành sơ đồ', 'Concise pedagogical editing that turns text into visual diagrams'],
+  ['5-10 câu hỏi trắc nghiệm kiểm tra độ hiểu sau bài học', '5-10 quiz questions to check understanding after each lesson'],
+  ['Đóng gói chuẩn SCORM tương thích 100% mọi hệ thống LMS', 'SCORM packaging compatible with all LMS platforms'],
+  ['Chọn Gói Essential', 'Choose Essential'],
+  ['Khuyên Dùng • Phổ Biến Nhất', 'Recommended • Most Popular'],
+  ['Đa phương tiện có thuyết minh: Đào tạo sản phẩm, Onboarding hội nhập, nghiệp vụ chuyên môn.', 'Narrated multimedia for product training, employee onboarding, and professional operations.'],
+  ['16.900.000 đ', 'VND 16,900,000'],
+  ['5 – 7 ngày / module', '5–7 days / module'],
+  ['Tích hợp AI Audio (Voiceover)', 'AI audio integration (voice-over)'],
+  ['AI Voiceover (TTS)', 'AI voice-over (TTS)'],
+  ['chuẩn phòng thu', 'Studio-quality'],
+  ['Định dạng Video:', 'Video format:'],
+  ['Không gồm video (Tập trung tương tác)', 'No video included (focus on interaction)'],
+  ['Bao gồm toàn bộ quyền lợi của Gói Essential', 'Includes every Essential package benefit'],
+  ['Thuyết minh toàn bộ bài học bằng giọng đọc AI tự nhiên', 'Full lesson narration with natural AI voice-over'],
+  ['Thiết kế Storyboard đa giác quan kết hợp Nghe - Nhìn - Thao tác', 'Multisensory storyboard design combining listening, viewing, and interaction'],
+  ['Infographics động & hiệu ứng chuyển cảnh đồng bộ theo lời đọc', 'Animated infographics and transitions synchronized to narration'],
+  ['Tương tác kéo thả, Hotspot, bài tập ghép nối có âm thanh phản hồi', 'Drag-and-drop, hotspots, and matching exercises with audio feedback'],
+  ['Chọn Gói Interactive', 'Choose Interactive'],
+  ['Mô Phỏng Tình Huống Sâu', 'Deep Scenario Simulation'],
+  ['Thực hành rẽ nhánh: Kỹ năng bán hàng B2B, xử lý khiếu nại khách hàng, an toàn và quản lý.', 'Branching practice for B2B sales, customer complaint handling, safety, and management.'],
+  ['25.900.000 đ', 'VND 25,900,000'],
+  ['7 – 10 ngày / module', '7–10 days / module'],
+  ['Video dẫn dắt:', 'Guided video:'],
+  ['1–2 Video AI Avatar', '1–2 AI avatar videos'],
+  ['Lipsync tự nhiên', 'Naturally lip-synced'],
+  ['Cấu trúc kịch bản:', 'Scenario structure:'],
+  ['Phân nhánh rẽ hướng (Decision Tree)', 'Branching paths (decision tree)'],
+  ['Đánh giá năng lực:', 'Capability assessment:'],
+  ['Thanh đo cảm xúc &', 'Emotion meter and'],
+  ['Rubric chấm điểm', 'scoring rubric'],
+  ['Bao gồm toàn bộ quyền lợi của Gói Interactive', 'Includes every Interactive package benefit'],
+  ['Video AI Avatar lipsync tự nhiên theo ngữ điệu giảng giải', 'Naturally lip-synced AI avatar video with instructional intonation'],
+  ['Kịch bản phân nhánh: Quyết định dẫn đến kết quả & phản hồi khác nhau', 'Branching scenarios where decisions lead to different outcomes and feedback'],
+  ['AI Avatar đóng vai nhân vật phản hồi tức thì theo lựa chọn', 'AI avatars role-play and respond instantly to learner choices'],
+  ['Rèn luyện phản xạ thực chiến mà không tốn chi phí đi quay video thật', 'Build real-world response skills without the cost of filming live video'],
+  ['Chọn Gói Simulation', 'Choose Simulation'],
+  ['Số hóa bài giảng, quản lý khóa học và theo dõi tiến độ nhân sự bài bản.', 'Digitize learning content, manage courses, and track employee progress systematically.'],
+  ['Lưu trữ kèm sẵn:', 'Included storage:'],
+  ['Tính năng AI:', 'AI features:'],
+  ['Không có', 'Not included'],
+  ['Hỗ trợ kỹ thuật:', 'Technical support:'],
+  ['Giờ hành chính', 'Business hours'],
+  ['Trọn bộ 132 tính năng LMS/CMS cốt lõi', 'Complete suite of 132 core LMS/CMS features'],
+  ['Học liệu Video, PDF, bài giảng SCORM / xAPI', 'Video, PDF, SCORM / xAPI learning content'],
+  ['Tổ chức thi cử trắc nghiệm, tự luận, ngân hàng câu hỏi', 'Multiple-choice and essay assessments with question banks'],
+  ['Tự động cấp chứng chỉ PDF và huy hiệu thi đua', 'Automatic PDF certificates and achievement badges'],
+  ['Báo cáo tiến độ học viên theo phòng ban', 'Department-level learner progress reporting'],
+  ['Chọn Gói Standard', 'Choose Standard'],
+  ['Phổ biến', 'Popular'],
+  ['Trang bị Trợ lý AI kèm cặp 24/7 cho từng học viên, tra cứu đúng tài liệu nội bộ.', 'Give every learner a 24/7 AI companion that retrieves the right internal knowledge.'],
+  ['Định mức AI:', 'AI allowance:'],
+  ['Ưu tiên (Phản hồi < 4h)', 'Priority support (response < 4h)'],
+  ['Toàn bộ tính năng gói Standard', 'All Standard package features'],
+  ['Trợ lý AI Companion cho học viên', 'AI Companion for learners'],
+  ['AI giải đáp câu hỏi trực tiếp trong từng bài học', 'AI answers questions directly within each lesson'],
+  ['RAG Kho tri thức: Đọc hiểu PDF/Docx, trả lời chuẩn 100% không bịa đặt', 'RAG knowledge library: reads PDF/Docx and gives grounded answers without fabrication'],
+  ['Tùy chỉnh phong cách gia sư AI và lưu lịch sử chat', 'Customize the AI tutor style and retain chat history'],
+  ['Chọn Gói Pro', 'Choose Pro'],
+  ['Toàn Diện Doanh Nghiệp', 'All-in-One'],
+  ['Giải pháp tập đoàn và chuỗi: AI hỗ trợ tự động thiết kế dàn ý bài giảng và Mindmap.', 'A solution for enterprise groups and chains, with AI support for lesson outlines and mind maps.'],
+  ['Chuyên viên riêng 24/7', 'Dedicated specialist 24/7'],
+  ['Toàn bộ tính năng gói Pro & AI 1', 'All Pro package and AI 1 features'],
+  ['AI Instructional Design (Soạn bài giảng)', 'AI Instructional Design (lesson authoring)'],
+  ['AI tự động xuất Mindmap và cấu trúc khóa học', 'AI automatically generates mind maps and course structures'],
+  ['AI tự sinh ngân hàng câu hỏi và rubric đánh giá', 'AI automatically generates question banks and assessment rubrics'],
+  ['Phân quyền quản trị đa chi nhánh / công ty con', 'Administration permissions for multiple branches / subsidiaries'],
+  ['Chọn Gói Enterprise', 'Choose Enterprise']
 ]);
 
 function normalizeNessoI18nText(value) {
@@ -5234,6 +5324,104 @@ document.addEventListener('DOMContentLoaded', () => {
         activateAdjacentPricingContentPage(deltaX < 0 ? 1 : -1);
       }, { passive: true });
     }
+  }
+
+  const lmsUserOptions = document.querySelectorAll('[data-pricing-lms-users]');
+  const lmsBillingOptions = document.querySelectorAll('[data-pricing-lms-billing]');
+  const lmsPlans = document.querySelectorAll('[data-lms-plan]');
+  if (lmsUserOptions.length && lmsBillingOptions.length && lmsPlans.length) {
+    let lmsUsers = 50;
+    let lmsBilling = 'annual';
+    const lmsPricingTiers = {
+      50: {
+        standard: { price: 1800000, storage: '50 GB SSD' },
+        professional: { price: 2900000, storage: '150 GB SSD', ai: { vi: '10.000 tương tác/th', en: '10,000 interactions/mo' } },
+        enterprise: { price: 4800000, storage: '500 GB SSD', ai: { vi: '30.000 chat + 50 bài', en: '30,000 chats + 50 AI lesson drafts' } }
+      },
+      100: {
+        standard: { price: 2800000, storage: '100 GB SSD' },
+        professional: { price: 4500000, storage: '150 GB SSD', ai: { vi: '15.000 tương tác/th', en: '15,000 interactions/mo' } },
+        enterprise: { price: 7200000, storage: '500 GB SSD', ai: { vi: '40.000 chat + 100 bài', en: '40,000 chats + 100 AI lesson drafts' } }
+      },
+      250: {
+        standard: { price: 4900000, storage: '200 GB SSD' },
+        professional: { price: 7900000, storage: '300 GB SSD', ai: { vi: '30.000 tương tác/th', en: '30,000 interactions/mo' } },
+        enterprise: { price: 12500000, storage: '1 TB SSD', ai: { vi: '70.000 chat + 200 bài', en: '70,000 chats + 200 AI lesson drafts' } }
+      },
+      500: {
+        standard: { price: 8500000, storage: '350 GB SSD' },
+        professional: { price: 13500000, storage: '300 GB SSD', ai: { vi: '50.000 tương tác/th', en: '50,000 interactions/mo' } },
+        enterprise: { price: 21000000, storage: '1 TB SSD', ai: { vi: '120.000 chat + 400 bài', en: '120,000 chats + 400 AI lesson drafts' } }
+      },
+      1000: {
+        standard: { price: 14500000, storage: '500 GB SSD' },
+        professional: { price: 22000000, storage: '300 GB SSD', ai: { vi: '100.000 tương tác/th', en: '100,000 interactions/mo' } },
+        enterprise: { price: 33000000, storage: '1 TB SSD', ai: { vi: '200.000 chat + 800 bài', en: '200,000 chats + 800 AI lesson drafts' } }
+      }
+    };
+
+    function updateLmsPricing() {
+      const tier = lmsPricingTiers[lmsUsers];
+      if (!tier) return;
+
+      const language = getCurrentNessoLanguage();
+      const isEnglish = language === 'en';
+      const numberFormat = new Intl.NumberFormat(isEnglish ? 'en-US' : 'vi-VN');
+      const billingMultiplier = lmsBilling === 'annual' ? 1 : 1.2;
+      const billingLabel = lmsBilling === 'annual'
+        ? (isEnglish ? '/ month (billed annually)' : '/ tháng (thanh toán năm)')
+        : (isEnglish ? '/ month (billed monthly)' : '/ tháng (thanh toán tháng)');
+
+      lmsPlans.forEach(plan => {
+        const planData = tier[plan.dataset.lmsPlan];
+        if (!planData) return;
+
+        const monthlyPrice = Math.round(planData.price * billingMultiplier);
+        const monthlyUnit = Math.round(monthlyPrice / lmsUsers);
+        const price = plan.querySelector('[data-lms-price]');
+        const unit = plan.querySelector('[data-lms-unit]');
+        const label = plan.querySelector('[data-lms-billing-label]');
+        const storage = plan.querySelector('[data-lms-storage]');
+        const ai = plan.querySelector('[data-lms-ai]');
+
+        if (price) price.textContent = isEnglish
+          ? `VND ${numberFormat.format(monthlyPrice)}`
+          : `${numberFormat.format(monthlyPrice)} đ`;
+        if (unit) unit.textContent = isEnglish
+          ? `~VND ${numberFormat.format(monthlyUnit)} / user / month`
+          : `~${numberFormat.format(monthlyUnit)} đ / user / tháng`;
+        if (label) label.textContent = billingLabel;
+        if (storage) storage.textContent = planData.storage;
+        if (ai && planData.ai) ai.textContent = planData.ai[language] || planData.ai.vi;
+      });
+    }
+
+    lmsUserOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        lmsUsers = Number(option.dataset.pricingLmsUsers || 50);
+        lmsUserOptions.forEach(button => {
+          const isActive = button === option;
+          button.classList.toggle('pricing__lms-option--active', isActive);
+          button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+        updateLmsPricing();
+      });
+    });
+
+    lmsBillingOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        lmsBilling = option.dataset.pricingLmsBilling === 'monthly' ? 'monthly' : 'annual';
+        lmsBillingOptions.forEach(button => {
+          const isActive = button === option;
+          button.classList.toggle('pricing__lms-billing-option--active', isActive);
+          button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+        updateLmsPricing();
+      });
+    });
+
+    window.addEventListener('nesso-lms-language-change', updateLmsPricing);
+    updateLmsPricing();
   }
 
   const track = document.querySelector('.logo-section__track');

@@ -5682,6 +5682,33 @@ html.lms-feature-details-boot .header__demo-cta {
     padding: 0 17px;
     font-size: 12px;
   }
+
+  /* Give the feature-details outro artwork more presence without crowding its embedded title. */
+  body.lms-feature-details-mode #lms-feature-details-view .lms-feature-details-outro,
+  html.lms-feature-details-boot #lms-feature-details-view .lms-feature-details-outro {
+    width: calc(100% - 8px) !important;
+    margin: 12px auto 30px !important;
+    border-radius: 28px !important;
+  }
+
+  body.lms-feature-details-mode #lms-feature-details-view .lms-feature-details-outro > img,
+  html.lms-feature-details-boot #lms-feature-details-view .lms-feature-details-outro > img {
+    width: 112% !important;
+    max-width: none !important;
+    margin-left: -6%;
+  }
+
+  body.lms-feature-details-mode #lms-feature-details-view .lms-feature-details-outro__content a,
+  html.lms-feature-details-boot #lms-feature-details-view .lms-feature-details-outro__content a {
+    top: 33% !important;
+    right: auto !important;
+    left: 50% !important;
+    min-width: 80px !important;
+    height: 28px !important;
+    padding: 0 8px !important;
+    font-size: 10px !important;
+    transform: translate(-50%, 0) !important;
+  }
 }
 
 /* Sticky feature navigation and mobile details-route refinements. */
@@ -13618,6 +13645,894 @@ html.lms-feature-details-boot .lms-feature-details-divider img {
   }
 }
 
+/* The short Demo label needs a more compact header treatment than the wider CTA controls. */
+.header .header__demo-cta {
+  width: 104px !important;
+  padding-inline: 12px !important;
+}
+
+@media (max-width: 768px) {
+  .header .header__demo-cta {
+    width: 100% !important;
+    padding-inline: 14px !important;
+  }
+}
+
+/* Keep the first LMS Features hero CTA proportional to its short label. */
+.lms-features-hero__primary {
+  min-width: 180px;
+  padding-inline: 20px;
+}
+
+@media (max-width: 768px) {
+  .lms-features-hero__primary {
+    padding-inline: 8px;
+  }
+}
+
+/* Preserve header link coordinates while routes with different page heights are swapped. */
+html {
+  scrollbar-gutter: stable;
+}
+
+@media (min-width: 1025px) and (max-width: 1440px) {
+  body.lms-feature-details-mode .header,
+  html.lms-feature-details-boot .header {
+    --nesso-header-nav-offset: 124px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1180px) {
+  body.lms-feature-details-mode .header,
+  html.lms-feature-details-boot .header {
+    --nesso-header-nav-offset: 108px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1100px) {
+  body.lms-feature-details-mode .header,
+  html.lms-feature-details-boot .header {
+    --nesso-header-nav-offset: 92px;
+  }
+}
+
+/* Pricing catalog — shared Figma-inspired layout for LMS and content-conversion plans. */
+.pricing .pricing__switch {
+  width: 334px;
+  height: 58px;
+  padding: 6px;
+  margin: 0 auto 38px;
+  border: 1px solid rgba(181, 233, 245, 0.3);
+  border-radius: 999px;
+  background: rgba(6, 22, 28, 0.76);
+  box-shadow: inset 0 0 20px rgba(41, 205, 240, 0.08);
+}
+
+.pricing .pricing__switch::before {
+  top: 6px;
+  left: 6px;
+  height: 44px;
+  border-radius: 999px;
+  background: linear-gradient(105deg, #1ed4f4 0%, #42cff2 58%, #eefbff 100%);
+  box-shadow: 0 8px 24px rgba(33, 209, 244, 0.22);
+}
+
+.pricing .pricing__switch--lms::before {
+  width: 92px;
+  transform: translateX(0);
+}
+
+.pricing .pricing__switch--content::before {
+  width: 224px;
+  transform: translateX(92px);
+}
+
+.pricing .pricing__switch-option {
+  height: 44px;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.pricing .pricing__switch-option--active {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.pricing .pricing__switch-option[data-pricing-tab="lms"] {
+  min-width: 92px;
+}
+
+.pricing .pricing__switch-option[data-pricing-tab="content"] {
+  min-width: 224px;
+}
+
+#pricing-content-panel,
+#pricing-lms-panel {
+  width: min(100%, 1280px) !important;
+  max-width: 1280px !important;
+  height: auto !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+#pricing-content-panel > :not(.pricing__catalog),
+.pricing > .pricing__mini-card {
+  display: none !important;
+}
+
+.pricing__lms-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  width: 100%;
+  min-height: 84px;
+  box-sizing: border-box;
+  margin: 0 0 20px;
+  padding: 12px 18px;
+  border: 1px solid rgba(21, 206, 242, 0.68);
+  border-radius: 25px;
+  background: rgba(3, 14, 18, 0.58);
+  box-shadow: inset 0 0 24px rgba(30, 204, 240, 0.04);
+}
+
+.pricing__lms-scale,
+.pricing__lms-options,
+.pricing__lms-billing {
+  display: flex;
+  align-items: center;
+}
+
+.pricing__lms-scale {
+  min-width: 0;
+  gap: 16px;
+}
+
+.pricing__lms-control-label {
+  flex: 0 0 auto;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 15px;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.pricing__lms-options {
+  min-width: 0;
+  gap: 7px;
+}
+
+.pricing__lms-option,
+.pricing__lms-billing-option {
+  border: 1px solid rgba(172, 214, 225, 0.2);
+  background-clip: padding-box;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(1, 8, 11, 0.35);
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: color 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.pricing__lms-option {
+  flex: 0 0 auto;
+  height: 42px;
+  padding: 0 14px;
+  border-radius: 11px;
+  white-space: nowrap;
+}
+
+.pricing__lms-billing {
+  flex: 0 0 auto;
+  min-height: 56px;
+  padding: 4px;
+  border-left: 1px solid rgba(172, 214, 225, 0.18);
+  border-radius: 15px;
+  background: rgba(3, 13, 17, 0.52);
+}
+
+.pricing__lms-billing-option {
+  height: 46px;
+  padding: 0 15px;
+  border-color: transparent;
+  border-radius: 11px;
+  white-space: nowrap;
+}
+
+.pricing__lms-option:hover,
+.pricing__lms-option:focus-visible,
+.pricing__lms-billing-option:hover,
+.pricing__lms-billing-option:focus-visible {
+  color: #ffffff;
+  border-color: rgba(44, 212, 242, 0.7);
+  outline: none;
+}
+
+.pricing__lms-option--active,
+.pricing__lms-billing-option--active {
+  color: #031116;
+  border-color: transparent;
+  background: linear-gradient(105deg, #1fd4f4 0%, #a0ebfa 68%, #f4fdff 100%);
+  box-shadow: 0 7px 17px rgba(31, 211, 244, 0.13);
+}
+
+.pricing__lms-option--active:hover,
+.pricing__lms-option--active:focus-visible,
+.pricing__lms-billing-option--active:hover,
+.pricing__lms-billing-option--active:focus-visible {
+  border-color: transparent;
+}
+
+.pricing__catalog {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.pricing__catalog-card {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 690px;
+  box-sizing: border-box;
+  padding: 30px;
+  border: 1px solid #1bcaee;
+  border-radius: 26px;
+  color: #ffffff;
+  background-color: #01090d;
+  background-image: linear-gradient(180deg, rgba(2, 12, 15, 0.04) 0%, rgba(1, 8, 11, 0.76) 44%, #01080c 78%), url('https://nesso.vn/wp-content/uploads/2026/09/bg-blue-card-price-scaled.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  box-shadow: inset 0 0 0 4px rgba(0, 0, 0, 0.68), 0 18px 55px rgba(0, 0, 0, 0.38);
+  overflow: hidden;
+  transition: border-color 280ms ease, box-shadow 360ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pricing__catalog-card::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  inset: -28% -18% auto;
+  height: 56%;
+  background: radial-gradient(ellipse at center, rgba(88, 237, 255, 0.34) 0%, rgba(34, 203, 240, 0.12) 40%, transparent 72%);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-16px) scale(0.9);
+  transition: opacity 360ms ease, transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pricing__catalog-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.pricing__catalog-card--enterprise {
+  border-color: #d872fa;
+  background-image: linear-gradient(180deg, rgba(29, 3, 35, 0.05) 0%, rgba(17, 1, 24, 0.76) 44%, #100114 78%), url('https://nesso.vn/wp-content/uploads/2026/09/bg-purple-card-price-scaled.png');
+}
+
+.pricing__catalog-card--enterprise::before {
+  background: radial-gradient(ellipse at center, rgba(237, 132, 255, 0.36) 0%, rgba(191, 75, 229, 0.13) 40%, transparent 72%);
+}
+
+.pricing__catalog-intro {
+  min-height: 90px;
+}
+
+.pricing__catalog--content .pricing__catalog-intro {
+  min-height: 128px;
+}
+
+.pricing__catalog-intro h3 {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0;
+  color: #ffffff;
+  font-size: 21px;
+  line-height: 1.3;
+  font-weight: 620;
+}
+
+.pricing__catalog-intro p {
+  margin: 7px 0 0;
+  color: rgba(255, 255, 255, 0.91);
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.pricing__catalog-badge {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  min-height: 23px;
+  padding: 2px 11px;
+  border-radius: 999px;
+  color: #ecfaff;
+  background: rgba(28, 190, 230, 0.42);
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.pricing__catalog-card--professional .pricing__catalog-intro h3 {
+  flex-wrap: nowrap;
+  gap: 8px;
+  font-size: 20px;
+  white-space: nowrap;
+}
+
+.pricing__catalog-card--enterprise .pricing__catalog-badge {
+  background: rgba(215, 109, 244, 0.62);
+}
+
+.pricing__catalog-pricebox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 117px;
+  margin: 9px 0 24px;
+  padding: 13px 18px;
+  border: 1px solid rgba(178, 215, 226, 0.2);
+  border-radius: 12px;
+  background: rgba(0, 7, 10, 0.52);
+}
+
+.pricing__catalog-pricebox strong {
+  color: #ffffff;
+  font-size: clamp(27px, 2.25vw, 34px);
+  font-weight: 620;
+  line-height: 1.12;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.pricing__catalog-pricebox span {
+  margin-top: 4px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 15px;
+  line-height: 1.32;
+}
+
+.pricing__catalog-pricebox small {
+  margin-top: 11px;
+  color: #23d8ff;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.pricing__catalog-card--enterprise .pricing__catalog-pricebox small {
+  color: #e280fb;
+}
+
+.pricing__catalog-specs {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0 0 20px;
+  border-bottom: 1px solid rgba(201, 219, 225, 0.2);
+}
+
+.pricing__catalog-specs div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pricing__catalog-specs dt,
+.pricing__catalog-specs dd {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.pricing__catalog-specs dt {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.pricing__catalog-specs dd {
+  color: rgba(255, 255, 255, 0.95);
+  text-align: right;
+}
+
+.pricing__catalog--content .pricing__catalog-specs {
+  gap: 9px;
+}
+
+.pricing__catalog--content .pricing__catalog-specs div {
+  align-items: flex-start;
+}
+
+.pricing__catalog--content .pricing__catalog-specs dt {
+  flex: 0 0 43%;
+}
+
+.pricing__catalog--content .pricing__catalog-specs dd {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-weight: 500;
+  line-height: 1.36;
+}
+
+.pricing__catalog-specs-value--two-lines > span {
+  display: block;
+  white-space: nowrap;
+}
+
+.pricing__catalog--content .pricing__catalog-card--standard .pricing__catalog-specs div:nth-child(2) dd {
+  color: rgba(255, 255, 255, 0.58);
+  font-weight: 400;
+}
+
+.pricing__catalog--content .pricing__catalog-card--professional .pricing__catalog-specs div:nth-child(2) dd {
+  color: #29d9ff;
+}
+
+.pricing__catalog--content .pricing__catalog-card--enterprise .pricing__catalog-specs div:nth-child(2) dd {
+  color: #e17cff;
+}
+
+.pricing__catalog-features {
+  display: grid;
+  gap: 10px;
+  margin: 21px 0 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.pricing__catalog-features li {
+  position: relative;
+  padding-left: 21px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.pricing__catalog-features li::before {
+  content: '✓';
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #24e38b;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.pricing__catalog-features--accent li:nth-child(-n + 2)::before {
+  content: '*';
+  top: 5px;
+  color: #29d9ff;
+  font-size: 23px;
+  line-height: 16px;
+}
+
+.pricing__catalog-features--purple li:nth-child(-n + 2)::before {
+  content: '*';
+  top: 5px;
+  color: #e17cff;
+  font-size: 23px;
+  line-height: 16px;
+}
+
+.pricing__catalog-features--accent li:nth-child(-n + 2) {
+  color: #29d9ff;
+  font-weight: 600;
+}
+
+.pricing__catalog-features--purple li:nth-child(-n + 2) {
+  color: #e17cff;
+  font-weight: 600;
+}
+
+.pricing__catalog-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;
+  box-sizing: border-box;
+  margin-top: auto;
+  padding: 0 16px;
+  border: 1px solid rgba(194, 214, 219, 0.22);
+  border-radius: 11px;
+  color: rgba(255, 255, 255, 0.62);
+  background: rgba(0, 5, 8, 0.34);
+  background-clip: padding-box;
+  font-size: 15px;
+  font-weight: 450;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  transition: color 180ms ease, border-color 180ms ease, background 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.pricing__catalog-cta:hover,
+.pricing__catalog-cta:focus-visible {
+  border-color: rgba(31, 212, 244, 0.82);
+  color: #ffffff;
+  background: rgba(12, 132, 158, 0.25);
+  box-shadow: 0 8px 20px rgba(23, 204, 241, 0.12);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.pricing__catalog-cta--primary {
+  border-color: rgba(36, 212, 242, 0.45);
+  color: rgba(255, 255, 255, 0.72);
+  background: rgba(0, 8, 11, 0.38);
+}
+
+.pricing__catalog-card:focus-within .pricing__catalog-cta,
+.pricing__catalog-cta--primary:hover,
+.pricing__catalog-cta--primary:focus-visible {
+  border-color: transparent;
+  color: #021216;
+  background: linear-gradient(105deg, #1dc8f0 0%, #39cef4 58%, #e9fbff 100%);
+  box-shadow: 0 10px 24px rgba(23, 204, 241, 0.22);
+}
+
+.pricing__catalog-card:focus-within {
+  border-color: #76ecff;
+  box-shadow: inset 0 0 0 4px rgba(0, 0, 0, 0.68), 0 28px 62px rgba(13, 204, 240, 0.2);
+}
+
+.pricing__catalog-card:focus-within::before {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.pricing__catalog-card--enterprise:focus-within {
+  border-color: #ed9bff;
+  box-shadow: inset 0 0 0 4px rgba(0, 0, 0, 0.68), 0 28px 62px rgba(210, 98, 243, 0.2);
+}
+
+.pricing__catalog-card--enterprise:focus-within .pricing__catalog-cta {
+  border-color: transparent;
+  color: #1b0423;
+  background: linear-gradient(105deg, #b343da 0%, #db74f4 58%, #fbd8ff 100%);
+  box-shadow: 0 10px 24px rgba(216, 104, 246, 0.24);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pricing__catalog-card:hover {
+    border-color: #76ecff;
+    box-shadow: inset 0 0 0 4px rgba(0, 0, 0, 0.68), 0 28px 62px rgba(13, 204, 240, 0.2);
+  }
+
+  .pricing__catalog-card:hover::before {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .pricing__catalog-card:hover .pricing__catalog-cta {
+    border-color: transparent;
+    color: #021216;
+    background: linear-gradient(105deg, #1dc8f0 0%, #39cef4 58%, #e9fbff 100%);
+    box-shadow: 0 10px 24px rgba(23, 204, 241, 0.22);
+  }
+
+  .pricing__catalog-card--enterprise:hover {
+    border-color: #ed9bff;
+    box-shadow: inset 0 0 0 4px rgba(0, 0, 0, 0.68), 0 28px 62px rgba(210, 98, 243, 0.2);
+  }
+
+  .pricing__catalog-card--enterprise:hover .pricing__catalog-cta {
+    border-color: transparent;
+    color: #1b0423;
+    background: linear-gradient(105deg, #b343da 0%, #db74f4 58%, #fbd8ff 100%);
+    box-shadow: 0 10px 24px rgba(216, 104, 246, 0.24);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pricing__catalog-card,
+  .pricing__catalog-card::before {
+    transition: none;
+  }
+}
+
+.pricing__catalog-cta--purple {
+  border-color: rgba(224, 112, 251, 0.5);
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.pricing__catalog-cta--purple:hover,
+.pricing__catalog-cta--purple:focus-visible {
+  border-color: #e47cff;
+  background: rgba(153, 48, 184, 0.2);
+  box-shadow: 0 8px 20px rgba(216, 104, 246, 0.12);
+}
+
+@media (max-width: 1180px) and (min-width: 769px) {
+  .pricing__lms-controls {
+    gap: 16px;
+    padding: 12px 14px;
+  }
+
+  .pricing__lms-scale {
+    gap: 10px;
+  }
+
+  .pricing__lms-control-label {
+    display: none;
+  }
+
+  .pricing__lms-option {
+    padding: 0 10px;
+    font-size: 13px;
+  }
+
+  .pricing__lms-billing-option {
+    padding: 0 10px;
+    font-size: 13px;
+  }
+
+  .pricing__catalog-card {
+    min-height: 675px;
+    padding: 24px;
+  }
+}
+
+@media (max-width: 1180px) and (min-width: 1024px) {
+  .pricing__catalog--content .pricing__catalog-intro {
+    min-height: 155px;
+  }
+
+  .pricing__catalog--lms .pricing__catalog-intro {
+    min-height: 128px;
+  }
+}
+
+@media (max-width: 1023px) and (min-width: 820px) {
+  .pricing__catalog .pricing__catalog-intro {
+    min-height: 176px;
+  }
+
+  .pricing__catalog-pricebox strong {
+    font-size: clamp(20px, 2.7vw, 27px);
+  }
+}
+
+@media (max-width: 819px) and (min-width: 769px) {
+  .pricing__catalog--content .pricing__catalog-intro {
+    min-height: 199px;
+  }
+
+  .pricing__catalog--lms .pricing__catalog-intro {
+    min-height: 176px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pricing .pricing__switch {
+    width: min(100%, 318px) !important;
+    height: 52px !important;
+    margin-bottom: 26px !important;
+    padding: 5px !important;
+  }
+
+  .pricing .pricing__switch::before {
+    top: 5px !important;
+    left: 5px !important;
+    height: 40px !important;
+  }
+
+  .pricing .pricing__switch--lms::before {
+    width: 83px !important;
+  }
+
+  .pricing .pricing__switch--content::before {
+    width: calc(100% - 88px) !important;
+    transform: translateX(83px) !important;
+  }
+
+  .pricing .pricing__switch-option,
+  .pricing .pricing__switch-option--active {
+    height: 40px !important;
+    font-size: 13px !important;
+  }
+
+  .pricing .pricing__switch-option[data-pricing-tab="lms"] {
+    flex: 0 0 83px !important;
+    min-width: 83px !important;
+  }
+
+  .pricing .pricing__switch-option[data-pricing-tab="content"] {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+  }
+
+  #pricing-content-panel,
+  #pricing-lms-panel {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  .pricing__lms-controls {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: calc(100% - 32px);
+    min-height: 0;
+    margin: 0 auto 16px;
+    padding: 14px;
+    border-radius: 20px;
+  }
+
+  .pricing__lms-scale {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(172, 214, 225, 0.2);
+    gap: 10px;
+  }
+
+  .pricing__lms-control-label {
+    font-size: 13px;
+  }
+
+  .pricing__lms-options {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    width: 100%;
+    overflow: visible;
+    padding: 0;
+    gap: 8px;
+    scrollbar-width: none;
+  }
+
+  .pricing__lms-options::-webkit-scrollbar,
+  .pricing__catalog::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pricing__lms-option {
+    grid-column: span 2;
+    width: 100%;
+    height: 37px;
+    padding: 0 12px;
+    border-radius: 9px;
+    font-size: 13px;
+  }
+
+  .pricing__lms-option:nth-child(4) {
+    grid-column: 2 / span 2;
+  }
+
+  .pricing__lms-option:nth-child(5) {
+    grid-column: 4 / span 2;
+  }
+
+  .pricing__lms-billing {
+    width: 100%;
+    min-height: 48px;
+    box-sizing: border-box;
+    padding: 3px;
+    border-left: 0;
+    border-radius: 12px;
+  }
+
+  .pricing__lms-billing-option {
+    flex: 1 1 0;
+    height: 42px;
+    padding: 0 7px;
+    font-size: 11px;
+  }
+
+  .pricing__catalog {
+    grid-auto-columns: clamp(282px, 82vw, 328px);
+    grid-auto-flow: column;
+    grid-template-columns: unset;
+    gap: 14px;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    padding: 4px 24px 18px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-padding-left: 24px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .pricing__catalog-card {
+    min-height: 642px;
+    padding: 24px;
+    border-radius: 22px;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .pricing__catalog-intro {
+    min-height: 85px;
+  }
+
+  .pricing__catalog--content .pricing__catalog-intro {
+    min-height: 146px;
+  }
+
+  .pricing__catalog--lms .pricing__catalog-intro {
+    min-height: 121px;
+  }
+
+  .pricing__catalog-intro h3 {
+    font-size: 19px;
+  }
+
+  .pricing__catalog-card--professional .pricing__catalog-intro h3 {
+    gap: 6px;
+    font-size: 17px;
+  }
+
+  .pricing__catalog-intro p {
+    font-size: 14px;
+  }
+
+  .pricing__catalog-pricebox {
+    min-height: 106px;
+    margin-bottom: 20px;
+    padding: 13px 15px;
+  }
+
+  .pricing__catalog-pricebox strong {
+    font-size: 28px;
+  }
+
+  .pricing__catalog-pricebox span,
+  .pricing__catalog-pricebox small {
+    font-size: 13px;
+  }
+
+  .pricing__catalog-specs {
+    padding-bottom: 16px;
+  }
+
+  .pricing__catalog-specs dt,
+  .pricing__catalog-specs dd,
+  .pricing__catalog-features li {
+    font-size: 13px;
+  }
+
+  .pricing__catalog-features {
+    gap: 9px;
+    margin: 17px 0 20px;
+  }
+
+  .pricing__catalog-cta {
+    min-height: 43px;
+    font-size: 14px;
+  }
+}
+
+/* Keep the bright gradient inside the transparent border to prevent edge seams. */
+.pricing__lms-option--active,
+.pricing__lms-option--active:hover,
+.pricing__lms-option--active:focus-visible,
+.pricing__lms-billing-option--active,
+.pricing__lms-billing-option--active:hover,
+.pricing__lms-billing-option--active:focus-visible,
+.pricing__catalog-card:focus-within .pricing__catalog-cta,
+.pricing__catalog-cta--primary:hover,
+.pricing__catalog-cta--primary:focus-visible,
+.pricing__catalog-card--enterprise:focus-within .pricing__catalog-cta,
+.pricing__catalog-cta--purple:hover,
+.pricing__catalog-cta--purple:focus-visible,
+.pricing__catalog-card:hover .pricing__catalog-cta,
+.pricing__catalog-card--enterprise:hover .pricing__catalog-cta {
+  background-clip: padding-box;
+}
+
   </style>
 </head>
 
@@ -14824,6 +15739,81 @@ html.lms-feature-details-boot .lms-feature-details-divider img {
 
           </div>
         </div>
+        <div class="pricing__catalog pricing__catalog--content" aria-label="Các gói chuyển đổi nội dung">
+          <article class="pricing__catalog-card pricing__catalog-card--standard">
+            <div class="pricing__catalog-intro">
+              <h3>Tier 1: Essential</h3>
+              <p>Định dạng chuẩn hóa: Quy trình SOP, sổ tay nhân sự, chính sách tuân thủ &amp; quy định nội bộ.</p>
+            </div>
+            <div class="pricing__catalog-pricebox">
+              <strong>8.900.000 đ</strong>
+              <span>/ module chuẩn (15-20 phút học)</span>
+            </div>
+            <dl class="pricing__catalog-specs">
+              <div><dt>Thời gian bàn giao:</dt><dd>3 – 5 ngày / module</dd></div>
+              <div><dt>Công nghệ AI:</dt><dd>100% Non-AI (Thuần chuyên môn ID)</dd></div>
+              <div><dt>Giọng đọc:</dt><dd class="pricing__catalog-specs-value--two-lines"><span>Không gồm Voiceover</span><span>(Đọc - hiểu)</span></dd></div>
+              <div><dt>Hình ảnh trực quan:</dt><dd class="pricing__catalog-specs-value--two-lines"><span>3 – 5 Infographics /</span><span>Sơ đồ tĩnh</span></dd></div>
+            </dl>
+            <ul class="pricing__catalog-features">
+              <li>Chuyên viên ID trực tiếp bóc tách, lọc nội dung cốt lõi</li>
+              <li>Biên tập sư phạm cô đọng, chuyển hóa văn bản thành sơ đồ</li>
+              <li>5-10 câu hỏi trắc nghiệm kiểm tra độ hiểu sau bài học</li>
+              <li>Đóng gói chuẩn SCORM tương thích 100% mọi hệ thống LMS</li>
+            </ul>
+            <a href="#contact" class="pricing__catalog-cta" data-contact-open>Chọn Gói Essential</a>
+          </article>
+
+          <article class="pricing__catalog-card pricing__catalog-card--professional">
+            <div class="pricing__catalog-intro">
+              <h3>Tier 2: Interactive <span class="pricing__catalog-badge">Phổ biến</span></h3>
+              <p>Đa phương tiện có thuyết minh: Đào tạo sản phẩm, Onboarding hội nhập, nghiệp vụ chuyên môn.</p>
+            </div>
+            <div class="pricing__catalog-pricebox">
+              <strong>16.900.000 đ</strong>
+              <span>/ module chuẩn (15-20 phút học)</span>
+            </div>
+            <dl class="pricing__catalog-specs">
+              <div><dt>Thời gian bàn giao:</dt><dd>5 – 7 ngày / module</dd></div>
+              <div><dt>Công nghệ AI:</dt><dd>Tích hợp AI Audio (Voiceover)</dd></div>
+              <div><dt>Giọng đọc:</dt><dd class="pricing__catalog-specs-value--two-lines"><span>AI Voiceover (TTS)</span><span>chuẩn phòng thu</span></dd></div>
+              <div><dt>Hình ảnh trực quan:</dt><dd>Không gồm video (Tập trung tương tác)</dd></div>
+            </dl>
+            <ul class="pricing__catalog-features pricing__catalog-features--accent">
+              <li>Bao gồm toàn bộ quyền lợi của Gói Essential</li>
+              <li>Thuyết minh toàn bộ bài học bằng giọng đọc AI tự nhiên</li>
+              <li>Thiết kế Storyboard đa giác quan kết hợp Nghe - Nhìn - Thao tác</li>
+              <li>Infographics động &amp; hiệu ứng chuyển cảnh đồng bộ theo lời đọc</li>
+              <li>Tương tác kéo thả, Hotspot, bài tập ghép nối có âm thanh phản hồi</li>
+            </ul>
+            <a href="#contact" class="pricing__catalog-cta pricing__catalog-cta--primary" data-contact-open>Chọn Gói Interactive</a>
+          </article>
+
+          <article class="pricing__catalog-card pricing__catalog-card--enterprise">
+            <div class="pricing__catalog-intro">
+              <h3>Tier 3: Scenario Simulation <span class="pricing__catalog-badge">Mô Phỏng Tình Huống Sâu</span></h3>
+              <p>Thực hành rẽ nhánh: Kỹ năng bán hàng B2B, xử lý khiếu nại khách hàng, an toàn và quản lý.</p>
+            </div>
+            <div class="pricing__catalog-pricebox">
+              <strong>25.900.000 đ</strong>
+              <span>/ module chuẩn (15-20 phút học)</span>
+            </div>
+            <dl class="pricing__catalog-specs">
+              <div><dt>Thời gian bàn giao:</dt><dd>7 – 10 ngày / module</dd></div>
+              <div><dt>Video dẫn dắt:</dt><dd class="pricing__catalog-specs-value--two-lines"><span>1–2 Video AI Avatar</span><span>Lipsync tự nhiên</span></dd></div>
+              <div><dt>Cấu trúc kịch bản:</dt><dd>Phân nhánh rẽ hướng (Decision Tree)</dd></div>
+              <div><dt>Đánh giá năng lực:</dt><dd class="pricing__catalog-specs-value--two-lines"><span>Thanh đo cảm xúc &amp;</span><span>Rubric chấm điểm</span></dd></div>
+            </dl>
+            <ul class="pricing__catalog-features pricing__catalog-features--purple">
+              <li>Bao gồm toàn bộ quyền lợi của Gói Interactive</li>
+              <li>Video AI Avatar lipsync tự nhiên theo ngữ điệu giảng giải</li>
+              <li>Kịch bản phân nhánh: Quyết định dẫn đến kết quả &amp; phản hồi khác nhau</li>
+              <li>AI Avatar đóng vai nhân vật phản hồi tức thì theo lựa chọn</li>
+              <li>Rèn luyện phản xạ thực chiến mà không tốn chi phí đi quay video thật</li>
+            </ul>
+            <a href="#contact" class="pricing__catalog-cta pricing__catalog-cta--purple" data-contact-open>Chọn Gói Simulation</a>
+          </article>
+        </div>
       </article>
 
       <div class="pricing__mini-card">
@@ -14834,46 +15824,98 @@ html.lms-feature-details-boot .lms-feature-details-divider img {
 
       <article class="pricing__panel pricing__panel--lms pricing__panel--active" id="pricing-lms-panel" role="tabpanel"
         data-pricing-panel="lms">
-        <div class="pricing__lms-card">
-          <div class="pricing__lms-top">
-            <div>
-              <h3>Nesso LMS</h3>
-              <p>Triển khai hệ thống</p>
+        <div class="pricing__lms-controls" aria-label="Tùy chỉnh báo giá LMS">
+          <div class="pricing__lms-scale">
+            <span class="pricing__lms-control-label">Quy mô nhân sự:</span>
+            <div class="pricing__lms-options" role="group" aria-label="Quy mô nhân sự">
+              <button type="button" class="pricing__lms-option pricing__lms-option--active" data-pricing-lms-users="50" aria-pressed="true">50 Users</button>
+              <button type="button" class="pricing__lms-option" data-pricing-lms-users="100" aria-pressed="false">100 Users</button>
+              <button type="button" class="pricing__lms-option" data-pricing-lms-users="250" aria-pressed="false">250 Users</button>
+              <button type="button" class="pricing__lms-option" data-pricing-lms-users="500" aria-pressed="false">500 Users</button>
+              <button type="button" class="pricing__lms-option" data-pricing-lms-users="1000" aria-pressed="false">1.000 Users</button>
             </div>
           </div>
-
-          <div class="pricing__lms-price-row">
-            <span>Từ</span>
-            <strong>57.500.000đ</strong>
+          <div class="pricing__lms-billing" role="group" aria-label="Chu kỳ thanh toán">
+            <button type="button" class="pricing__lms-billing-option pricing__lms-billing-option--active" data-pricing-lms-billing="annual" aria-pressed="true">Theo năm (Tiết kiệm 20%)</button>
+            <button type="button" class="pricing__lms-billing-option" data-pricing-lms-billing="monthly" aria-pressed="false">Theo tháng</button>
           </div>
+        </div>
 
-          <div class="pricing__lms-divider"></div>
-
-          <div class="pricing__lms-feature-grid">
-            <div class="pricing__lms-feature">
-              <span>#01</span>
-              <p>Bảo mật tài sản trí tuệ<br>Xóa bỏ rào cản địa lý<br>Tối ưu 80% nguồn lực quản trị</p>
+        <div class="pricing__catalog pricing__catalog--lms" aria-label="Các gói LMS">
+          <article class="pricing__catalog-card pricing__catalog-card--standard" data-lms-plan="standard">
+            <div class="pricing__catalog-intro">
+              <h3>Standard</h3>
+              <p>Số hóa bài giảng, quản lý khóa học và theo dõi tiến độ nhân sự bài bản.</p>
             </div>
-
-            <div class="pricing__lms-feature">
-              <span>#02</span>
-              <p>Thiết kế độc bản toàn bộ UX/UI<br>Chuẩn hoá giao diện theo Brand Guideline<br>Thiết kế bộ huy hiệu,
-                chứng chỉ độc quyền</p>
+            <div class="pricing__catalog-pricebox">
+              <strong data-lms-price>1.800.000 đ</strong>
+              <span data-lms-billing-label>/ tháng (thanh toán năm)</span>
+              <small data-lms-unit>~36.000 đ / user / tháng</small>
             </div>
+            <dl class="pricing__catalog-specs">
+              <div><dt>Lưu trữ kèm sẵn:</dt><dd data-lms-storage>50 GB SSD</dd></div>
+              <div><dt>Tính năng AI:</dt><dd>Không có</dd></div>
+              <div><dt>Hỗ trợ kỹ thuật:</dt><dd>Giờ hành chính</dd></div>
+            </dl>
+            <ul class="pricing__catalog-features">
+              <li>Trọn bộ 132 tính năng LMS/CMS cốt lõi</li>
+              <li>Học liệu Video, PDF, bài giảng SCORM / xAPI</li>
+              <li>Tổ chức thi cử trắc nghiệm, tự luận, ngân hàng câu hỏi</li>
+              <li>Tự động cấp chứng chỉ PDF và huy hiệu thi đua</li>
+              <li>Báo cáo tiến độ học viên theo phòng ban</li>
+            </ul>
+            <a href="#contact" class="pricing__catalog-cta" data-contact-open>Chọn Gói Standard</a>
+          </article>
 
-            <div class="pricing__lms-feature">
-              <span>#03</span>
-              <p>Bảo hành miễn phí 24/7 trong 6 tháng đầu<br>Bảo hành hằng năm (tính sau khi hết hạn bảo hành miễn phí)
-              </p>
+          <article class="pricing__catalog-card pricing__catalog-card--professional" data-lms-plan="professional">
+            <div class="pricing__catalog-intro">
+              <h3>Professional (AI Learner) <span class="pricing__catalog-badge">Phổ biến</span></h3>
+              <p>Trang bị Trợ lý AI kèm cặp 24/7 cho từng học viên, tra cứu đúng tài liệu nội bộ.</p>
             </div>
-
-            <div class="pricing__lms-feature">
-              <span>#04</span>
-              <p>Số hoá tài sản tri thức<br>Tối ưu hiệu suất đào tạo<br>Nhân bản năng lực bằng AI</p>
+            <div class="pricing__catalog-pricebox">
+              <strong data-lms-price>2.900.000 đ</strong>
+              <span data-lms-billing-label>/ tháng (thanh toán năm)</span>
+              <small data-lms-unit>~58.000 đ / user / tháng</small>
             </div>
-          </div>
+            <dl class="pricing__catalog-specs">
+              <div><dt>Lưu trữ kèm sẵn:</dt><dd data-lms-storage>150 GB SSD</dd></div>
+              <div><dt>Định mức AI:</dt><dd data-lms-ai>10.000 tương tác/th</dd></div>
+              <div><dt>Hỗ trợ kỹ thuật:</dt><dd>Ưu tiên (Phản hồi &lt; 4h)</dd></div>
+            </dl>
+            <ul class="pricing__catalog-features pricing__catalog-features--accent">
+              <li>Toàn bộ tính năng gói Standard</li>
+              <li>Trợ lý AI Companion cho học viên</li>
+              <li>AI giải đáp câu hỏi trực tiếp trong từng bài học</li>
+              <li>RAG Kho tri thức: Đọc hiểu PDF/Docx, trả lời chuẩn 100% không bịa đặt</li>
+              <li>Tùy chỉnh phong cách gia sư AI và lưu lịch sử chat</li>
+            </ul>
+            <a href="#contact" class="pricing__catalog-cta pricing__catalog-cta--primary" data-contact-open>Chọn Gói Pro</a>
+          </article>
 
-          <a href="#contact" class="pricing__lms-contact" data-contact-open>Liên hệ với Nesso</a>
+          <article class="pricing__catalog-card pricing__catalog-card--enterprise" data-lms-plan="enterprise">
+            <div class="pricing__catalog-intro">
+              <h3>Enterprise <span class="pricing__catalog-badge">Toàn Diện Doanh Nghiệp</span></h3>
+              <p>Giải pháp tập đoàn và chuỗi: AI hỗ trợ tự động thiết kế dàn ý bài giảng và Mindmap.</p>
+            </div>
+            <div class="pricing__catalog-pricebox">
+              <strong data-lms-price>4.800.000 đ</strong>
+              <span data-lms-billing-label>/ tháng (thanh toán năm)</span>
+              <small data-lms-unit>~96.000 đ / user / tháng</small>
+            </div>
+            <dl class="pricing__catalog-specs">
+              <div><dt>Lưu trữ kèm sẵn:</dt><dd data-lms-storage>500 GB SSD</dd></div>
+              <div><dt>Định mức AI:</dt><dd data-lms-ai>30.000 chat + 50 bài</dd></div>
+              <div><dt>Hỗ trợ kỹ thuật:</dt><dd>Chuyên viên riêng 24/7</dd></div>
+            </dl>
+            <ul class="pricing__catalog-features pricing__catalog-features--purple">
+              <li>Toàn bộ tính năng gói Pro &amp; AI 1</li>
+              <li>AI Instructional Design (Soạn bài giảng)</li>
+              <li>AI tự động xuất Mindmap và cấu trúc khóa học</li>
+              <li>AI tự sinh ngân hàng câu hỏi và rubric đánh giá</li>
+              <li>Phân quyền quản trị đa chi nhánh / công ty con</li>
+            </ul>
+            <a href="#contact" class="pricing__catalog-cta pricing__catalog-cta--purple" data-contact-open>Chọn Gói Enterprise</a>
+          </article>
         </div>
       </article>
     </section>
@@ -15322,7 +16364,97 @@ const NESSO_I18N_EN = new Map([
   ['Biến hệ thống LMS thành nền tảng mang dấu ấn riêng của bạn.', 'Turn your LMS into a platform that reflects your brand.'],
   ['Thư viện khóa học và nội dung số', 'Course library and digital content'],
   ['Học tập đa phương thức, sẵn sàng cho mọi nhu cầu đào tạo', 'Multimodal learning, ready for every training need'],
-  ['Khám phá chi tiết', 'Explore in detail']
+  ['Khám phá chi tiết', 'Explore in detail'],
+  ['Tùy chỉnh báo giá LMS', 'Customize LMS pricing'],
+  ['Quy mô nhân sự:', 'Team size:'],
+  ['Quy mô nhân sự', 'Team size'],
+  ['Chu kỳ thanh toán', 'Billing cycle'],
+  ['Các gói chuyển đổi nội dung', 'Content conversion packages'],
+  ['Các gói LMS', 'LMS packages'],
+  ['Theo năm (Tiết kiệm 20%)', 'Annual (Save 20%)'],
+  ['Theo tháng', 'Monthly'],
+  ['Định dạng chuẩn hóa: Quy trình SOP, sổ tay nhân sự, chính sách tuân thủ & quy định nội bộ.', 'Structured standardization: SOPs, employee handbooks, compliance policies, and internal regulations.'],
+  ['8.900.000 đ', 'VND 8,900,000'],
+  ['/ module chuẩn (15-20 phút học)', '/ standard module (15-20 learning minutes)'],
+  ['Thời gian bàn giao:', 'Delivery time:'],
+  ['3 – 5 ngày / module', '3–5 days / module'],
+  ['Công nghệ AI:', 'AI technology:'],
+  ['100% Non-AI (Thuần chuyên môn ID)', '100% non-AI (instructional design expertise)'],
+  ['Giọng đọc:', 'Voice-over narration:'],
+  ['Không gồm Voiceover', 'No voice-over'],
+  ['(Đọc - hiểu)', '(reading-based)'],
+  ['Hình ảnh trực quan:', 'Visual assets:'],
+  ['3 – 5 Infographics /', '3–5 infographics /'],
+  ['Sơ đồ tĩnh', 'static diagrams'],
+  ['Chuyên viên ID trực tiếp bóc tách, lọc nội dung cốt lõi', 'Instructional designers directly analyze and distill core content'],
+  ['Biên tập sư phạm cô đọng, chuyển hóa văn bản thành sơ đồ', 'Concise pedagogical editing that turns text into visual diagrams'],
+  ['5-10 câu hỏi trắc nghiệm kiểm tra độ hiểu sau bài học', '5-10 quiz questions to check understanding after each lesson'],
+  ['Đóng gói chuẩn SCORM tương thích 100% mọi hệ thống LMS', 'SCORM packaging compatible with all LMS platforms'],
+  ['Chọn Gói Essential', 'Choose Essential'],
+  ['Khuyên Dùng • Phổ Biến Nhất', 'Recommended • Most Popular'],
+  ['Đa phương tiện có thuyết minh: Đào tạo sản phẩm, Onboarding hội nhập, nghiệp vụ chuyên môn.', 'Narrated multimedia for product training, employee onboarding, and professional operations.'],
+  ['16.900.000 đ', 'VND 16,900,000'],
+  ['5 – 7 ngày / module', '5–7 days / module'],
+  ['Tích hợp AI Audio (Voiceover)', 'AI audio integration (voice-over)'],
+  ['AI Voiceover (TTS)', 'AI voice-over (TTS)'],
+  ['chuẩn phòng thu', 'Studio-quality'],
+  ['Định dạng Video:', 'Video format:'],
+  ['Không gồm video (Tập trung tương tác)', 'No video included (focus on interaction)'],
+  ['Bao gồm toàn bộ quyền lợi của Gói Essential', 'Includes every Essential package benefit'],
+  ['Thuyết minh toàn bộ bài học bằng giọng đọc AI tự nhiên', 'Full lesson narration with natural AI voice-over'],
+  ['Thiết kế Storyboard đa giác quan kết hợp Nghe - Nhìn - Thao tác', 'Multisensory storyboard design combining listening, viewing, and interaction'],
+  ['Infographics động & hiệu ứng chuyển cảnh đồng bộ theo lời đọc', 'Animated infographics and transitions synchronized to narration'],
+  ['Tương tác kéo thả, Hotspot, bài tập ghép nối có âm thanh phản hồi', 'Drag-and-drop, hotspots, and matching exercises with audio feedback'],
+  ['Chọn Gói Interactive', 'Choose Interactive'],
+  ['Mô Phỏng Tình Huống Sâu', 'Deep Scenario Simulation'],
+  ['Thực hành rẽ nhánh: Kỹ năng bán hàng B2B, xử lý khiếu nại khách hàng, an toàn và quản lý.', 'Branching practice for B2B sales, customer complaint handling, safety, and management.'],
+  ['25.900.000 đ', 'VND 25,900,000'],
+  ['7 – 10 ngày / module', '7–10 days / module'],
+  ['Video dẫn dắt:', 'Guided video:'],
+  ['1–2 Video AI Avatar', '1–2 AI avatar videos'],
+  ['Lipsync tự nhiên', 'Naturally lip-synced'],
+  ['Cấu trúc kịch bản:', 'Scenario structure:'],
+  ['Phân nhánh rẽ hướng (Decision Tree)', 'Branching paths (decision tree)'],
+  ['Đánh giá năng lực:', 'Capability assessment:'],
+  ['Thanh đo cảm xúc &', 'Emotion meter and'],
+  ['Rubric chấm điểm', 'scoring rubric'],
+  ['Bao gồm toàn bộ quyền lợi của Gói Interactive', 'Includes every Interactive package benefit'],
+  ['Video AI Avatar lipsync tự nhiên theo ngữ điệu giảng giải', 'Naturally lip-synced AI avatar video with instructional intonation'],
+  ['Kịch bản phân nhánh: Quyết định dẫn đến kết quả & phản hồi khác nhau', 'Branching scenarios where decisions lead to different outcomes and feedback'],
+  ['AI Avatar đóng vai nhân vật phản hồi tức thì theo lựa chọn', 'AI avatars role-play and respond instantly to learner choices'],
+  ['Rèn luyện phản xạ thực chiến mà không tốn chi phí đi quay video thật', 'Build real-world response skills without the cost of filming live video'],
+  ['Chọn Gói Simulation', 'Choose Simulation'],
+  ['Số hóa bài giảng, quản lý khóa học và theo dõi tiến độ nhân sự bài bản.', 'Digitize learning content, manage courses, and track employee progress systematically.'],
+  ['Lưu trữ kèm sẵn:', 'Included storage:'],
+  ['Tính năng AI:', 'AI features:'],
+  ['Không có', 'Not included'],
+  ['Hỗ trợ kỹ thuật:', 'Technical support:'],
+  ['Giờ hành chính', 'Business hours'],
+  ['Trọn bộ 132 tính năng LMS/CMS cốt lõi', 'Complete suite of 132 core LMS/CMS features'],
+  ['Học liệu Video, PDF, bài giảng SCORM / xAPI', 'Video, PDF, SCORM / xAPI learning content'],
+  ['Tổ chức thi cử trắc nghiệm, tự luận, ngân hàng câu hỏi', 'Multiple-choice and essay assessments with question banks'],
+  ['Tự động cấp chứng chỉ PDF và huy hiệu thi đua', 'Automatic PDF certificates and achievement badges'],
+  ['Báo cáo tiến độ học viên theo phòng ban', 'Department-level learner progress reporting'],
+  ['Chọn Gói Standard', 'Choose Standard'],
+  ['Phổ biến', 'Popular'],
+  ['Trang bị Trợ lý AI kèm cặp 24/7 cho từng học viên, tra cứu đúng tài liệu nội bộ.', 'Give every learner a 24/7 AI companion that retrieves the right internal knowledge.'],
+  ['Định mức AI:', 'AI allowance:'],
+  ['Ưu tiên (Phản hồi < 4h)', 'Priority support (response < 4h)'],
+  ['Toàn bộ tính năng gói Standard', 'All Standard package features'],
+  ['Trợ lý AI Companion cho học viên', 'AI Companion for learners'],
+  ['AI giải đáp câu hỏi trực tiếp trong từng bài học', 'AI answers questions directly within each lesson'],
+  ['RAG Kho tri thức: Đọc hiểu PDF/Docx, trả lời chuẩn 100% không bịa đặt', 'RAG knowledge library: reads PDF/Docx and gives grounded answers without fabrication'],
+  ['Tùy chỉnh phong cách gia sư AI và lưu lịch sử chat', 'Customize the AI tutor style and retain chat history'],
+  ['Chọn Gói Pro', 'Choose Pro'],
+  ['Toàn Diện Doanh Nghiệp', 'All-in-One'],
+  ['Giải pháp tập đoàn và chuỗi: AI hỗ trợ tự động thiết kế dàn ý bài giảng và Mindmap.', 'A solution for enterprise groups and chains, with AI support for lesson outlines and mind maps.'],
+  ['Chuyên viên riêng 24/7', 'Dedicated specialist 24/7'],
+  ['Toàn bộ tính năng gói Pro & AI 1', 'All Pro package and AI 1 features'],
+  ['AI Instructional Design (Soạn bài giảng)', 'AI Instructional Design (lesson authoring)'],
+  ['AI tự động xuất Mindmap và cấu trúc khóa học', 'AI automatically generates mind maps and course structures'],
+  ['AI tự sinh ngân hàng câu hỏi và rubric đánh giá', 'AI automatically generates question banks and assessment rubrics'],
+  ['Phân quyền quản trị đa chi nhánh / công ty con', 'Administration permissions for multiple branches / subsidiaries'],
+  ['Chọn Gói Enterprise', 'Choose Enterprise']
 ]);
 
 function normalizeNessoI18nText(value) {
@@ -20210,6 +21342,104 @@ document.addEventListener('DOMContentLoaded', () => {
         activateAdjacentPricingContentPage(deltaX < 0 ? 1 : -1);
       }, { passive: true });
     }
+  }
+
+  const lmsUserOptions = document.querySelectorAll('[data-pricing-lms-users]');
+  const lmsBillingOptions = document.querySelectorAll('[data-pricing-lms-billing]');
+  const lmsPlans = document.querySelectorAll('[data-lms-plan]');
+  if (lmsUserOptions.length && lmsBillingOptions.length && lmsPlans.length) {
+    let lmsUsers = 50;
+    let lmsBilling = 'annual';
+    const lmsPricingTiers = {
+      50: {
+        standard: { price: 1800000, storage: '50 GB SSD' },
+        professional: { price: 2900000, storage: '150 GB SSD', ai: { vi: '10.000 tương tác/th', en: '10,000 interactions/mo' } },
+        enterprise: { price: 4800000, storage: '500 GB SSD', ai: { vi: '30.000 chat + 50 bài', en: '30,000 chats + 50 AI lesson drafts' } }
+      },
+      100: {
+        standard: { price: 2800000, storage: '100 GB SSD' },
+        professional: { price: 4500000, storage: '150 GB SSD', ai: { vi: '15.000 tương tác/th', en: '15,000 interactions/mo' } },
+        enterprise: { price: 7200000, storage: '500 GB SSD', ai: { vi: '40.000 chat + 100 bài', en: '40,000 chats + 100 AI lesson drafts' } }
+      },
+      250: {
+        standard: { price: 4900000, storage: '200 GB SSD' },
+        professional: { price: 7900000, storage: '300 GB SSD', ai: { vi: '30.000 tương tác/th', en: '30,000 interactions/mo' } },
+        enterprise: { price: 12500000, storage: '1 TB SSD', ai: { vi: '70.000 chat + 200 bài', en: '70,000 chats + 200 AI lesson drafts' } }
+      },
+      500: {
+        standard: { price: 8500000, storage: '350 GB SSD' },
+        professional: { price: 13500000, storage: '300 GB SSD', ai: { vi: '50.000 tương tác/th', en: '50,000 interactions/mo' } },
+        enterprise: { price: 21000000, storage: '1 TB SSD', ai: { vi: '120.000 chat + 400 bài', en: '120,000 chats + 400 AI lesson drafts' } }
+      },
+      1000: {
+        standard: { price: 14500000, storage: '500 GB SSD' },
+        professional: { price: 22000000, storage: '300 GB SSD', ai: { vi: '100.000 tương tác/th', en: '100,000 interactions/mo' } },
+        enterprise: { price: 33000000, storage: '1 TB SSD', ai: { vi: '200.000 chat + 800 bài', en: '200,000 chats + 800 AI lesson drafts' } }
+      }
+    };
+
+    function updateLmsPricing() {
+      const tier = lmsPricingTiers[lmsUsers];
+      if (!tier) return;
+
+      const language = getCurrentNessoLanguage();
+      const isEnglish = language === 'en';
+      const numberFormat = new Intl.NumberFormat(isEnglish ? 'en-US' : 'vi-VN');
+      const billingMultiplier = lmsBilling === 'annual' ? 1 : 1.2;
+      const billingLabel = lmsBilling === 'annual'
+        ? (isEnglish ? '/ month (billed annually)' : '/ tháng (thanh toán năm)')
+        : (isEnglish ? '/ month (billed monthly)' : '/ tháng (thanh toán tháng)');
+
+      lmsPlans.forEach(plan => {
+        const planData = tier[plan.dataset.lmsPlan];
+        if (!planData) return;
+
+        const monthlyPrice = Math.round(planData.price * billingMultiplier);
+        const monthlyUnit = Math.round(monthlyPrice / lmsUsers);
+        const price = plan.querySelector('[data-lms-price]');
+        const unit = plan.querySelector('[data-lms-unit]');
+        const label = plan.querySelector('[data-lms-billing-label]');
+        const storage = plan.querySelector('[data-lms-storage]');
+        const ai = plan.querySelector('[data-lms-ai]');
+
+        if (price) price.textContent = isEnglish
+          ? `VND ${numberFormat.format(monthlyPrice)}`
+          : `${numberFormat.format(monthlyPrice)} đ`;
+        if (unit) unit.textContent = isEnglish
+          ? `~VND ${numberFormat.format(monthlyUnit)} / user / month`
+          : `~${numberFormat.format(monthlyUnit)} đ / user / tháng`;
+        if (label) label.textContent = billingLabel;
+        if (storage) storage.textContent = planData.storage;
+        if (ai && planData.ai) ai.textContent = planData.ai[language] || planData.ai.vi;
+      });
+    }
+
+    lmsUserOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        lmsUsers = Number(option.dataset.pricingLmsUsers || 50);
+        lmsUserOptions.forEach(button => {
+          const isActive = button === option;
+          button.classList.toggle('pricing__lms-option--active', isActive);
+          button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+        updateLmsPricing();
+      });
+    });
+
+    lmsBillingOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        lmsBilling = option.dataset.pricingLmsBilling === 'monthly' ? 'monthly' : 'annual';
+        lmsBillingOptions.forEach(button => {
+          const isActive = button === option;
+          button.classList.toggle('pricing__lms-billing-option--active', isActive);
+          button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+        updateLmsPricing();
+      });
+    });
+
+    window.addEventListener('nesso-lms-language-change', updateLmsPricing);
+    updateLmsPricing();
   }
 
   const track = document.querySelector('.logo-section__track');

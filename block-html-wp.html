@@ -1361,7 +1361,7 @@
 
 <div class="nesso-lms-iframe-wrap">
     <iframe id="nesso-lms-iframe"
-        data-src="https://nesso.vn/wp-content/uploads/2026/09/nesso-lms-landing-standalone.html?v=nesso-lms-features-route-v456&parentHeader=1"
+        data-src="https://nesso.vn/wp-content/uploads/2026/09/nesso-lms-landing-standalone.html?v=nesso-lms-features-route-v498&parentHeader=1"
         loading="eager" scrolling="no"></iframe>
     <div class="nesso-lms-mobile-scroll-proxy" data-nesso-lms-mobile-scroll-proxy aria-hidden="true"></div>
 </div>
@@ -1421,7 +1421,7 @@
         var iframe = document.getElementById('nesso-lms-iframe');
         if (!iframe) return;
         var mobileScrollProxy = document.querySelector('[data-nesso-lms-mobile-scroll-proxy]');
-        var iframeBaseSrc = iframe.getAttribute('data-src') || 'https://nesso.vn/wp-content/uploads/2026/09/nesso-lms-landing-standalone.html?v=nesso-lms-features-route-v456&parentHeader=1';
+        var iframeBaseSrc = iframe.getAttribute('data-src') || 'https://nesso.vn/wp-content/uploads/2026/09/nesso-lms-landing-standalone.html?v=nesso-lms-features-route-v498&parentHeader=1';
         var iframeTargetOrigin = window.location.origin;
         try {
             iframeTargetOrigin = new URL(iframeBaseSrc, window.location.href).origin;
@@ -2154,6 +2154,16 @@
             });
         }
 
+        function forwardMobileLandingTouch(type, clientX, clientY) {
+            if (!shouldUseMobileLandingIframeScroll()) return;
+            var rect = iframe.getBoundingClientRect();
+            postToIframe({
+                type: type,
+                clientX: clientX - rect.left,
+                clientY: clientY - rect.top
+            });
+        }
+
         function handleMobileLandingProxyTouchStart(event) {
             if (!shouldUseMobileLandingIframeScroll()) return;
             var point = getProxyTouchPoint(event);
@@ -2163,6 +2173,7 @@
             mobileLandingProxyTouchStartX = point.clientX;
             mobileLandingProxyTouchStartY = point.clientY;
             mobileLandingProxyTouchLastY = point.clientY;
+            forwardMobileLandingTouch('NESSO_PARENT_TOUCH_START', point.clientX, point.clientY);
         }
 
         function handleMobileLandingProxyTouchMove(event) {
@@ -2171,6 +2182,7 @@
             if (!point) return;
             var deltaY = mobileLandingProxyTouchLastY - point.clientY;
             mobileLandingProxyTouchLastY = point.clientY;
+            forwardMobileLandingTouch('NESSO_PARENT_TOUCH_MOVE', point.clientX, point.clientY);
 
             if (Math.abs(point.clientX - mobileLandingProxyTouchStartX) > 8 || Math.abs(point.clientY - mobileLandingProxyTouchStartY) > 8) {
                 mobileLandingProxyTouchMoved = true;
@@ -2181,6 +2193,9 @@
             if (!mobileLandingProxyTouchActive) return;
             var point = getProxyTouchPoint(event);
             mobileLandingProxyTouchActive = false;
+            if (point) {
+                forwardMobileLandingTouch('NESSO_PARENT_TOUCH_END', point.clientX, point.clientY);
+            }
 
             if (!mobileLandingProxyTouchMoved && point && shouldUseMobileLandingIframeScroll()) {
                 mobileLandingProxyLastTapAt = Date.now();
@@ -2195,6 +2210,7 @@
             mobileScrollProxy.addEventListener('touchend', handleMobileLandingProxyTouchEnd, { passive: false });
             mobileScrollProxy.addEventListener('touchcancel', function () {
                 mobileLandingProxyTouchActive = false;
+                postToIframe({ type: 'NESSO_PARENT_TOUCH_END' });
             }, { passive: true });
             mobileScrollProxy.addEventListener('click', function (event) {
                 if (!shouldUseMobileLandingIframeScroll()) return;

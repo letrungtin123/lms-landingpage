@@ -34,7 +34,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=lms-features-v456">
+  <link rel="stylesheet" href="style.css?v=lms-features-v498">
 </head>
 
 <body>
@@ -659,7 +659,9 @@
       <!-- CTA group (7160:4354) — Figma order: button LEFT, text RIGHT -->
       <div class="hero__cta-group">
         <a href="#contact" class="hero__cta-button" data-contact-open>Liên hệ với Nesso</a>
+        <!-- Temporarily disabled: restore this CTA when Proposal is re-enabled.
         <a href="#proposal-view" class="hero__cta-text" data-proposal-open>Xem Proposal</a>
+        -->
       </div>
 
       <!-- Dashboard mockup container (7160:4351 bg + 7160:4395 image) -->
@@ -1370,7 +1372,7 @@
 
           <article class="pricing__catalog-card pricing__catalog-card--professional" data-lms-plan="professional">
             <div class="pricing__catalog-intro">
-              <h3>Professional (AI Learner) <span class="pricing__catalog-badge">Phổ biến</span></h3>
+              <h3>Professional (AI Companion) <span class="pricing__catalog-badge">Phổ biến</span></h3>
               <p>Trang bị Trợ lý AI kèm cặp 24/7 cho từng học viên, tra cứu đúng tài liệu nội bộ.</p>
             </div>
             <div class="pricing__catalog-pricebox">
@@ -1380,7 +1382,7 @@
             </div>
             <dl class="pricing__catalog-specs">
               <div><dt>Lưu trữ kèm sẵn:</dt><dd data-lms-storage>150 GB SSD</dd></div>
-              <div><dt>Định mức AI:</dt><dd data-lms-ai>10.000 tương tác/th</dd></div>
+              <div><dt>Định mức AI:</dt><dd data-lms-ai>10.000 tương tác/tháng</dd></div>
               <div><dt>Hỗ trợ kỹ thuật:</dt><dd>Ưu tiên (Phản hồi &lt; 4h)</dd></div>
             </dl>
             <ul class="pricing__catalog-features pricing__catalog-features--accent">
@@ -1409,7 +1411,7 @@
               <div><dt>Hỗ trợ kỹ thuật:</dt><dd>Chuyên viên riêng 24/7</dd></div>
             </dl>
             <ul class="pricing__catalog-features pricing__catalog-features--purple">
-              <li>Toàn bộ tính năng gói Pro &amp; AI 1</li>
+              <li>Toàn bộ tính năng gói Pro</li>
               <li>AI Instructional Design (Soạn bài giảng)</li>
               <li>AI tự động xuất Mindmap và cấu trúc khóa học</li>
               <li>AI tự sinh ngân hàng câu hỏi và rubric đánh giá</li>
@@ -1418,6 +1420,53 @@
             <a href="#contact" class="pricing__catalog-cta pricing__catalog-cta--purple" data-contact-open>Chọn Gói Enterprise</a>
           </article>
         </div>
+
+        <section class="pricing__setup-services" aria-labelledby="pricing-setup-services-title">
+          <div class="pricing__setup-services-heading">
+            <h3 id="pricing-setup-services-title">Dịch Vụ Khởi Tạo &amp; Tinh Chỉnh Hệ Thống <span>(Thu 1 lần duy nhất)</span></h3>
+            <p>Đội ngũ kỹ sư Nesso trực tiếp cấu hình hạ tầng, bảo mật và đào tạo nhân sự vận hành ban đầu</p>
+          </div>
+
+          <div class="pricing__setup-services-grid" role="group" aria-label="Gói dịch vụ khởi tạo hệ thống">
+            <button type="button" class="pricing__setup-card pricing__setup-card--selected" data-lms-setup-card aria-pressed="true" aria-label="Chọn Gói 1: Setup Tiêu Chuẩn (SME)">
+              <span class="pricing__setup-card-title">Gói 1: Setup Tiêu Chuẩn (SME)</span>
+              <strong class="pricing__setup-card-price">15.000.000 đ</strong>
+              <span class="pricing__setup-card-features">
+                <span>Gắn tên miền riêng (academy.company.com) + Cài SSL bảo mật</span>
+                <span>Cấu hình máy chủ gửi Email SMTP tự động</span>
+                <span>Thiết lập Brand: màu sắc nhận diện, Logo và Font thương hiệu</span>
+                <span>01 buổi đào tạo trực tuyến cho Quản trị viên (Admin/HR)</span>
+              </span>
+              <span class="pricing__setup-card-status">
+                <img src="https://nesso.vn/wp-content/uploads/2026/09/icon-selected-under-price.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                <span>Đang chọn gói này</span>
+              </span>
+            </button>
+
+            <button type="button" class="pricing__setup-card" data-lms-setup-card aria-pressed="false" aria-label="Chọn Gói 2: Setup Doanh Nghiệp (SSO &amp; Custom)">
+              <span class="pricing__setup-card-title">Gói 2: Setup Doanh Nghiệp (SSO &amp; Custom)</span>
+              <strong class="pricing__setup-card-price">38.000.000 đ</strong>
+              <span class="pricing__setup-card-features">
+                <span>Bao gồm toàn bộ Gói Tiêu chuẩn</span>
+                <span>Tích hợp Đăng nhập một lần SSO (Google Workspace &amp; Microsoft 365)</span>
+                <span>Cổng kết nối API / SAML với phần mềm nhân sự nội bộ</span>
+                <span>02 buổi đào tạo chuyên sâu (IT &amp; Giảng viên L&amp;D) + Hỗ trợ import dữ liệu</span>
+              </span>
+              <span class="pricing__setup-card-status">
+                <img src="https://nesso.vn/wp-content/uploads/2026/09/icon-selected-under-price.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                <span>Đang chọn gói này</span>
+              </span>
+            </button>
+
+            <button type="button" class="pricing__setup-card pricing__setup-card--self-service" data-lms-setup-card aria-pressed="false" aria-label="Chọn phương án doanh nghiệp tự cấu hình">
+              <span class="pricing__setup-card-self-service-copy"><span>Doanh nghiệp tự cấu hình &amp; Không dùng dịch vụ setup của Nesso -</span> <strong>0 đ</strong></span>
+              <span class="pricing__setup-card-status">
+                <img src="https://nesso.vn/wp-content/uploads/2026/09/icon-selected-under-price.png" alt="" aria-hidden="true" loading="lazy" decoding="async">
+                <span>Đang chọn gói này</span>
+              </span>
+            </button>
+          </div>
+        </section>
       </article>
     </section>
 
@@ -1470,7 +1519,9 @@
           <h2 class="cta-final__heading">Nâng tầm<br>doanh nghiệp của bạn</h2>
           <div class="cta-final__buttons">
             <a href="#contact" class="cta-final__btn-primary" data-contact-open>Liên hệ với Nesso</a>
+            <!-- Temporarily disabled: restore this CTA when Proposal is re-enabled.
             <a href="#proposal-view" class="cta-final__btn-secondary" data-proposal-open data-proposal-footer-toggle>Xem Proposal</a>
+            -->
           </div>
         </div>
       </section>
@@ -1516,7 +1567,7 @@
 
   </div>
 
-  <script src="script.js?v=lms-features-v456"></script>
+  <script src="script.js?v=lms-features-v498"></script>
 </body>
 
 </html>

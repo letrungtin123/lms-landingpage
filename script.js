@@ -431,12 +431,34 @@ const NESSO_I18N_EN = new Map([
   ['Toàn Diện Doanh Nghiệp', 'All-in-One'],
   ['Giải pháp tập đoàn và chuỗi: AI hỗ trợ tự động thiết kế dàn ý bài giảng và Mindmap.', 'A solution for enterprise groups and chains, with AI support for lesson outlines and mind maps.'],
   ['Chuyên viên riêng 24/7', 'Dedicated specialist 24/7'],
-  ['Toàn bộ tính năng gói Pro & AI 1', 'All Pro package and AI 1 features'],
+  ['Toàn bộ tính năng gói Pro', 'All Pro package features'],
   ['AI Instructional Design (Soạn bài giảng)', 'AI Instructional Design (lesson authoring)'],
   ['AI tự động xuất Mindmap và cấu trúc khóa học', 'AI automatically generates mind maps and course structures'],
   ['AI tự sinh ngân hàng câu hỏi và rubric đánh giá', 'AI automatically generates question banks and assessment rubrics'],
   ['Phân quyền quản trị đa chi nhánh / công ty con', 'Administration permissions for multiple branches / subsidiaries'],
-  ['Chọn Gói Enterprise', 'Choose Enterprise']
+  ['Chọn Gói Enterprise', 'Choose Enterprise'],
+  ['Dịch Vụ Khởi Tạo & Tinh Chỉnh Hệ Thống', 'System Launch & Fine-tuning Services'],
+  ['(Thu 1 lần duy nhất)', '(One-time fee)'],
+  ['Đội ngũ kỹ sư Nesso trực tiếp cấu hình hạ tầng, bảo mật và đào tạo nhân sự vận hành ban đầu', 'Nesso engineers directly configure infrastructure, security, and initial operations training'],
+  ['Gói dịch vụ khởi tạo hệ thống', 'System launch service packages'],
+  ['Chọn Gói 1: Setup Tiêu Chuẩn (SME)', 'Select Package 1: Standard Setup (SME)'],
+  ['Gói 1: Setup Tiêu Chuẩn (SME)', 'Package 1: Standard Setup (SME)'],
+  ['15.000.000 đ', 'VND 15,000,000'],
+  ['Gắn tên miền riêng (academy.company.com) + Cài SSL bảo mật', 'Connect a custom domain (academy.company.com) and configure SSL security'],
+  ['Cấu hình máy chủ gửi Email SMTP tự động', 'Configure an automated SMTP email server'],
+  ['Thiết lập Brand: màu sắc nhận diện, Logo và Font thương hiệu', 'Set up brand colors, logo, and brand fonts'],
+  ['01 buổi đào tạo trực tuyến cho Quản trị viên (Admin/HR)', 'One online training session for administrators (Admin/HR)'],
+  ['Chọn Gói 2: Setup Doanh Nghiệp (SSO & Custom)', 'Select Package 2: Enterprise Setup (SSO & Custom)'],
+  ['Gói 2: Setup Doanh Nghiệp (SSO & Custom)', 'Package 2: Enterprise Setup (SSO & Custom)'],
+  ['38.000.000 đ', 'VND 38,000,000'],
+  ['Bao gồm toàn bộ Gói Tiêu chuẩn', 'Includes the full Standard Setup package'],
+  ['Tích hợp Đăng nhập một lần SSO (Google Workspace & Microsoft 365)', 'Single sign-on integration (Google Workspace and Microsoft 365)'],
+  ['Cổng kết nối API / SAML với phần mềm nhân sự nội bộ', 'API / SAML integration gateway for internal HR systems'],
+  ['02 buổi đào tạo chuyên sâu (IT & Giảng viên L&D) + Hỗ trợ import dữ liệu', 'Two advanced training sessions (IT and L&D instructors) with data-import support'],
+  ['Chọn phương án doanh nghiệp tự cấu hình', 'Select the self-managed setup option'],
+  ['Doanh nghiệp tự cấu hình & Không dùng dịch vụ setup của Nesso -', 'Self-managed setup with no Nesso setup service -'],
+  ['0 đ', 'VND 0'],
+  ['Đang chọn gói này', 'Selected setup package']
 ]);
 
 function normalizeNessoI18nText(value) {
@@ -3622,6 +3644,52 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 900);
   }
 
+  let parentPricingCatalogSwipe = null;
+
+  function beginParentPricingCatalogSwipe(clientX, clientY) {
+    const touchedElement = document.elementFromPoint(clientX, clientY);
+    const catalog = touchedElement && touchedElement.closest
+      ? touchedElement.closest('.pricing__catalog')
+      : null;
+
+    if (!catalog || catalog.scrollWidth <= catalog.clientWidth + 1) {
+      parentPricingCatalogSwipe = null;
+      return;
+    }
+
+    parentPricingCatalogSwipe = {
+      catalog,
+      startX: clientX,
+      startY: clientY,
+      lastX: clientX,
+      axis: null
+    };
+  }
+
+  function moveParentPricingCatalogSwipe(clientX, clientY) {
+    const swipe = parentPricingCatalogSwipe;
+    if (!swipe || !swipe.catalog.isConnected) return;
+
+    const totalDeltaX = clientX - swipe.startX;
+    const totalDeltaY = clientY - swipe.startY;
+    if (!swipe.axis) {
+      if (Math.max(Math.abs(totalDeltaX), Math.abs(totalDeltaY)) < 8) return;
+      if (Math.abs(totalDeltaX) <= Math.abs(totalDeltaY)) {
+        parentPricingCatalogSwipe = null;
+        return;
+      }
+      swipe.axis = 'x';
+    }
+
+    const deltaX = clientX - swipe.lastX;
+    swipe.lastX = clientX;
+    swipe.catalog.scrollLeft -= deltaX;
+  }
+
+  function endParentPricingCatalogSwipe() {
+    parentPricingCatalogSwipe = null;
+  }
+
   window.addEventListener('message', event => {
     if (!event.data) return;
 
@@ -3702,6 +3770,29 @@ document.addEventListener('DOMContentLoaded', () => {
       if (clickTarget && clickTarget.click) {
         clickTarget.click();
       }
+      return;
+    }
+
+    if (event.data.type === 'NESSO_PARENT_TOUCH_START') {
+      const clientX = Number(event.data.clientX);
+      const clientY = Number(event.data.clientY);
+      if (Number.isFinite(clientX) && Number.isFinite(clientY)) {
+        beginParentPricingCatalogSwipe(clientX, clientY);
+      }
+      return;
+    }
+
+    if (event.data.type === 'NESSO_PARENT_TOUCH_MOVE') {
+      const clientX = Number(event.data.clientX);
+      const clientY = Number(event.data.clientY);
+      if (Number.isFinite(clientX) && Number.isFinite(clientY)) {
+        moveParentPricingCatalogSwipe(clientX, clientY);
+      }
+      return;
+    }
+
+    if (event.data.type === 'NESSO_PARENT_TOUCH_END') {
+      endParentPricingCatalogSwipe();
       return;
     }
 
@@ -5335,27 +5426,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const lmsPricingTiers = {
       50: {
         standard: { price: 1800000, storage: '50 GB SSD' },
-        professional: { price: 2900000, storage: '150 GB SSD', ai: { vi: '10.000 tương tác/th', en: '10,000 interactions/mo' } },
+        professional: { price: 2900000, storage: '150 GB SSD', ai: { vi: '10.000 tương tác/tháng', en: '10,000 interactions/month' } },
         enterprise: { price: 4800000, storage: '500 GB SSD', ai: { vi: '30.000 chat + 50 bài', en: '30,000 chats + 50 AI lesson drafts' } }
       },
       100: {
         standard: { price: 2800000, storage: '100 GB SSD' },
-        professional: { price: 4500000, storage: '150 GB SSD', ai: { vi: '15.000 tương tác/th', en: '15,000 interactions/mo' } },
+        professional: { price: 4500000, storage: '150 GB SSD', ai: { vi: '15.000 tương tác/tháng', en: '15,000 interactions/month' } },
         enterprise: { price: 7200000, storage: '500 GB SSD', ai: { vi: '40.000 chat + 100 bài', en: '40,000 chats + 100 AI lesson drafts' } }
       },
       250: {
         standard: { price: 4900000, storage: '200 GB SSD' },
-        professional: { price: 7900000, storage: '300 GB SSD', ai: { vi: '30.000 tương tác/th', en: '30,000 interactions/mo' } },
+        professional: { price: 7900000, storage: '300 GB SSD', ai: { vi: '30.000 tương tác/tháng', en: '30,000 interactions/month' } },
         enterprise: { price: 12500000, storage: '1 TB SSD', ai: { vi: '70.000 chat + 200 bài', en: '70,000 chats + 200 AI lesson drafts' } }
       },
       500: {
         standard: { price: 8500000, storage: '350 GB SSD' },
-        professional: { price: 13500000, storage: '300 GB SSD', ai: { vi: '50.000 tương tác/th', en: '50,000 interactions/mo' } },
+        professional: { price: 13500000, storage: '300 GB SSD', ai: { vi: '50.000 tương tác/tháng', en: '50,000 interactions/month' } },
         enterprise: { price: 21000000, storage: '1 TB SSD', ai: { vi: '120.000 chat + 400 bài', en: '120,000 chats + 400 AI lesson drafts' } }
       },
       1000: {
         standard: { price: 14500000, storage: '500 GB SSD' },
-        professional: { price: 22000000, storage: '300 GB SSD', ai: { vi: '100.000 tương tác/th', en: '100,000 interactions/mo' } },
+        professional: { price: 22000000, storage: '300 GB SSD', ai: { vi: '100.000 tương tác/tháng', en: '100,000 interactions/month' } },
         enterprise: { price: 33000000, storage: '1 TB SSD', ai: { vi: '200.000 chat + 800 bài', en: '200,000 chats + 800 AI lesson drafts' } }
       }
     };
@@ -5423,6 +5514,17 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('nesso-lms-language-change', updateLmsPricing);
     updateLmsPricing();
   }
+
+  const lmsSetupCards = document.querySelectorAll('[data-lms-setup-card]');
+  lmsSetupCards.forEach(card => {
+    card.addEventListener('click', () => {
+      lmsSetupCards.forEach(item => {
+        const isSelected = item === card;
+        item.classList.toggle('pricing__setup-card--selected', isSelected);
+        item.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+      });
+    });
+  });
 
   const track = document.querySelector('.logo-section__track');
   if (track) {

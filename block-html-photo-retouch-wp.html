@@ -1,0 +1,138 @@
+<!--
+  Paste this entire file into the Elementor HTML widget on /nesso-retouch/.
+  Upload nesso-photo-retouch-standalone.html to the URL below first.
+-->
+<div id="nesso-photo-retouch-embed" class="nesso-photo-retouch-embed">
+    <iframe
+        id="nesso-photo-retouch-iframe"
+        title="Nesso Professional Photo Retouching"
+        src="https://nesso.vn/wp-content/uploads/2026/10/nesso-photo-retouch-standalone.html?v=1ebe1e9-07a878152ad7"
+        loading="eager"
+        scrolling="auto"></iframe>
+</div>
+
+<style>
+    html.nesso-photo-retouch-parent,
+    body.nesso-photo-retouch-parent {
+        width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        background: #ffffff !important;
+    }
+
+    /* Remove the WordPress shell while this standalone landing is embedded. */
+    body:has(#nesso-photo-retouch-embed),
+    body.nesso-photo-retouch-parent {
+        padding-top: 0 !important;
+    }
+
+    body:has(#nesso-photo-retouch-embed) #site-header,
+    body:has(#nesso-photo-retouch-embed) .site-header,
+    body:has(#nesso-photo-retouch-embed) .elementor-location-header,
+    body:has(#nesso-photo-retouch-embed) .entry-header,
+    body:has(#nesso-photo-retouch-embed) .page-header,
+    body:has(#nesso-photo-retouch-embed) article > header,
+    body.nesso-photo-retouch-parent #site-header,
+    body.nesso-photo-retouch-parent .site-header,
+    body.nesso-photo-retouch-parent .elementor-location-header,
+    body.nesso-photo-retouch-parent .entry-header,
+    body.nesso-photo-retouch-parent .page-header,
+    body.nesso-photo-retouch-parent article > header {
+        display: none !important;
+    }
+
+    body:has(#nesso-photo-retouch-embed) .entry-footer,
+    body:has(#nesso-photo-retouch-embed) .post-navigation,
+    body:has(#nesso-photo-retouch-embed) .comments-area,
+    body:has(#nesso-photo-retouch-embed) .share-block,
+    body:has(#nesso-photo-retouch-embed) .elementor-widget-share-buttons,
+    body:has(#nesso-photo-retouch-embed) .last-logo,
+    body:has(#nesso-photo-retouch-embed) .nesso-footer-reveal,
+    body:has(#nesso-photo-retouch-embed) .elementor-location-footer,
+    body:has(#nesso-photo-retouch-embed) footer,
+    body.nesso-photo-retouch-parent .entry-footer,
+    body.nesso-photo-retouch-parent .post-navigation,
+    body.nesso-photo-retouch-parent .comments-area,
+    body.nesso-photo-retouch-parent .share-block,
+    body.nesso-photo-retouch-parent .elementor-widget-share-buttons,
+    body.nesso-photo-retouch-parent .last-logo,
+    body.nesso-photo-retouch-parent .nesso-footer-reveal,
+    body.nesso-photo-retouch-parent .elementor-location-footer,
+    body.nesso-photo-retouch-parent footer {
+        display: none !important;
+    }
+
+    body:has(#nesso-photo-retouch-embed) #content,
+    body:has(#nesso-photo-retouch-embed) .site-content,
+    body:has(#nesso-photo-retouch-embed) #primary,
+    body:has(#nesso-photo-retouch-embed) .site-main,
+    body:has(#nesso-photo-retouch-embed) article,
+    body:has(#nesso-photo-retouch-embed) .entry-content,
+    body.nesso-photo-retouch-parent #content,
+    body.nesso-photo-retouch-parent .site-content,
+    body.nesso-photo-retouch-parent #primary,
+    body.nesso-photo-retouch-parent .site-main,
+    body.nesso-photo-retouch-parent article,
+    body.nesso-photo-retouch-parent .entry-content {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .nesso-photo-retouch-embed {
+        width: 100vw;
+        max-width: none;
+        height: 100vh;
+        height: 100dvh;
+        margin: 0 0 0 calc(50% - 50vw);
+        padding: 0;
+        overflow: hidden;
+        background: #ffffff;
+        line-height: 0;
+    }
+
+    #nesso-photo-retouch-iframe {
+        display: block;
+        width: 100%;
+        min-width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        min-height: 0;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: #ffffff;
+    }
+
+    @media (max-width: 767px) {
+        .nesso-photo-retouch-embed {
+            height: 100svh;
+        }
+
+        #nesso-photo-retouch-iframe {
+            height: 100svh;
+        }
+    }
+</style>
+
+<script>
+    (function () {
+        var root = document.getElementById('nesso-photo-retouch-embed');
+        var iframe = document.getElementById('nesso-photo-retouch-iframe');
+
+        if (!root || !iframe || root.dataset.ready === 'true') {
+            return;
+        }
+
+        root.dataset.ready = 'true';
+        document.documentElement.classList.add('nesso-photo-retouch-parent');
+        document.body.classList.add('nesso-photo-retouch-parent');
+
+        // This page deliberately uses viewport-height sticky sections. Resizing the
+        // iframe to the child document height would make every 100vh section grow
+        // again, so the standalone page owns scrolling inside a viewport-sized frame.
+    })();
+</script>

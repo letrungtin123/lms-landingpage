@@ -25,6 +25,11 @@ body {
     padding-top: 80px;
 }
 
+/* The Photo Retouch page has its own header inside the standalone iframe. */
+body.page-id-5238 {
+    padding-top: 0;
+}
+
 footer p {
     margin-block-end: 0.45rem;
 }

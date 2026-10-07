@@ -38,12 +38,19 @@ add_action( 'wp_enqueue_scripts', 'hello_elementor_child_scripts_styles', 20 );
 
 require_once get_stylesheet_directory() . '/function/swiper-carousel.php';
 
+/**
+ * Pages that render a complete, standalone landing page inside an iframe.
+ */
+function nesso_is_standalone_iframe_landing() {
+    return is_page( 4351 ) || is_page( 5238 ) || is_page( 'nesso-retouch' );
+}
+
 // Enqueue GSAP and ScrollTrigger
 
 
 function theme_enqueue_gsap_scroll() {
 
-    if ( is_page(4351) ) {
+    if ( nesso_is_standalone_iframe_landing() ) {
         return;
     }
 
@@ -75,7 +82,7 @@ add_action('wp_enqueue_scripts', 'theme_enqueue_gsap_scroll');
 add_action('wp_enqueue_scripts', 'child_theme_loading_scripts', 15);
 
 function child_theme_loading_scripts() {
-     if ( is_page(4351) ) {
+     if ( nesso_is_standalone_iframe_landing() ) {
         return;
     }
 
@@ -1938,11 +1945,623 @@ function nesso_lms_handle_contact_mail( WP_REST_Request $request ) {
         'message' => 'Thông tin đã được gửi về CONTACT@NESSO.VN.',
     ) );
 }
+
+add_action( 'rest_api_init', 'nesso_photo_retouch_register_trial_route' );
+function nesso_photo_retouch_register_trial_route() {
+    register_rest_route(
+        'nesso-lms/v1',
+        '/photo-retouch-trial',
+        array(
+            'methods'             => WP_REST_Server::CREATABLE,
+            'callback'            => 'nesso_photo_retouch_handle_trial',
+            'permission_callback' => '__return_true',
+        )
+    );
+}
+
+add_action( 'init', 'nesso_photo_retouch_register_submission_post_type' );
+function nesso_photo_retouch_register_submission_post_type() {
+    register_post_type(
+        'nesso_retouch_trial',
+        array(
+            'labels' => array(
+                'name'          => 'Retouch trials',
+                'singular_name' => 'Retouch trial',
+                'menu_name'     => 'Retouch trials',
+            ),
+            'public'       => false,
+            'show_ui'      => true,
+            'show_in_menu' => true,
+            'supports'     => array( 'title' ),
+            'menu_icon'    => 'dashicons-format-image',
+            'map_meta_cap' => true,
+        )
+    );
+}
+
+add_action( 'wp_mail_failed', 'nesso_photo_retouch_log_mail_failure' );
+function nesso_photo_retouch_log_mail_failure( WP_Error $error ) {
+    $data = $error->get_error_data();
+    $subject = is_array( $data ) && isset( $data['subject'] ) ? (string) $data['subject'] : '';
+
+    if ( 0 !== strpos( $subject, '[NESSO Photo Retouch]' ) ) {
+        return;
+    }
+
+    error_log( '[NESSO Photo Retouch] wp_mail failed: ' . $error->get_error_message() );
+}
+
+function nesso_photo_retouch_get_text_param( WP_REST_Request $request, $key ) {
+    $value = $request->get_param( $key );
+
+    if ( is_array( $value ) ) {
+        return '';
+    }
+
+    return sanitize_text_field( wp_unslash( (string) $value ) );
+}
+
+function nesso_photo_retouch_store_public_upload( $upload ) {
+    $upload_directory = wp_upload_dir();
+    if ( ! empty( $upload_directory['error'] ) ) {
+        return new WP_Error(
+            'nesso_photo_retouch_public_storage_unavailable',
+            'Public image storage is temporarily unavailable. Please try again later.',
+            array( 'status' => 500 )
+        );
+    }
+
+    $directory = trailingslashit( $upload_directory['basedir'] ) . 'nesso-photo-retouch';
+    if ( ! wp_mkdir_p( $directory ) || ! is_writable( $directory ) ) {
+        return new WP_Error(
+            'nesso_photo_retouch_public_storage_unavailable',
+            'Public image storage is temporarily unavailable. Please try again later.',
+            array( 'status' => 500 )
+        );
+    }
+
+    $file_name = wp_unique_filename( $directory, sanitize_file_name( $upload['name'] ) );
+    $destination = trailingslashit( $directory ) . $file_name;
+    if ( ! move_uploaded_file( $upload['tmp_name'], $destination ) ) {
+        return new WP_Error(
+            'nesso_photo_retouch_public_storage_failed',
+            'We could not store one of the uploaded images.',
+            array( 'status' => 500 )
+        );
+    }
+
+    @chmod( $destination, 0644 );
+
+    return array(
+        'name' => $file_name,
+        'path' => $destination,
+        'size' => (int) $upload['size'],
+        'url'  => trailingslashit( $upload_directory['baseurl'] ) . 'nesso-photo-retouch/' . rawurlencode( $file_name ),
+    );
+}
+
+function nesso_photo_retouch_remove_public_uploads( $uploads ) {
+    foreach ( $uploads as $upload ) {
+        if ( ! empty( $upload['path'] ) && is_file( $upload['path'] ) ) {
+            @unlink( $upload['path'] );
+        }
+    }
+}
+
+function nesso_photo_retouch_get_submission_files( $post_id ) {
+    $files = json_decode( (string) get_post_meta( $post_id, '_nesso_photo_retouch_files', true ), true );
+
+    return is_array( $files ) ? $files : array();
+}
+
+function nesso_photo_retouch_create_submission_log( $details ) {
+    $post_id = wp_insert_post(
+        array(
+            'post_type'   => 'nesso_retouch_trial',
+            'post_status' => 'private',
+            'post_title'  => sprintf( 'Retouch trial - %s - %s', $details['name'], wp_date( 'Y-m-d H:i' ) ),
+        ),
+        true
+    );
+
+    if ( is_wp_error( $post_id ) ) {
+        return $post_id;
+    }
+
+    $meta = array(
+        '_nesso_photo_retouch_name'        => $details['name'],
+        '_nesso_photo_retouch_email'       => $details['email'],
+        '_nesso_photo_retouch_phone'       => $details['phone'],
+        '_nesso_photo_retouch_company'     => $details['company'],
+        '_nesso_photo_retouch_tier'        => $details['tier'],
+        '_nesso_photo_retouch_notes'       => $details['notes'],
+        '_nesso_photo_retouch_cloud_link'  => $details['cloud_link'],
+        '_nesso_photo_retouch_page_url'    => $details['page_url'],
+        '_nesso_photo_retouch_mode'        => $details['submission_mode'],
+        '_nesso_photo_retouch_files'       => wp_json_encode( $details['files'] ),
+        '_nesso_photo_retouch_submitted_at'=> current_time( 'mysql' ),
+        '_nesso_photo_retouch_mail_status' => 'pending',
+    );
+
+    foreach ( $meta as $key => $value ) {
+        update_post_meta( $post_id, $key, $value );
+    }
+
+    return $post_id;
+}
+
+add_filter( 'manage_nesso_retouch_trial_posts_columns', 'nesso_photo_retouch_submission_columns' );
+function nesso_photo_retouch_submission_columns( $columns ) {
+    return array(
+        'cb'                        => isset( $columns['cb'] ) ? $columns['cb'] : '<input type="checkbox" />',
+        'title'                     => 'Request',
+        'nesso_retouch_client'      => 'Client',
+        'nesso_retouch_company'     => 'Company / Studio',
+        'nesso_retouch_plan'        => 'Plan',
+        'nesso_retouch_files'       => 'Files',
+        'nesso_retouch_mail_status' => 'Mail',
+        'date'                      => isset( $columns['date'] ) ? $columns['date'] : 'Date',
+    );
+}
+
+add_action( 'manage_nesso_retouch_trial_posts_custom_column', 'nesso_photo_retouch_submission_column_value', 10, 2 );
+function nesso_photo_retouch_submission_column_value( $column, $post_id ) {
+    if ( 'nesso_retouch_client' === $column ) {
+        echo esc_html( get_post_meta( $post_id, '_nesso_photo_retouch_name', true ) );
+        echo '<br><a href="mailto:' . esc_attr( get_post_meta( $post_id, '_nesso_photo_retouch_email', true ) ) . '">' . esc_html( get_post_meta( $post_id, '_nesso_photo_retouch_email', true ) ) . '</a>';
+    } elseif ( 'nesso_retouch_company' === $column ) {
+        echo esc_html( get_post_meta( $post_id, '_nesso_photo_retouch_company', true ) ?: '-' );
+    } elseif ( 'nesso_retouch_plan' === $column ) {
+        echo esc_html( get_post_meta( $post_id, '_nesso_photo_retouch_tier', true ) ?: '-' );
+    } elseif ( 'nesso_retouch_files' === $column ) {
+        $files = nesso_photo_retouch_get_submission_files( $post_id );
+        echo esc_html( count( $files ) . ' file' . ( 1 === count( $files ) ? '' : 's' ) );
+    } elseif ( 'nesso_retouch_mail_status' === $column ) {
+        echo esc_html( ucfirst( (string) get_post_meta( $post_id, '_nesso_photo_retouch_mail_status', true ) ) );
+    }
+}
+
+add_action( 'add_meta_boxes', 'nesso_photo_retouch_add_submission_meta_box' );
+function nesso_photo_retouch_add_submission_meta_box() {
+    add_meta_box(
+        'nesso-photo-retouch-submission-details',
+        'Retouch trial details',
+        'nesso_photo_retouch_render_submission_meta_box',
+        'nesso_retouch_trial',
+        'normal',
+        'high'
+    );
+}
+
+function nesso_photo_retouch_render_submission_meta_box( $post ) {
+    $fields = array(
+        'Name'             => get_post_meta( $post->ID, '_nesso_photo_retouch_name', true ),
+        'Work email'       => get_post_meta( $post->ID, '_nesso_photo_retouch_email', true ),
+        'Phone'            => get_post_meta( $post->ID, '_nesso_photo_retouch_phone', true ),
+        'Company / Studio' => get_post_meta( $post->ID, '_nesso_photo_retouch_company', true ),
+        'Selected plan'    => get_post_meta( $post->ID, '_nesso_photo_retouch_tier', true ),
+        'Submission mode'  => get_post_meta( $post->ID, '_nesso_photo_retouch_mode', true ),
+        'Source page'      => get_post_meta( $post->ID, '_nesso_photo_retouch_page_url', true ),
+        'Cloud link'       => get_post_meta( $post->ID, '_nesso_photo_retouch_cloud_link', true ),
+        'Mail status'      => get_post_meta( $post->ID, '_nesso_photo_retouch_mail_status', true ),
+        'Submitted at'     => get_post_meta( $post->ID, '_nesso_photo_retouch_submitted_at', true ),
+        'Instructions'     => get_post_meta( $post->ID, '_nesso_photo_retouch_notes', true ),
+    );
+
+    echo '<table class="widefat striped"><tbody>';
+    foreach ( $fields as $label => $value ) {
+        echo '<tr><th style="width: 180px;">' . esc_html( $label ) . '</th><td>' . ( $value ? esc_html( $value ) : '&mdash;' ) . '</td></tr>';
+    }
+    echo '</tbody></table>';
+
+    $files = nesso_photo_retouch_get_submission_files( $post->ID );
+    echo '<p><strong>Public image links</strong></p><ul>';
+    if ( $files ) {
+        foreach ( $files as $file ) {
+            if ( empty( $file['url'] ) || empty( $file['name'] ) ) {
+                continue;
+            }
+
+            echo '<li><a href="' . esc_url( $file['url'] ) . '" target="_blank" rel="noopener">' . esc_html( $file['name'] ) . '</a></li>';
+        }
+    } else {
+        echo '<li>&mdash;</li>';
+    }
+    echo '</ul>';
+}
+
+function nesso_photo_retouch_normalize_uploads( $file_data ) {
+    if ( empty( $file_data ) || ! isset( $file_data['name'] ) ) {
+        return array();
+    }
+
+    if ( ! is_array( $file_data['name'] ) ) {
+        return array( $file_data );
+    }
+
+    $uploads = array();
+    foreach ( $file_data['name'] as $index => $name ) {
+        $uploads[] = array(
+            'name'     => isset( $file_data['name'][ $index ] ) ? $file_data['name'][ $index ] : '',
+            'type'     => isset( $file_data['type'][ $index ] ) ? $file_data['type'][ $index ] : '',
+            'tmp_name' => isset( $file_data['tmp_name'][ $index ] ) ? $file_data['tmp_name'][ $index ] : '',
+            'error'    => isset( $file_data['error'][ $index ] ) ? (int) $file_data['error'][ $index ] : UPLOAD_ERR_NO_FILE,
+            'size'     => isset( $file_data['size'][ $index ] ) ? (int) $file_data['size'][ $index ] : 0,
+        );
+    }
+
+    return $uploads;
+}
+
+function nesso_photo_retouch_validate_upload( $file ) {
+    if ( ! isset( $file['error'] ) || UPLOAD_ERR_OK !== (int) $file['error'] ) {
+        $message = 'One of the image uploads could not be processed.';
+
+        if ( isset( $file['error'] ) && in_array( (int) $file['error'], array( UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE ), true ) ) {
+            $message = 'One of the images exceeds the upload size allowed by the server.';
+        }
+
+        return new WP_Error( 'nesso_photo_retouch_upload_error', $message, array( 'status' => 400 ) );
+    }
+
+    $file_name = sanitize_file_name( (string) $file['name'] );
+    $tmp_name  = isset( $file['tmp_name'] ) ? (string) $file['tmp_name'] : '';
+    $extension = strtolower( pathinfo( $file_name, PATHINFO_EXTENSION ) );
+    $allowed_extensions = array( 'jpg', 'jpeg', 'tif', 'tiff', 'cr3', 'cr2', 'crw', 'nef', 'arw', 'raf', 'rw2', 'orf', 'dng' );
+
+    if ( empty( $file_name ) || ! in_array( $extension, $allowed_extensions, true ) ) {
+        return new WP_Error(
+            'nesso_photo_retouch_upload_type',
+            'Only RAW, TIFF, or JPG images can be attached.',
+            array( 'status' => 400 )
+        );
+    }
+
+    if ( empty( $tmp_name ) || ! is_uploaded_file( $tmp_name ) ) {
+        return new WP_Error(
+            'nesso_photo_retouch_upload_invalid',
+            'One of the image uploads is invalid.',
+            array( 'status' => 400 )
+        );
+    }
+
+    if ( in_array( $extension, array( 'jpg', 'jpeg' ), true ) ) {
+        $image_info = @getimagesize( $tmp_name );
+        if ( empty( $image_info['mime'] ) || 'image/jpeg' !== $image_info['mime'] ) {
+            return new WP_Error(
+                'nesso_photo_retouch_upload_invalid_jpg',
+                'One of the JPG uploads is not a valid image.',
+                array( 'status' => 400 )
+            );
+        }
+    }
+
+    if ( function_exists( 'finfo_open' ) ) {
+        $finfo = finfo_open( FILEINFO_MIME_TYPE );
+        $mime_type = $finfo ? finfo_file( $finfo, $tmp_name ) : '';
+        if ( $finfo ) {
+            finfo_close( $finfo );
+        }
+
+        $unsafe_mime_types = array(
+            'application/x-httpd-php',
+            'application/x-php',
+            'text/x-php',
+            'text/html',
+            'application/javascript',
+            'text/javascript',
+        );
+        if ( in_array( $mime_type, $unsafe_mime_types, true ) ) {
+            return new WP_Error(
+                'nesso_photo_retouch_upload_unsafe',
+                'One of the uploads is not a supported image file.',
+                array( 'status' => 400 )
+            );
+        }
+    }
+
+    return array(
+        'name'     => $file_name,
+        'tmp_name' => $tmp_name,
+        'size'     => isset( $file['size'] ) ? (int) $file['size'] : 0,
+    );
+}
+
+function nesso_photo_retouch_get_plan_details( $tier ) {
+    $plans = array(
+        'Simple' => array(
+            'label'       => 'SIMPLE',
+            'price'       => '$0.8-$1.5',
+            'description' => 'A quick and efficient solution for basic creative needs.',
+            'accent'      => '#56270f',
+            'accent_text' => '#ffffff',
+            'features'    => array(
+                'Remove and replace background',
+                'Remove dust, wrinkles, and flaws',
+                'Deliver JPG files cropped to your size',
+                'Cropping/clipping, fix symmetry, and center the product',
+                'Smooth skin, remove tan lines and tattoos, and keep hair texture',
+            ),
+        ),
+        'Medium' => array(
+            'label'       => 'MEDIUM · POPULAR',
+            'price'       => '$1.8-$2.5',
+            'description' => 'A balanced package with more flexibility and depth.',
+            'accent'      => '#b9e6fa',
+            'accent_text' => '#075478',
+            'features'    => array(
+                'Smooth skin, remove bruises, marks, veins, and major blemishes',
+                'Remove odd creases, water stains, and major stray hairs',
+                'Clean feet/shoes and remove glasses glare or reflections',
+                'Bright, vibrant colors and healthy skin tone using the color guide',
+                'High-end frequency separation and fabric texture retention',
+            ),
+        ),
+        'Premium' => array(
+            'label'       => 'PREMIUM · EXCLUSIVE',
+            'price'       => '$5.5',
+            'description' => 'Our most complete solution, tailored for high-end and complex projects.',
+            'accent'      => '#eee8ff',
+            'accent_text' => '#5b22a0',
+            'features'    => array(
+                'Remove scratches from all jewelry surfaces',
+                'Combine the best parts from multiple shots into one perfect image',
+                'Change background for chains, bracelets, or complex items',
+                'Edit or create new color versions as requested',
+                'Crop and deliver in the client-required size and format (45+ minutes each)',
+            ),
+        ),
+    );
+
+    return isset( $plans[ $tier ] ) ? $plans[ $tier ] : null;
+}
+
+function nesso_photo_retouch_email_detail_row( $label, $value, $allow_html = false ) {
+    $rendered_value = $allow_html ? $value : esc_html( $value );
+
+    return '<tr>'
+        . '<td style="width: 154px; padding: 10px 0; color: #707070; font: 600 12px/18px Arial, sans-serif; vertical-align: top;">' . esc_html( $label ) . '</td>'
+        . '<td style="padding: 10px 0; color: #171717; font: 400 14px/20px Arial, sans-serif; vertical-align: top;">' . $rendered_value . '</td>'
+        . '</tr>';
+}
+
+function nesso_photo_retouch_render_plan_card( $plan ) {
+    if ( empty( $plan ) ) {
+        return '';
+    }
+
+    $feature_items = '';
+    foreach ( $plan['features'] as $feature ) {
+        $feature_items .= '<tr>'
+            . '<td style="width: 22px; padding: 0 0 11px; color: #12a64a; font: 700 15px/20px Arial, sans-serif; vertical-align: top;">&#10003;</td>'
+            . '<td style="padding: 0 0 11px; color: #252525; font: 400 14px/20px Arial, sans-serif;">' . esc_html( $feature ) . '</td>'
+            . '</tr>';
+    }
+
+    return '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin: 0 0 26px; border: 1px solid #e8e4df; border-radius: 12px; border-collapse: separate; overflow: hidden;">'
+        . '<tr><td style="padding: 14px 20px; background: ' . esc_attr( $plan['accent'] ) . '; color: ' . esc_attr( $plan['accent_text'] ) . '; font: 700 12px/16px Arial, sans-serif; letter-spacing: 0.8px;">SELECTED PLAN · ' . esc_html( $plan['label'] ) . '</td></tr>'
+        . '<tr><td style="padding: 22px 20px 12px;">'
+        . '<div style="margin: 0 0 4px; color: #161616; font: 700 30px/36px Arial, sans-serif;">From ' . esc_html( $plan['price'] ) . '<span style="color: #777777; font: 400 14px/20px Arial, sans-serif;"> /img</span></div>'
+        . '<div style="color: #5d5d5d; font: 400 14px/20px Arial, sans-serif;">' . esc_html( $plan['description'] ) . '</div>'
+        . '</td></tr>'
+        . '<tr><td style="padding: 14px 20px 10px; border-top: 1px solid #eeeae5;"><table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">' . $feature_items . '</table></td></tr>'
+        . '<tr><td style="padding: 0 20px 20px; color: #777777; font: italic 12px/18px Arial, sans-serif;">Currency: USD (US Dollar)</td></tr>'
+        . '</table>';
+}
+
+function nesso_photo_retouch_handle_trial( WP_REST_Request $request ) {
+    $name         = nesso_photo_retouch_get_text_param( $request, 'name' );
+    $email        = sanitize_email( wp_unslash( (string) $request->get_param( 'email' ) ) );
+    $phone        = nesso_photo_retouch_get_text_param( $request, 'phone' );
+    $company      = nesso_photo_retouch_get_text_param( $request, 'company' );
+    $tier         = nesso_photo_retouch_get_text_param( $request, 'tier' );
+    $notes        = sanitize_textarea_field( wp_unslash( (string) $request->get_param( 'notes' ) ) );
+    $cloud_link   = esc_url_raw( wp_unslash( (string) $request->get_param( 'cloud_link' ) ) );
+    $page_url     = esc_url_raw( wp_unslash( (string) $request->get_param( 'page_url' ) ) );
+    $honeypot     = nesso_photo_retouch_get_text_param( $request, 'website_url' );
+    $submission_mode = nesso_photo_retouch_get_text_param( $request, 'submission_mode' );
+
+    if ( ! empty( $honeypot ) ) {
+        return rest_ensure_response(
+            array(
+                'ok'      => true,
+                'message' => 'Your request was received.',
+            )
+        );
+    }
+
+    if ( empty( $name ) || empty( $email ) || ! is_email( $email ) ) {
+        return new WP_Error(
+            'nesso_photo_retouch_invalid_contact',
+            'Please enter your name and a valid work email.',
+            array( 'status' => 400 )
+        );
+    }
+
+    if ( ! empty( $cloud_link ) ) {
+        $cloud_scheme = wp_parse_url( $cloud_link, PHP_URL_SCHEME );
+        if ( ! in_array( $cloud_scheme, array( 'http', 'https' ), true ) ) {
+            return new WP_Error(
+                'nesso_photo_retouch_invalid_link',
+                'Please provide a valid cloud storage link.',
+                array( 'status' => 400 )
+            );
+        }
+    }
+
+    $allowed_tiers = array( 'Simple', 'Medium', 'Premium' );
+    if ( ! in_array( $tier, $allowed_tiers, true ) ) {
+        $tier = '';
+    }
+    if ( ! in_array( $submission_mode, array( 'files', 'link' ), true ) ) {
+        $submission_mode = '';
+    }
+
+    $file_params = $request->get_file_params();
+    $uploads = isset( $file_params['files'] ) ? nesso_photo_retouch_normalize_uploads( $file_params['files'] ) : array();
+    $uploads = array_values(
+        array_filter(
+            $uploads,
+            function( $upload ) {
+                return isset( $upload['error'] ) && UPLOAD_ERR_NO_FILE !== (int) $upload['error'];
+            }
+        )
+    );
+
+    if ( count( $uploads ) > 3 ) {
+        return new WP_Error(
+            'nesso_photo_retouch_too_many_files',
+            'You can attach up to 3 images to one request.',
+            array( 'status' => 400 )
+        );
+    }
+
+    $ip = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+    $rate_key = $ip ? 'nesso_photo_retouch_trial_' . md5( $ip ) : '';
+    if ( $rate_key && get_transient( $rate_key ) ) {
+        return new WP_Error(
+            'nesso_photo_retouch_rate_limited',
+            'Please wait a minute before sending another request.',
+            array( 'status' => 429 )
+        );
+    }
+
+    $validated_uploads = array();
+    foreach ( $uploads as $upload ) {
+        $validated_upload = nesso_photo_retouch_validate_upload( $upload );
+        if ( is_wp_error( $validated_upload ) ) {
+            return $validated_upload;
+        }
+
+        $validated_uploads[] = $validated_upload;
+    }
+
+    // Store once on public WordPress storage. Emailing links avoids SMTP attachment limits and keeps an auditable record.
+    $public_uploads = array();
+    foreach ( $validated_uploads as $validated_upload ) {
+        $stored_upload = nesso_photo_retouch_store_public_upload( $validated_upload );
+        if ( is_wp_error( $stored_upload ) ) {
+            nesso_photo_retouch_remove_public_uploads( $public_uploads );
+            return $stored_upload;
+        }
+
+        $public_uploads[] = $stored_upload;
+    }
+
+    $submission_id = nesso_photo_retouch_create_submission_log(
+        array(
+            'name'            => $name,
+            'email'           => $email,
+            'phone'           => $phone,
+            'company'         => $company,
+            'tier'            => $tier,
+            'notes'           => $notes,
+            'cloud_link'      => $cloud_link,
+            'page_url'        => $page_url,
+            'submission_mode' => $submission_mode,
+            'files'           => $public_uploads,
+        )
+    );
+    if ( is_wp_error( $submission_id ) ) {
+        nesso_photo_retouch_remove_public_uploads( $public_uploads );
+        return $submission_id;
+    }
+
+    if ( $rate_key ) {
+        set_transient( $rate_key, 1, MINUTE_IN_SECONDS );
+    }
+
+    $plan = nesso_photo_retouch_get_plan_details( $tier );
+    $submitted_at = wp_date( 'M j, Y · H:i T' );
+    $subject = '[NESSO Photo Retouch] ' . ( $tier ? $tier . ' trial' : 'Free trial' ) . ' request from ' . $name;
+    $cloud_link_html = $cloud_link
+        ? '<a href="' . esc_url( $cloud_link ) . '" style="color: #0b6f98; text-decoration: underline; word-break: break-word;">Open shared folder</a>'
+        : '-';
+    $page_url_html = $page_url
+        ? '<a href="' . esc_url( $page_url ) . '" style="color: #0b6f98; text-decoration: underline; word-break: break-word;">View source page</a>'
+        : '-';
+    $file_links_html = '-';
+    if ( $public_uploads ) {
+        $download_links = array();
+        foreach ( $public_uploads as $public_upload ) {
+            $download_links[] = '<a href="' . esc_url( $public_upload['url'] ) . '" style="color: #0b6f98; text-decoration: underline; word-break: break-word;">Download ' . esc_html( $public_upload['name'] ) . '</a>';
+        }
+
+        $file_links_html = 'Public permanent download links:<br>' . implode( '<br>', $download_links );
+    }
+    $submission_label = 'Form only';
+    if ( 'files' === $submission_mode && $public_uploads ) {
+        $submission_label = 'Public image links saved to the request log';
+    } elseif ( 'link' === $submission_mode && $cloud_link ) {
+        $submission_label = 'Cloud link shared';
+    }
+
+    $customer_rows = ''
+        . nesso_photo_retouch_email_detail_row( 'Request log', '#' . $submission_id )
+        . nesso_photo_retouch_email_detail_row( 'Name', $name )
+        . nesso_photo_retouch_email_detail_row( 'Work email', '<a href="mailto:' . esc_attr( $email ) . '" style="color: #0b6f98; text-decoration: underline;">' . esc_html( $email ) . '</a>', true )
+        . nesso_photo_retouch_email_detail_row( 'Phone', $phone ? $phone : '-' )
+        . nesso_photo_retouch_email_detail_row( 'Company / Studio', $company ? $company : '-' )
+        . nesso_photo_retouch_email_detail_row( 'Submission', $submission_label )
+        . nesso_photo_retouch_email_detail_row( 'Cloud link', $cloud_link_html, true )
+        . nesso_photo_retouch_email_detail_row( 'Image files', $file_links_html, true );
+
+    $body = '<!doctype html>'
+        . '<html><body style="margin: 0; padding: 0; background: #f4f1ed;">'
+        . '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background: #f4f1ed;"><tr><td align="center" style="padding: 32px 16px;">'
+        . '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width: 680px; background: #ffffff; border-radius: 16px; overflow: hidden;">'
+        . '<tr><td style="padding: 28px 32px 24px; background: #151515;">'
+        . '<div style="color: #ffffff; font: 700 12px/16px Arial, sans-serif; letter-spacing: 2.4px;">NESSO</div>'
+        . '<div style="padding-top: 12px; color: #ffffff; font: 700 26px/32px Arial, sans-serif;">New free trial request</div>'
+        . '<div style="padding-top: 8px; color: #c9c9c9; font: 400 13px/19px Arial, sans-serif;">Submitted ' . esc_html( $submitted_at ) . '</div>'
+        . '</td></tr>'
+        . '<tr><td style="padding: 30px 32px 8px;">'
+        . '<div style="padding-bottom: 8px; color: #777777; font: 700 11px/16px Arial, sans-serif; letter-spacing: 1px;">CLIENT DETAILS</div>'
+        . '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin: 0 0 28px; border-top: 1px solid #ece8e2;">' . $customer_rows . '</table>'
+        . nesso_photo_retouch_render_plan_card( $plan )
+        . '<div style="padding: 0 0 8px; color: #777777; font: 700 11px/16px Arial, sans-serif; letter-spacing: 1px;">RETOUCHING INSTRUCTIONS</div>'
+        . '<div style="margin: 0 0 28px; padding: 16px; background: #f7f5f2; border-left: 3px solid #8b7667; color: #2b2b2b; font: 400 14px/21px Arial, sans-serif;">' . ( $notes ? nl2br( esc_html( $notes ) ) : 'No additional instructions provided.' ) . '</div>'
+        . '<div style="padding: 18px 0 0; border-top: 1px solid #ece8e2; color: #8a8a8a; font: 400 11px/17px Arial, sans-serif;">This request was sent from ' . $page_url_html . '.</div>'
+        . '</td></tr>'
+        . '</table>'
+        . '</td></tr></table>'
+        . '</body></html>';
+
+    $headers = array(
+        'Content-Type: text/html; charset=UTF-8',
+        // Match the known-good LMS contact endpoint: only the validated email is used in Reply-To.
+        'Reply-To: ' . $email,
+    );
+
+    // The email contains permanent public download links instead of binary attachments.
+    $sent = wp_mail( 'contact@nesso.vn', $subject, $body, $headers );
+    update_post_meta( $submission_id, '_nesso_photo_retouch_mail_status', $sent ? 'sent' : 'failed' );
+
+    if ( ! $sent ) {
+        if ( $rate_key ) {
+            delete_transient( $rate_key );
+        }
+
+        return new WP_Error(
+            'nesso_photo_retouch_mail_failed',
+            'We could not send your request. Please try again.',
+            array( 'status' => 500 )
+        );
+    }
+
+    return rest_ensure_response(
+        array(
+            'ok'       => true,
+            'message'  => 'Your request was sent to the Nesso retouching team.',
+            'file_count' => count( $validated_uploads ),
+        )
+    );
+}
 // functions.php
 add_action( 'wp_footer', function() {
 
     // Không chèn last-logo/footer template vào page LMS E-Learning
-    if ( is_page(4351) || is_front_page() || is_page(4282) ) {
+    if ( nesso_is_standalone_iframe_landing() || is_front_page() || is_page(4282) ) {
         return;
     }
 
@@ -2009,7 +2628,7 @@ add_action( 'wp_footer', function() {
 add_action('wp_enqueue_scripts', 'enqueue_lenis_smooth_scroll', 100);
 
 function enqueue_lenis_smooth_scroll() {
-    if ( is_page(4351) ) {
+    if ( nesso_is_standalone_iframe_landing() ) {
         return;
     }
 

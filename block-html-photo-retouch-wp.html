@@ -3,12 +3,9 @@
   Upload nesso-photo-retouch-standalone.html to the URL below first.
 -->
 <div id="nesso-photo-retouch-embed" class="nesso-photo-retouch-embed">
-    <iframe
-        id="nesso-photo-retouch-iframe"
-        title="Nesso Professional Photo Retouching"
-        src="https://nesso.vn/wp-content/uploads/2026/10/nesso-photo-retouch-standalone.html?v=1ebe1e9-07a878152ad7"
-        loading="eager"
-        scrolling="auto"></iframe>
+    <iframe id="nesso-photo-retouch-iframe" title="Nesso Professional Photo Retouching"
+        data-src="https://nesso.vn/wp-content/uploads/2026/10/nesso-photo-retouch-standalone.html?v=3ed6dca-37201844fcd3"
+        loading="eager" scrolling="auto"></iframe>
 </div>
 
 <style>
@@ -33,13 +30,13 @@
     body:has(#nesso-photo-retouch-embed) .elementor-location-header,
     body:has(#nesso-photo-retouch-embed) .entry-header,
     body:has(#nesso-photo-retouch-embed) .page-header,
-    body:has(#nesso-photo-retouch-embed) article > header,
+    body:has(#nesso-photo-retouch-embed) article>header,
     body.nesso-photo-retouch-parent #site-header,
     body.nesso-photo-retouch-parent .site-header,
     body.nesso-photo-retouch-parent .elementor-location-header,
     body.nesso-photo-retouch-parent .entry-header,
     body.nesso-photo-retouch-parent .page-header,
-    body.nesso-photo-retouch-parent article > header {
+    body.nesso-photo-retouch-parent article>header {
         display: none !important;
     }
 
@@ -130,6 +127,125 @@
         root.dataset.ready = 'true';
         document.documentElement.classList.add('nesso-photo-retouch-parent');
         document.body.classList.add('nesso-photo-retouch-parent');
+
+        // Like the LMS routes: WordPress renders this page at /nesso-retouch-thank-you/
+        // (receipt-gated in functions.php) and the iframe opens its #thank-you view.
+        var landingPath = '/nesso-retouch/';
+        var thankYouPath = '/nesso-retouch-thank-you/';
+        var onThankYouRoute = window.location.pathname === thankYouPath;
+        iframe.src = iframe.getAttribute('data-src') + (onThankYouRoute ? '#thank-you' : '');
+
+        // A back/forward cache restore must not show the conversion page again.
+        window.addEventListener('pageshow', function (event) {
+            if (event.persisted && window.location.pathname === thankYouPath) {
+                window.location.replace(landingPath);
+            }
+        });
+
+        var measurementId = 'G-Y3X71JL6VB';
+        var pendingEvents = [];
+        var retryTimer = null;
+        var retryCount = 0;
+        var thankYouScheduled = false;
+        var submissionSucceeded = false;
+
+        function flushAnalyticsEvents() {
+            // Site Kit owns tag loading and consent; do not inject another Google tag.
+            if (typeof window.gtag !== 'function') {
+                return;
+            }
+            while (pendingEvents.length) {
+                var queued = pendingEvents.shift();
+                window.gtag('event', queued.name, queued.params);
+            }
+        }
+
+        function sendAnalyticsEvent(name, params) {
+            if (document.body.classList.contains('logged-in')) {
+                return;
+            }
+            params.send_to = measurementId;
+            pendingEvents.push({ name: name, params: params });
+            if (pendingEvents.length > 50) pendingEvents.shift();
+            flushAnalyticsEvents();
+
+            if (pendingEvents.length && retryTimer === null) {
+                retryCount = 0;
+                retryTimer = window.setInterval(function () {
+                    retryCount += 1;
+                    flushAnalyticsEvents();
+                    if (!pendingEvents.length || retryCount >= 60) {
+                        window.clearInterval(retryTimer);
+                        retryTimer = null;
+                        pendingEvents = [];
+                    }
+                }, 1000);
+            }
+        }
+
+        var trackedEvents = [
+            'nesso_retouch_cta_click',
+            'nesso_retouch_contact_click',
+            'nesso_retouch_trial_modal_open',
+            'nesso_retouch_trial_modal_close',
+            'nesso_retouch_plan_selected',
+            'nesso_retouch_submission_mode_selected',
+            'nesso_retouch_upload_picker_open',
+            'nesso_retouch_files_selected',
+            'nesso_retouch_trial_submit_started',
+            'nesso_retouch_trial_submit_success',
+            'nesso_retouch_trial_submit_failed',
+            'nesso_retouch_success_return_home'
+        ];
+
+        window.addEventListener('message', function (event) {
+            if (event.origin !== window.location.origin || event.source !== iframe.contentWindow) {
+                return;
+            }
+
+            var detail = event.data;
+            if (detail && detail.type === 'nesso-photo-retouch-thank-you-closed') {
+                if (onThankYouRoute && window.history && window.history.replaceState) {
+                    onThankYouRoute = false;
+                    window.history.replaceState(null, '', landingPath);
+                }
+                return;
+            }
+            if (detail && detail.type === 'nesso-photo-retouch-thank-you') {
+                if (!submissionSucceeded || thankYouScheduled || typeof detail.url !== 'string') return;
+                try {
+                    var target = new URL(detail.url, window.location.origin);
+                    if (target.origin !== window.location.origin || target.pathname !== thankYouPath || target.search || target.hash) return;
+                    thankYouScheduled = true;
+                    // Let the existing success event flush, then navigate the outer WP page.
+                    window.setTimeout(function () { window.location.assign(target.href); }, 500);
+                } catch (_) { }
+                return;
+            }
+            if (!detail || detail.type !== 'nesso-photo-retouch-analytics' || trackedEvents.indexOf(detail.event) === -1) {
+                return;
+            }
+
+            if (detail.event === 'nesso_retouch_trial_submit_success') submissionSucceeded = true;
+
+            var params = detail.parameters || {};
+            var analyticsEvent = {
+                page_path: window.location.pathname,
+                page_location: window.location.origin + window.location.pathname
+            };
+            var stringParams = ['cta_label', 'cta_location', 'contact_type', 'plan_tier', 'submission_mode', 'upload_source', 'file_size_bucket', 'source'];
+
+            stringParams.forEach(function (key) {
+                if (typeof params[key] === 'string') {
+                    analyticsEvent[key] = params[key].slice(0, 100);
+                }
+            });
+            if (typeof params.file_count === 'number' && isFinite(params.file_count)) {
+                analyticsEvent.file_count = Math.max(0, Math.min(3, Math.round(params.file_count)));
+            }
+
+            sendAnalyticsEvent(detail.event, analyticsEvent);
+        });
 
         // This page deliberately uses viewport-height sticky sections. Resizing the
         // iframe to the child document height would make every 100vh section grow

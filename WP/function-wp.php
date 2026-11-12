@@ -39,7 +39,7 @@ add_action( 'wp_enqueue_scripts', 'hello_elementor_child_scripts_styles', 20 );
 require_once get_stylesheet_directory() . '/function/swiper-carousel.php';
 
 /**
- * Pages that render a complete, standalone landing page inside an iframe.
+ * Landing and confirmation pages that do not use the theme's shared effects.
  */
 function nesso_is_standalone_iframe_landing() {
     return is_page( 4351 ) || is_page( 5238 ) || is_page( 'nesso-retouch' );
@@ -1930,7 +1930,7 @@ function nesso_lms_handle_contact_mail( WP_REST_Request $request ) {
         'Reply-To: ' . $email,
     );
 
-    $sent = wp_mail( 'CONTACT@NESSO.VN', $subject, $body, $headers );
+    $sent = wp_mail( nesso_form_mail_recipient(), $subject, $body, $headers );
 
     if ( ! $sent ) {
         return new WP_Error(
@@ -1947,6 +1947,17 @@ function nesso_lms_handle_contact_mail( WP_REST_Request $request ) {
 }
 
 add_action( 'rest_api_init', 'nesso_photo_retouch_register_trial_route' );
+
+/**
+ * Mailbox that receives both website forms (LMS contact + Photo Retouch trial).
+ *
+ * contact@nesso.vn is hosted on Microsoft 365. The hosting SMTP (jackson.maychu.cloud)
+ * must route nesso.vn as a Remote Mail Exchanger; with Local routing it rejects this
+ * address with "No Such User Here".
+ */
+function nesso_form_mail_recipient() {
+    return 'contact@nesso.vn';
+}
 function nesso_photo_retouch_register_trial_route() {
     register_rest_route(
         'nesso-lms/v1',
@@ -1957,6 +1968,116 @@ function nesso_photo_retouch_register_trial_route() {
             'permission_callback' => '__return_true',
         )
     );
+}
+
+/**
+ * A short-lived, single-use receipt gates the conversion page before any tags load.
+ * No contact details or file URLs are put in the cookie or browser URL.
+ */
+function nesso_photo_retouch_receipt_cookie( $token, $expires ) {
+    $path = wp_parse_url( home_url( '/nesso-retouch-thank-you/' ), PHP_URL_PATH );
+    return setcookie(
+        'nesso_retouch_receipt',
+        $token,
+        array(
+            'expires'  => $expires,
+            'path'     => $path,
+            'secure'   => is_ssl(),
+            'httponly' => true,
+            'samesite' => 'Lax',
+        )
+    );
+}
+
+/**
+ * Like the LMS routes, /nesso-retouch-thank-you/ renders the /nesso-retouch/ page.
+ * Its Elementor wrapper sees the path and opens the iframe's #thank-you view.
+ */
+function nesso_photo_retouch_thank_you_rule() {
+    return '^nesso-retouch-thank-you/?$';
+}
+
+add_filter( 'query_vars', 'nesso_photo_retouch_query_vars' );
+function nesso_photo_retouch_query_vars( $vars ) {
+    $vars[] = 'nesso_retouch_view';
+    return $vars;
+}
+
+add_action( 'init', 'nesso_photo_retouch_thank_you_rewrite' );
+function nesso_photo_retouch_thank_you_rewrite() {
+    add_rewrite_rule(
+        nesso_photo_retouch_thank_you_rule(),
+        'index.php?pagename=nesso-retouch&nesso_retouch_view=thank-you',
+        'top'
+    );
+}
+
+// Flush only while the stored rules lack this route, so it heals after any other flush.
+// Late priority so the flush includes rules registered by other init hooks.
+add_action( 'init', 'nesso_photo_retouch_flush_thank_you_rewrite', 99 );
+function nesso_photo_retouch_flush_thank_you_rewrite() {
+    $rules = get_option( 'rewrite_rules' );
+    if ( is_array( $rules ) && ! isset( $rules[ nesso_photo_retouch_thank_you_rule() ] ) ) {
+        flush_rewrite_rules( false );
+    }
+}
+
+function nesso_photo_retouch_is_thank_you_view() {
+    return 'thank-you' === get_query_var( 'nesso_retouch_view' );
+}
+
+add_filter( 'redirect_canonical', 'nesso_photo_retouch_keep_thank_you_route' );
+function nesso_photo_retouch_keep_thank_you_route( $redirect_url ) {
+    return nesso_photo_retouch_is_thank_you_view() ? false : $redirect_url;
+}
+
+function nesso_photo_retouch_thank_you_route_ready() {
+    $landing = get_page_by_path( 'nesso-retouch' );
+    $rules = get_option( 'rewrite_rules' );
+    return $landing && 'publish' === $landing->post_status
+        && is_array( $rules ) && isset( $rules[ nesso_photo_retouch_thank_you_rule() ] );
+}
+
+function nesso_photo_retouch_issue_thank_you( $submission_id ) {
+    // Keep the existing success modal while the landing page or route is unavailable.
+    if ( ! nesso_photo_retouch_thank_you_route_ready() || headers_sent() ) {
+        return '';
+    }
+    $token = wp_generate_password( 48, false, false );
+    $key = 'nesso_retouch_receipt_' . hash( 'sha256', $token );
+    if ( ! set_transient( $key, (int) $submission_id, 10 * MINUTE_IN_SECONDS ) ) {
+        return '';
+    }
+    if ( ! nesso_photo_retouch_receipt_cookie( $token, time() + 10 * MINUTE_IN_SECONDS ) ) {
+        delete_transient( $key );
+        return '';
+    }
+    return home_url( '/nesso-retouch-thank-you/' );
+}
+
+add_action( 'template_redirect', 'nesso_photo_retouch_guard_thank_you', 0 );
+function nesso_photo_retouch_guard_thank_you() {
+    if ( ! nesso_photo_retouch_is_thank_you_view() ) {
+        return;
+    }
+    if ( ! defined( 'DONOTCACHEPAGE' ) ) {
+        define( 'DONOTCACHEPAGE', true );
+    }
+    nocache_headers();
+    header( 'Cache-Control: no-store, no-cache, must-revalidate, private, max-age=0', true );
+    header( 'X-LiteSpeed-Cache-Control: no-cache', true );
+    header( 'X-Robots-Tag: noindex, nofollow, noarchive', true );
+    header( 'Referrer-Policy: same-origin', true );
+    $token = isset( $_COOKIE['nesso_retouch_receipt'] ) && is_string( $_COOKIE['nesso_retouch_receipt'] )
+        ? wp_unslash( $_COOKIE['nesso_retouch_receipt'] ) : '';
+    nesso_photo_retouch_receipt_cookie( '', time() - HOUR_IN_SECONDS );
+    $key = 'nesso_retouch_receipt_' . hash( 'sha256', $token );
+    $submission_id = preg_match( '/^[a-zA-Z0-9]{48}$/D', $token ) ? (int) get_transient( $key ) : 0;
+    if ( ! $submission_id || 'sent' !== get_post_meta( $submission_id, '_nesso_photo_retouch_mail_status', true ) || ! delete_transient( $key ) ) {
+        wp_safe_redirect( home_url( '/nesso-retouch/' ), 303 );
+        exit;
+    }
+    // Valid receipt: WordPress renders the landing page; its wrapper shows the thank-you view.
 }
 
 add_action( 'init', 'nesso_photo_retouch_register_submission_post_type' );
@@ -2144,6 +2265,10 @@ function nesso_photo_retouch_render_submission_meta_box( $post ) {
         'Source page'      => get_post_meta( $post->ID, '_nesso_photo_retouch_page_url', true ),
         'Cloud link'       => get_post_meta( $post->ID, '_nesso_photo_retouch_cloud_link', true ),
         'Mail status'      => get_post_meta( $post->ID, '_nesso_photo_retouch_mail_status', true ),
+        'Mail stage'       => get_post_meta( $post->ID, '_nesso_photo_retouch_mail_stage', true ),
+        'Last mail attempt'=> get_post_meta( $post->ID, '_nesso_photo_retouch_mail_last_attempt', true ),
+        'Mail error'       => get_post_meta( $post->ID, '_nesso_photo_retouch_mail_error', true ),
+        'Thank You error'  => get_post_meta( $post->ID, '_nesso_photo_retouch_thank_you_error', true ),
         'Submitted at'     => get_post_meta( $post->ID, '_nesso_photo_retouch_submitted_at', true ),
         'Instructions'     => get_post_meta( $post->ID, '_nesso_photo_retouch_notes', true ),
     );
@@ -2168,6 +2293,52 @@ function nesso_photo_retouch_render_submission_meta_box( $post ) {
         echo '<li>&mdash;</li>';
     }
     echo '</ul>';
+
+    if ( 'sent' !== get_post_meta( $post->ID, '_nesso_photo_retouch_mail_status', true ) && current_user_can( 'edit_post', $post->ID ) ) {
+        echo '<p>Check the inbox first: Pending or Error does not prove the email was undelivered. Retry uses the saved files and does not create an Ads conversion.</p>';
+        echo '<button type="submit" class="button button-secondary" form="nesso-retouch-retry-mail">Retry email from saved request</button>';
+    }
+}
+
+// Keep this form outside the post editor form; nested forms can save the post instead of retrying mail.
+add_action( 'admin_footer-post.php', 'nesso_photo_retouch_retry_mail_form' );
+function nesso_photo_retouch_retry_mail_form() {
+    global $post;
+    if ( ! $post || 'nesso_retouch_trial' !== get_post_type( $post ) || ! current_user_can( 'edit_post', $post->ID ) ) {
+        return;
+    }
+    echo '<form id="nesso-retouch-retry-mail" method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '">';
+    echo '<input type="hidden" name="action" value="nesso_photo_retouch_retry_mail">';
+    echo '<input type="hidden" name="request_id" value="' . esc_attr( $post->ID ) . '">';
+    wp_nonce_field( 'nesso_retouch_retry_mail_' . $post->ID );
+    echo '</form>';
+}
+
+add_action( 'admin_post_nesso_photo_retouch_retry_mail', 'nesso_photo_retouch_retry_mail' );
+function nesso_photo_retouch_retry_mail() {
+    $post_id = isset( $_POST['request_id'] ) && is_scalar( $_POST['request_id'] ) ? absint( $_POST['request_id'] ) : 0;
+    if ( 'POST' !== ( $_SERVER['REQUEST_METHOD'] ?? '' ) || ! $post_id || 'nesso_retouch_trial' !== get_post_type( $post_id ) || ! current_user_can( 'edit_post', $post_id ) ) {
+        wp_die( 'You cannot retry this request.', '', array( 'response' => 403 ) );
+    }
+    check_admin_referer( 'nesso_retouch_retry_mail_' . $post_id );
+
+    $lock_key = 'nesso_retouch_mail_retry_' . $post_id;
+    $started_at = (int) get_option( $lock_key, 0 );
+    if ( $started_at && time() - $started_at > 10 * MINUTE_IN_SECONDS ) {
+        delete_option( $lock_key );
+    }
+    if ( ! add_option( $lock_key, time(), '', false ) ) {
+        wp_die( 'An email retry is already running. Check the request again before retrying.', '', array( 'response' => 409 ) );
+    }
+    try {
+        if ( 'sent' !== get_post_meta( $post_id, '_nesso_photo_retouch_mail_status', true ) ) {
+            nesso_photo_retouch_send_submission_email( $post_id );
+        }
+    } finally {
+        delete_option( $lock_key );
+    }
+    wp_safe_redirect( get_edit_post_link( $post_id, 'raw' ), 303 );
+    exit;
 }
 
 function nesso_photo_retouch_normalize_uploads( $file_data ) {
@@ -2349,6 +2520,143 @@ function nesso_photo_retouch_render_plan_card( $plan ) {
         . '</table>';
 }
 
+function nesso_photo_retouch_mail_error( $submission_id, $stage, $message, $status = 'error' ) {
+    $detail = substr( sanitize_textarea_field( (string) $message ), 0, 4000 );
+    update_post_meta( $submission_id, '_nesso_photo_retouch_mail_status', $status );
+    update_post_meta( $submission_id, '_nesso_photo_retouch_mail_stage', $stage );
+    update_post_meta( $submission_id, '_nesso_photo_retouch_mail_error', $detail );
+    error_log( '[NESSO Photo Retouch] Request #' . $submission_id . ' at ' . $stage . ': ' . $detail );
+
+    return new WP_Error(
+        'nesso_photo_retouch_mail_failed',
+        'Your request and files were saved, but the email notification could not be confirmed. Please contact contact@nesso.vn and quote request #' . $submission_id . '.',
+        array( 'status' => 500, 'request_id' => (int) $submission_id )
+    );
+}
+
+function nesso_photo_retouch_send_submission_email( $submission_id ) {
+    $stage = 'prepare_email';
+    $mail_error = '';
+    $capture_failure = function( $error ) use ( &$mail_error ) {
+        if ( is_wp_error( $error ) ) {
+            $mail_error = $error->get_error_message();
+        }
+    };
+    add_action( 'wp_mail_failed', $capture_failure );
+
+    try {
+        update_post_meta( $submission_id, '_nesso_photo_retouch_mail_last_attempt', current_time( 'mysql' ) );
+        update_post_meta( $submission_id, '_nesso_photo_retouch_mail_stage', $stage );
+        $name = (string) get_post_meta( $submission_id, '_nesso_photo_retouch_name', true );
+        $email = (string) get_post_meta( $submission_id, '_nesso_photo_retouch_email', true );
+        $company = (string) get_post_meta( $submission_id, '_nesso_photo_retouch_company', true );
+        $tier = (string) get_post_meta( $submission_id, '_nesso_photo_retouch_tier', true );
+        $notes = (string) get_post_meta( $submission_id, '_nesso_photo_retouch_notes', true );
+        $cloud_link = (string) get_post_meta( $submission_id, '_nesso_photo_retouch_cloud_link', true );
+        $page_url = (string) get_post_meta( $submission_id, '_nesso_photo_retouch_page_url', true );
+        $submission_mode = (string) get_post_meta( $submission_id, '_nesso_photo_retouch_mode', true );
+        $public_uploads = nesso_photo_retouch_get_submission_files( $submission_id );
+        if ( ! $name || ! is_email( $email ) ) {
+            throw new RuntimeException( 'Saved request is missing a valid name or email.' );
+        }
+
+        $plan = nesso_photo_retouch_get_plan_details( $tier );
+        $submitted_at = mysql2date( 'M j, Y · H:i T', get_post_meta( $submission_id, '_nesso_photo_retouch_submitted_at', true ) );
+        $subject = '[NESSO Photo Retouch] ' . ( $tier ? $tier . ' trial' : 'Free trial' ) . ' request from ' . $name;
+        $cloud_link_html = $cloud_link
+            ? '<a href="' . esc_url( $cloud_link ) . '" style="color: #0b6f98; text-decoration: underline; word-break: break-word;">Open shared folder</a>'
+            : '-';
+        $page_url_html = $page_url
+            ? '<a href="' . esc_url( $page_url ) . '" style="color: #0b6f98; text-decoration: underline; word-break: break-word;">View source page</a>'
+            : '-';
+        $file_links_html = '-';
+        if ( $public_uploads ) {
+            $download_links = array();
+            foreach ( $public_uploads as $public_upload ) {
+                $download_links[] = '<a href="' . esc_url( $public_upload['url'] ) . '" style="color: #0b6f98; text-decoration: underline; word-break: break-word;">Download ' . esc_html( $public_upload['name'] ) . '</a>';
+            }
+
+            $file_links_html = 'Public permanent download links:<br>' . implode( '<br>', $download_links );
+        }
+        $submission_label = 'Form only';
+        if ( 'files' === $submission_mode && $public_uploads ) {
+            $submission_label = 'Public image links saved to the request log';
+        } elseif ( 'link' === $submission_mode && $cloud_link ) {
+            $submission_label = 'Cloud link shared';
+        }
+
+        $customer_rows = ''
+            . nesso_photo_retouch_email_detail_row( 'Request log', '#' . $submission_id )
+            . nesso_photo_retouch_email_detail_row( 'Name', $name )
+            . nesso_photo_retouch_email_detail_row( 'Work email', '<a href="mailto:' . esc_attr( $email ) . '" style="color: #0b6f98; text-decoration: underline;">' . esc_html( $email ) . '</a>', true )
+            . nesso_photo_retouch_email_detail_row( 'Company / Studio', $company ? $company : '-' )
+            . nesso_photo_retouch_email_detail_row( 'Submission', $submission_label )
+            . nesso_photo_retouch_email_detail_row( 'Cloud link', $cloud_link_html, true )
+            . nesso_photo_retouch_email_detail_row( 'Image files', $file_links_html, true );
+
+        $body = '<!doctype html>'
+            . '<html><body style="margin: 0; padding: 0; background: #f4f1ed;">'
+            . '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background: #f4f1ed;"><tr><td align="center" style="padding: 32px 16px;">'
+            . '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width: 680px; background: #ffffff; border-radius: 16px; overflow: hidden;">'
+            . '<tr><td style="padding: 28px 32px 24px; background: #151515;">'
+            . '<div style="color: #ffffff; font: 700 12px/16px Arial, sans-serif; letter-spacing: 2.4px;">NESSO</div>'
+            . '<div style="padding-top: 12px; color: #ffffff; font: 700 26px/32px Arial, sans-serif;">New free trial request</div>'
+            . '<div style="padding-top: 8px; color: #c9c9c9; font: 400 13px/19px Arial, sans-serif;">Submitted ' . esc_html( $submitted_at ) . '</div>'
+            . '</td></tr>'
+            . '<tr><td style="padding: 30px 32px 8px;">'
+            . '<div style="padding-bottom: 8px; color: #777777; font: 700 11px/16px Arial, sans-serif; letter-spacing: 1px;">CLIENT DETAILS</div>'
+            . '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin: 0 0 28px; border-top: 1px solid #ece8e2;">' . $customer_rows . '</table>'
+            . nesso_photo_retouch_render_plan_card( $plan )
+            . '<div style="padding: 0 0 8px; color: #777777; font: 700 11px/16px Arial, sans-serif; letter-spacing: 1px;">RETOUCHING INSTRUCTIONS</div>'
+            . '<div style="margin: 0 0 28px; padding: 16px; background: #f7f5f2; border-left: 3px solid #8b7667; color: #2b2b2b; font: 400 14px/21px Arial, sans-serif;">' . ( $notes ? nl2br( esc_html( $notes ) ) : 'No additional instructions provided.' ) . '</div>'
+            . '<div style="padding: 18px 0 0; border-top: 1px solid #ece8e2; color: #8a8a8a; font: 400 11px/17px Arial, sans-serif;">This request was sent from ' . $page_url_html . '.</div>'
+            . '</td></tr>'
+            . '</table>'
+            . '</td></tr></table>'
+            . '</body></html>';
+
+        $headers = array(
+            'Content-Type: text/html; charset=UTF-8',
+            // Match the known-good LMS contact endpoint: only the validated email is used in Reply-To.
+            'Reply-To: ' . $email,
+        );
+
+        $stage = 'send_email';
+        update_post_meta( $submission_id, '_nesso_photo_retouch_mail_stage', $stage );
+        // Do not retry automatically: a transport hook can throw after accepting the email.
+        $sent = wp_mail( nesso_form_mail_recipient(), $subject, $body, $headers );
+        if ( ! $sent ) {
+            return nesso_photo_retouch_mail_error(
+                $submission_id, $stage,
+                $mail_error ?: 'wp_mail() returned false without a detailed transport error.',
+                'failed'
+            );
+        }
+
+        $stage = 'save_mail_status';
+        update_post_meta( $submission_id, '_nesso_photo_retouch_mail_status', 'sent' );
+        update_post_meta( $submission_id, '_nesso_photo_retouch_mail_stage', 'complete' );
+        update_post_meta( $submission_id, '_nesso_photo_retouch_mail_error', '' );
+        return true;
+    } catch ( Throwable $error ) {
+        return nesso_photo_retouch_mail_error(
+            $submission_id, $stage,
+            get_class( $error ) . ': ' . $error->getMessage() . ' (' . basename( $error->getFile() ) . ':' . $error->getLine() . ')'
+        );
+    } finally {
+        remove_action( 'wp_mail_failed', $capture_failure );
+    }
+}
+
+/**
+ * The trial form asks for a work email. Keep this list in sync with
+ * personalEmailDomains in Landingpage-Photo-Retouch/trial-modal.js.
+ */
+function nesso_photo_retouch_is_personal_email( $email ) {
+    $domain = strtolower( (string) substr( strrchr( (string) $email, '@' ), 1 ) );
+    return in_array( $domain, array( 'gmail.com', 'googlemail.com' ), true );
+}
+
 function nesso_photo_retouch_handle_trial( WP_REST_Request $request ) {
     $name         = nesso_photo_retouch_get_text_param( $request, 'name' );
     $email        = sanitize_email( wp_unslash( (string) $request->get_param( 'email' ) ) );
@@ -2374,6 +2682,22 @@ function nesso_photo_retouch_handle_trial( WP_REST_Request $request ) {
         return new WP_Error(
             'nesso_photo_retouch_invalid_contact',
             'Please enter your name and a valid work email.',
+            array( 'status' => 400 )
+        );
+    }
+
+    if ( nesso_photo_retouch_is_personal_email( $email ) ) {
+        return new WP_Error(
+            'nesso_photo_retouch_personal_email',
+            'Please use your work email. Personal Gmail addresses are not accepted.',
+            array( 'status' => 400 )
+        );
+    }
+
+    if ( '' === $company || mb_strlen( $company ) > 120 ) {
+        return new WP_Error(
+            'nesso_photo_retouch_invalid_company',
+            'Please enter your company or studio name (up to 120 characters).',
             array( 'status' => 400 )
         );
     }
@@ -2471,82 +2795,22 @@ function nesso_photo_retouch_handle_trial( WP_REST_Request $request ) {
         set_transient( $rate_key, 1, MINUTE_IN_SECONDS );
     }
 
-    $plan = nesso_photo_retouch_get_plan_details( $tier );
-    $submitted_at = wp_date( 'M j, Y · H:i T' );
-    $subject = '[NESSO Photo Retouch] ' . ( $tier ? $tier . ' trial' : 'Free trial' ) . ' request from ' . $name;
-    $cloud_link_html = $cloud_link
-        ? '<a href="' . esc_url( $cloud_link ) . '" style="color: #0b6f98; text-decoration: underline; word-break: break-word;">Open shared folder</a>'
-        : '-';
-    $page_url_html = $page_url
-        ? '<a href="' . esc_url( $page_url ) . '" style="color: #0b6f98; text-decoration: underline; word-break: break-word;">View source page</a>'
-        : '-';
-    $file_links_html = '-';
-    if ( $public_uploads ) {
-        $download_links = array();
-        foreach ( $public_uploads as $public_upload ) {
-            $download_links[] = '<a href="' . esc_url( $public_upload['url'] ) . '" style="color: #0b6f98; text-decoration: underline; word-break: break-word;">Download ' . esc_html( $public_upload['name'] ) . '</a>';
-        }
-
-        $file_links_html = 'Public permanent download links:<br>' . implode( '<br>', $download_links );
-    }
-    $submission_label = 'Form only';
-    if ( 'files' === $submission_mode && $public_uploads ) {
-        $submission_label = 'Public image links saved to the request log';
-    } elseif ( 'link' === $submission_mode && $cloud_link ) {
-        $submission_label = 'Cloud link shared';
-    }
-
-    $customer_rows = ''
-        . nesso_photo_retouch_email_detail_row( 'Request log', '#' . $submission_id )
-        . nesso_photo_retouch_email_detail_row( 'Name', $name )
-        . nesso_photo_retouch_email_detail_row( 'Work email', '<a href="mailto:' . esc_attr( $email ) . '" style="color: #0b6f98; text-decoration: underline;">' . esc_html( $email ) . '</a>', true )
-        . nesso_photo_retouch_email_detail_row( 'Phone', $phone ? $phone : '-' )
-        . nesso_photo_retouch_email_detail_row( 'Company / Studio', $company ? $company : '-' )
-        . nesso_photo_retouch_email_detail_row( 'Submission', $submission_label )
-        . nesso_photo_retouch_email_detail_row( 'Cloud link', $cloud_link_html, true )
-        . nesso_photo_retouch_email_detail_row( 'Image files', $file_links_html, true );
-
-    $body = '<!doctype html>'
-        . '<html><body style="margin: 0; padding: 0; background: #f4f1ed;">'
-        . '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background: #f4f1ed;"><tr><td align="center" style="padding: 32px 16px;">'
-        . '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width: 680px; background: #ffffff; border-radius: 16px; overflow: hidden;">'
-        . '<tr><td style="padding: 28px 32px 24px; background: #151515;">'
-        . '<div style="color: #ffffff; font: 700 12px/16px Arial, sans-serif; letter-spacing: 2.4px;">NESSO</div>'
-        . '<div style="padding-top: 12px; color: #ffffff; font: 700 26px/32px Arial, sans-serif;">New free trial request</div>'
-        . '<div style="padding-top: 8px; color: #c9c9c9; font: 400 13px/19px Arial, sans-serif;">Submitted ' . esc_html( $submitted_at ) . '</div>'
-        . '</td></tr>'
-        . '<tr><td style="padding: 30px 32px 8px;">'
-        . '<div style="padding-bottom: 8px; color: #777777; font: 700 11px/16px Arial, sans-serif; letter-spacing: 1px;">CLIENT DETAILS</div>'
-        . '<table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin: 0 0 28px; border-top: 1px solid #ece8e2;">' . $customer_rows . '</table>'
-        . nesso_photo_retouch_render_plan_card( $plan )
-        . '<div style="padding: 0 0 8px; color: #777777; font: 700 11px/16px Arial, sans-serif; letter-spacing: 1px;">RETOUCHING INSTRUCTIONS</div>'
-        . '<div style="margin: 0 0 28px; padding: 16px; background: #f7f5f2; border-left: 3px solid #8b7667; color: #2b2b2b; font: 400 14px/21px Arial, sans-serif;">' . ( $notes ? nl2br( esc_html( $notes ) ) : 'No additional instructions provided.' ) . '</div>'
-        . '<div style="padding: 18px 0 0; border-top: 1px solid #ece8e2; color: #8a8a8a; font: 400 11px/17px Arial, sans-serif;">This request was sent from ' . $page_url_html . '.</div>'
-        . '</td></tr>'
-        . '</table>'
-        . '</td></tr></table>'
-        . '</body></html>';
-
-    $headers = array(
-        'Content-Type: text/html; charset=UTF-8',
-        // Match the known-good LMS contact endpoint: only the validated email is used in Reply-To.
-        'Reply-To: ' . $email,
-    );
-
-    // The email contains permanent public download links instead of binary attachments.
-    $sent = wp_mail( 'contact@nesso.vn', $subject, $body, $headers );
-    update_post_meta( $submission_id, '_nesso_photo_retouch_mail_status', $sent ? 'sent' : 'failed' );
-
-    if ( ! $sent ) {
+    $mail_result = nesso_photo_retouch_send_submission_email( $submission_id );
+    if ( is_wp_error( $mail_result ) ) {
         if ( $rate_key ) {
             delete_transient( $rate_key );
         }
+        return $mail_result;
+    }
 
-        return new WP_Error(
-            'nesso_photo_retouch_mail_failed',
-            'We could not send your request. Please try again.',
-            array( 'status' => 500 )
-        );
+    // A receipt failure must not turn an already-sent email into a failed submission.
+    $thank_you_url = '';
+    try {
+        $thank_you_url = nesso_photo_retouch_issue_thank_you( $submission_id );
+    } catch ( Throwable $error ) {
+        $detail = substr( sanitize_textarea_field( get_class( $error ) . ': ' . $error->getMessage() ), 0, 4000 );
+        update_post_meta( $submission_id, '_nesso_photo_retouch_thank_you_error', $detail );
+        error_log( '[NESSO Photo Retouch] Request #' . $submission_id . ' thank-you receipt: ' . $detail );
     }
 
     return rest_ensure_response(
@@ -2554,6 +2818,7 @@ function nesso_photo_retouch_handle_trial( WP_REST_Request $request ) {
             'ok'       => true,
             'message'  => 'Your request was sent to the Nesso retouching team.',
             'file_count' => count( $validated_uploads ),
+            'thank_you_url' => $thank_you_url,
         )
     );
 }

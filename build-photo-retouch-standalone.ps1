@@ -150,6 +150,21 @@ foreach ($script in $scripts) {
   $html = Replace-ScriptTag $html $script (Read-Utf8File (Join-Path $SourceDir $script))
 }
 
+# WordPress-only views live outside the source repository and run after its scripts.
+$releaseScripts = @(
+  'WP/photo-retouch-thank-you.js'
+)
+
+foreach ($releaseScript in $releaseScripts) {
+  $content = Read-Utf8File (Join-Path $PSScriptRoot $releaseScript)
+  $tag = "<script data-standalone-source=`"$releaseScript`">`n$(Escape-InlineScript $content)`n</script>`n"
+  $bodyEnd = $html.LastIndexOf('</body>', [System.StringComparison]::OrdinalIgnoreCase)
+  if ($bodyEnd -lt 0) {
+    throw "Could not find </body> to inline release script: $releaseScript"
+  }
+  $html = $html.Insert($bodyEnd, $tag)
+}
+
 $assetUrls = [ordered]@{
   '1.Ecom.png' = '1.Ecom_.png'
   '2.fashion.png' = '2.fashion.png'
@@ -227,7 +242,7 @@ if (Test-Path -LiteralPath $embedPath -PathType Leaf) {
   $embedReplacement = 'src="' + $standaloneUrl + '?v=' + $buildVersion + '"'
   $updatedEmbed = [regex]::Replace($embed, $embedPattern, $embedReplacement, 1)
 
-  if ($updatedEmbed -eq $embed) {
+  if (-not [regex]::IsMatch($embed, $embedPattern)) {
     throw "Could not update the standalone cache version in: $embedPath"
   }
 

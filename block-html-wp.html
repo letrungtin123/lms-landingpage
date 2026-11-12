@@ -571,6 +571,10 @@
         -webkit-tap-highlight-color: transparent;
     }
 
+    .nesso-lms-parent-header__language-toggle[hidden] {
+        display: none !important;
+    }
+
     .nesso-lms-parent-header__language-image {
         display: block;
         width: 46px !important;
@@ -1322,25 +1326,25 @@
         aria-label="Menu" aria-expanded="false" aria-controls="nesso-lms-parent-nav">
         <span class="nesso-lms-parent-header__mobile-icon" aria-hidden="true"></span>
     </button>
-    <nav class="nesso-lms-parent-header__actions" id="nesso-lms-parent-nav" aria-label="Điều hướng LMS"
+    <nav class="nesso-lms-parent-header__actions" id="nesso-lms-parent-nav" aria-label="LMS navigation"
         data-nesso-lms-parent-nav>
         <div class="nesso-lms-parent-header__link-group">
             <a href="#" class="nesso-lms-parent-header__blog" data-nesso-lms-parent-home
-                data-nesso-lms-parent-label="home">Trang chủ</a>
+                data-nesso-lms-parent-label="home">Home</a>
             <a href="/lms-e-learning/lms-features/" class="nesso-lms-parent-header__blog" data-nesso-lms-parent-features
-                data-nesso-lms-parent-label="features">Chức năng LMS</a>
+                data-nesso-lms-parent-label="features">LMS Features</a>
             <a href="#" class="nesso-lms-parent-header__blog" data-nesso-lms-parent-blog
                 data-nesso-lms-parent-label="blog">Blog</a>
             <a href="/lms-e-learning/contact/" class="nesso-lms-parent-header__blog nesso-lms-parent-header__contact"
-                data-nesso-lms-parent-contact data-nesso-lms-parent-label="contact">Liên hệ</a>
+                data-nesso-lms-parent-contact data-nesso-lms-parent-label="contact">Contact</a>
         </div>
         <div class="nesso-lms-parent-header__cta-group">
             <button class="nesso-lms-parent-header__cta nesso-lms-parent-header__demo" type="button"
                 data-nesso-lms-parent-demo data-nesso-lms-parent-label="demo">Demo</button>
             <button class="nesso-lms-parent-header__cta nesso-lms-parent-header__lucky" type="button"
-                data-nesso-lms-parent-lucky data-nesso-lms-parent-label="lucky">Vòng xoay may mắn</button>
-            <div class="nesso-lms-parent-header__language-toggle" role="group" aria-label="Chuyển đổi ngôn ngữ"
-                data-nesso-lms-parent-lang-toggle>
+                data-nesso-lms-parent-lucky data-nesso-lms-parent-label="lucky">Lucky Wheel</button>
+            <div class="nesso-lms-parent-header__language-toggle" role="group" aria-label="Switch language"
+                data-nesso-lms-parent-lang-toggle hidden>
                 <button class="nesso-lms-parent-header__language-option nesso-lms-parent-header__language-option--active"
                     type="button" data-nesso-lms-parent-lang="vi" aria-label="Tiếng Việt" aria-pressed="true">
                     <img class="nesso-lms-parent-header__language-image"
@@ -1361,7 +1365,7 @@
 
 <div class="nesso-lms-iframe-wrap">
     <iframe id="nesso-lms-iframe"
-        data-src="https://nesso.vn/wp-content/uploads/2026/09/nesso-lms-landing-standalone.html?v=nesso-lms-features-route-v498&parentHeader=1"
+        data-src="https://nesso.vn/wp-content/uploads/2026/11/nesso-lms-landing-standalone.html?v=nesso-lms-en-only-v499&parentHeader=1"
         loading="eager" scrolling="no"></iframe>
     <div class="nesso-lms-mobile-scroll-proxy" data-nesso-lms-mobile-scroll-proxy aria-hidden="true"></div>
 </div>
@@ -1421,7 +1425,7 @@
         var iframe = document.getElementById('nesso-lms-iframe');
         if (!iframe) return;
         var mobileScrollProxy = document.querySelector('[data-nesso-lms-mobile-scroll-proxy]');
-        var iframeBaseSrc = iframe.getAttribute('data-src') || 'https://nesso.vn/wp-content/uploads/2026/09/nesso-lms-landing-standalone.html?v=nesso-lms-features-route-v498&parentHeader=1';
+        var iframeBaseSrc = iframe.getAttribute('data-src') || 'https://nesso.vn/wp-content/uploads/2026/11/nesso-lms-landing-standalone.html?v=nesso-lms-en-only-v499&parentHeader=1';
         var iframeTargetOrigin = window.location.origin;
         try {
             iframeTargetOrigin = new URL(iframeBaseSrc, window.location.href).origin;
@@ -1438,6 +1442,7 @@
         var parentHeaderLanguageToggle = document.querySelector('[data-nesso-lms-parent-lang-toggle]');
         var parentHeaderLanguageOptions = Array.prototype.slice.call(document.querySelectorAll('[data-nesso-lms-parent-lang]'));
         var parentLanguageStorageKey = 'nesso-lms-language';
+        var parentLanguageLocked = 'en';
         var parentLanguageCopy = {
             vi: {
                 navLabel: 'Điều hướng LMS',
@@ -1909,6 +1914,8 @@
         }
 
         function getStoredParentLanguage() {
+            // English only for now; set parentLanguageLocked to '' and unhide the toggle to offer Vietnamese again.
+            if (parentLanguageLocked) return parentLanguageLocked;
             try {
                 var stored = window.localStorage ? window.localStorage.getItem(parentLanguageStorageKey) : '';
                 return stored === 'en' || stored === 'vi' ? stored : 'vi';

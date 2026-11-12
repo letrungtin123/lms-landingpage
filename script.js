@@ -23,8 +23,10 @@ const NESSO_IMAGE_ONLY_ROUTES = {
 };
 const NESSO_IMAGE_ONLY_ROUTE_CODES = Object.keys(NESSO_IMAGE_ONLY_ROUTES);
 const NESSO_LANGUAGE_STORAGE_KEY = 'nesso-lms-language';
-const NESSO_LANGUAGE_DEFAULT = 'vi';
-const NESSO_LANGUAGE_SUPPORTED = new Set(['vi', 'en']);
+// English only for now. The Vietnamese copy stays in place: to offer it again,
+// restore 'vi' here and remove `hidden` from the language toggles.
+const NESSO_LANGUAGE_DEFAULT = 'en';
+const NESSO_LANGUAGE_SUPPORTED = new Set(['en']);
 const NESSO_DOCUMENT_COPY = {
   vi: {
     title: 'NESSO - Giai phap Cong nghe chuyen doi hoc tap',

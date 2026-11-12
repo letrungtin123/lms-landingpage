@@ -434,6 +434,10 @@ body.proposal-mode .header {
   -webkit-tap-highlight-color: transparent;
 }
 
+.header__language-toggle[hidden] {
+  display: none !important;
+}
+
 .header__language-option {
   display: inline-flex;
   align-items: center;
